@@ -58,3 +58,36 @@
 	<sstream>
 	<windows.h>
 
+1587981849 source:c:\users\apoll\essai\piscine\piscine\main.cpp
+	<iostream>
+
+1587986447 source:c:\users\apoll\essai\piscine\piscine\src\arete.cpp
+	"Arete.h"
+	<Sommet.h>
+
+1587986447 c:\users\apoll\essai\piscine\piscine\include\arete.h
+	<iostream>
+	<math.h>
+	<Sommet.h>
+
+1587986447 c:\users\apoll\essai\piscine\piscine\include\sommet.h
+	<iostream>
+	<vector>
+	<fstream>
+	<string>
+	"math.h"
+
+1587986447 source:c:\users\apoll\essai\piscine\piscine\src\sommet.cpp
+	"Sommet.h"
+
+1587986447 source:c:\users\apoll\essai\piscine\piscine\src\svgfile.cpp
+	"Svgfile.h"
+
+1587986447 c:\users\apoll\essai\piscine\piscine\include\svgfile.h
+	<set>
+	<iostream>
+	<fstream>
+	<ostream>
+	<sstream>
+	<windows.h>
+
