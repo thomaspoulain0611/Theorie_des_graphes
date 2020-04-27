@@ -1,8 +1,9 @@
 # depslib dependency file v1.0
-1587979852 source:c:\users\lilia\piscine\piscine\src\arete.cpp
+1587982923 source:c:\users\lilia\piscine\piscine\src\arete.cpp
 	"Arete.h"
+	<Sommet.h>
 
-1587982345 c:\users\lilia\piscine\piscine\include\arete.h
+1587982955 c:\users\lilia\piscine\piscine\include\arete.h
 	<iostream>
 	<math.h>
 	<Sommet.h>

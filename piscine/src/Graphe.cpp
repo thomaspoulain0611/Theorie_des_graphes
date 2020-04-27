@@ -56,3 +56,33 @@ Graphe::~Graphe()
 {
     //dtor
 }
+
+int Graphe::getOrdre()
+{
+    return m_ordre;
+}
+
+int Graphe::getOrient()
+{
+    return m_orient;
+}
+
+int Graphe::getTaille()
+{
+    return m_taille;
+}
+
+void Graphe::setOrdre()
+{
+
+}
+
+void Graphe::setOrient()
+{
+
+}
+
+void Graphe::setTaille()
+{
+
+}
