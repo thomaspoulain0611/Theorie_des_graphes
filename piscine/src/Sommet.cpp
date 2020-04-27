@@ -15,7 +15,7 @@ int Sommet::getId()
     return m_id;
 }
 
-void Sommet::setId()
+void Sommet::setId(int id)
 {
-
+    m_id=id;
 }

@@ -10,7 +10,7 @@ class Sommet
 
         int getId();
 
-        void setId();
+        void setId(int id);
 
     private:
         int m_id;

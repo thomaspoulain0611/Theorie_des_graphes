@@ -72,17 +72,22 @@ int Graphe::getTaille()
     return m_taille;
 }
 
-void Graphe::setOrdre()
+void Graphe::setOrdre(int ordre)
 {
-
+    m_ordre=ordre;
 }
 
-void Graphe::setOrient()
+void Graphe::setOrient(int orient)
 {
-
+    m_orient=orient;
 }
 
-void Graphe::setTaille()
+void Graphe::setTaille(int taille)
+{
+    m_taille=taille;
+}
+
+void Graphe::dessiner()
 {
 
 }
