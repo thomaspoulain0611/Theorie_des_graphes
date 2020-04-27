@@ -1,9 +1,17 @@
 #include <iostream>
+#include"Graphe.h"
 
-using namespace std;
+
 
 int main()
 {
-    cout << "test 2" << endl;
+    Graphe a("graphe.txt");
+    a.poidsarete();
+    std::cout<<a<<std::endl;
+
+
+
+
+
     return 0;
 }
