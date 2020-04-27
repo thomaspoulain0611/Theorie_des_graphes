@@ -34,3 +34,8 @@ void Arete::setVect(std::pair<Sommet*, Sommet*> som)
 {
     m_vect=som;
 }
+
+void Arete::dessiner(Svgfile& svgout)
+{
+    svgout.addLine(m_vect.first->getX(), m_vect.first->getY(), m_vect.second->getX(), m_vect.second->getY(), "green");
+}

@@ -5,7 +5,8 @@
 #include <Arete.h>
 #include <iostream>
 #include <vector>
-#include<fstream>
+#include <fstream>
+#include <Svgfile.h>
 
 class Graphe
 {
@@ -20,6 +21,8 @@ class Graphe
         void setOrdre(int ordre);
         void setTaille(int taille);
         void setOrient(int orient);
+
+        void dessiner(Svgfile& svgout);
 
     private:
         int m_ordre;

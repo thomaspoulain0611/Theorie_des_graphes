@@ -25,3 +25,18 @@ void Sommet::setId(int id)
 {
     m_id=id;
 }
+
+int Sommet::getX()
+{
+    return m_coords.first;
+}
+
+int Sommet::getY()
+{
+    return m_coords.second;
+}
+
+void Sommet::dessiner(Svgfile& svgout)
+{
+    svgout.addDisk(m_coords.first, m_coords.second, 1, "red");
+}

@@ -1,8 +1,7 @@
 #include "Graphe.h"
 
 
-
-    Graphe::Graphe(std::string nomFichier)
+Graphe::Graphe(std::string nomFichier)
 {
     std::ifstream ifs{nomFichier};//
     if(!ifs)// on verifie que le fo
@@ -52,10 +51,6 @@ Graphe::~Graphe()
 }
 
 
-Graphe::~Graphe()
-{
-    //dtor
-}
 
 int Graphe::getOrdre()
 {
@@ -87,7 +82,11 @@ void Graphe::setTaille(int taille)
     m_taille=taille;
 }
 
-void Graphe::dessiner()
+void Graphe::dessiner(Svgfile& svgout)
 {
-
+    for(size_t i; i<m_aretes.size(); i++)
+    {
+        m_sommets[i]->dessiner(svgout);
+        m_aretes[i]->dessiner(svgout);
+    }
 }

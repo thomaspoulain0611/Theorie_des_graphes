@@ -18,6 +18,8 @@ class Arete
         void setPoids(int poids);
         void setVect(std::pair<Sommet*, Sommet*> som);
 
+        void dessiner(Svgfile& svgout);
+
     private:
         int m_poids;
         std::pair<Sommet*, Sommet*> m_vect;

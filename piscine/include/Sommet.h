@@ -1,10 +1,11 @@
 #ifndef SOMMET_H
 #define SOMMET_H
-#include<iostream>
-#include<vector>
-#include<fstream>
-#include<string>
-#include"math.h"
+#include <iostream>
+#include <vector>
+#include <fstream>
+#include <string>
+#include "math.h"
+#include <Svgfile.h>
 
 
 class Sommet
@@ -17,7 +18,12 @@ class Sommet
 
         int getId();
 
+        int getX();
+        int getY();
+
         void setId(int id);
+
+        void dessiner(Svgfile& svgout);
 
     private:
         int m_id;
