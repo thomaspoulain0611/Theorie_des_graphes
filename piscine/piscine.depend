@@ -1,0 +1,26 @@
+# depslib dependency file v1.0
+1587979852 source:c:\users\lilia\piscine\piscine\src\arete.cpp
+	"Arete.h"
+
+1587982345 c:\users\lilia\piscine\piscine\include\arete.h
+	<iostream>
+	<math.h>
+	<Sommet.h>
+
+1587979852 source:c:\users\lilia\piscine\piscine\src\graphe.cpp
+	"Graphe.h"
+
+1587982509 c:\users\lilia\piscine\piscine\include\graphe.h
+	<iostream>
+	<vector>
+	<Sommet.h>
+	<Arete.h>
+
+1587982647 source:c:\users\lilia\piscine\piscine\src\sommet.cpp
+	"Sommet.h"
+
+1587982229 c:\users\lilia\piscine\piscine\include\sommet.h
+
+1587981634 source:c:\users\lilia\piscine\piscine\main.cpp
+	<iostream>
+

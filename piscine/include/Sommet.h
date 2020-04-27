@@ -6,11 +6,14 @@ class Sommet
 {
     public:
         Sommet();
-        virtual ~Sommet();
+        ~Sommet();
 
-    protected:
+        int getId();
+
+        void setId();
 
     private:
+        int m_id;
 };
 
 #endif // SOMMET_H
