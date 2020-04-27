@@ -7,8 +7,8 @@ Graphe::Graphe(std::string nomFichier)
     if(!ifs)// on verifie que le fo
         throw std::runtime_error("Impossible d'ouvrir en lecture" + nomFichier );
 
-        ifs>>m_orient;
-        if (ifs.fail() )
+    ifs>>m_orient;
+    if (ifs.fail() )
         throw std::runtime_error("Erreur de lecture d'orientation");
     int ordre;
     ifs>>ordre;
@@ -16,32 +16,54 @@ Graphe::Graphe(std::string nomFichier)
         throw std::runtime_error("Erreur de lecture d'ordre");
 
 
-        for (int i=0;i<ordre;++i)
-        {
-            m_sommets.push_back(new Sommet(ifs));
-        }
-        int taille;
-        ifs>>taille;
-        if (ifs.fail() )
-        throw std::runtime_error("Erreur de lecture d'ordre");
-        for (int i=0;i<taille;++i)
-        {
-            m_aretes.push_back(new Arete(ifs));
-        }
-
-
-   /* int taille;
-    ifs>>taille;
-    if ( ifs.fail() )
-        throw std::runtime_error("Erreur de lecture de taille");
     for (int i=0; i<ordre; ++i)
     {
-        m_sommets.push_back(new Sommet{i+1});// vu que ca part de 0 on lui attribue la valeur i+1
+        m_sommets.push_back(new Sommet(ifs));
     }
+    int taille;
+    ifs>>taille;
+    if (ifs.fail() )
+        throw std::runtime_error("Erreur de lecture d'ordre");
+    int indice;
+    int s1;
+    int s2;
+
     for (int i=0; i<taille; ++i)
     {
-        m_aretes.push_back(new Arete(ifs));// lire le prochain truc que le flux va lire
-    }*/
+        ifs>>indice>>s1>>s2;
+        for (size_t i=0; i<m_sommets.size(); ++i)
+        {
+
+            for (size_t j=0; j<m_sommets.size(); ++j)
+            {
+
+                if((s1==m_sommets[i]->getId())&&(s2==m_sommets[j]->getId()))
+                {
+
+                    m_aretes.push_back(new Arete(indice,m_sommets[i],m_sommets[j]));
+
+                }
+
+            }
+
+
+        }
+
+    }
+
+
+    /* int taille;
+     ifs>>taille;
+     if ( ifs.fail() )
+         throw std::runtime_error("Erreur de lecture de taille");
+     for (int i=0; i<ordre; ++i)
+     {
+         m_sommets.push_back(new Sommet{i+1});// vu que ca part de 0 on lui attribue la valeur i+1
+     }
+     for (int i=0; i<taille; ++i)
+     {
+         m_aretes.push_back(new Arete(ifs));// lire le prochain truc que le flux va lire
+     }*/
 }
 
 Graphe::~Graphe()
@@ -93,7 +115,7 @@ void Graphe::setOrient(int orient)
 void Graphe::poidsarete ()
 
 {
-    for(size_t i=0;i<m_aretes.size();++i)
+    for(size_t i=0; i<m_aretes.size(); ++i)
     {
         m_aretes[i]->assimpoids("poids.txt");
     }
@@ -103,15 +125,15 @@ void Graphe::poidsarete ()
 
 
 
-    /*if(m_orient==1)
-        std::cout<<"Le graphe est orienté"<<std::endl;
-    else
-        std::cout<<"Le graphe n'est pas orienté"<<std::endl;
-    std::cout<<"Ordre du graphe :"<<m_sommets.size()<<std::endl;
-    for (size_t i=0; i<m_sommets.size();++i)
-    {
+/*if(m_orient==1)
+    std::cout<<"Le graphe est orienté"<<std::endl;
+else
+    std::cout<<"Le graphe n'est pas orienté"<<std::endl;
+std::cout<<"Ordre du graphe :"<<m_sommets.size()<<std::endl;
+for (size_t i=0; i<m_sommets.size();++i)
+{
 
-    }*/
+}*/
 
 void Graphe::dessiner(Svgfile& svgout)
 {

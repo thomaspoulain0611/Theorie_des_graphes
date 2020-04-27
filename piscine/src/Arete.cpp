@@ -1,8 +1,15 @@
 #include "Arete.h"
 #include <Sommet.h>
 
-Arete::Arete(std::istream& is)
+Arete::Arete(int indice, Sommet*s1, Sommet*s2)
 {
+    m_indice=indice;
+    m_vect.first=s1;
+   m_vect.second=s2;
+}
+
+//Arete::Arete(std::istream& is)
+/*{
      int S1,S2;
     is>>m_indice>>S1>>S2;
 
@@ -12,7 +19,7 @@ Arete::Arete(std::istream& is)
     m_vect.first=s1;
     m_vect.second=s2;
 
-}
+}*/
 
 Arete::~Arete()
 {
