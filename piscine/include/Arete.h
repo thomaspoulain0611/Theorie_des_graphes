@@ -27,6 +27,8 @@ class Arete
     }
 
 
+        void dessiner(Svgfile& svgout);
+
     private:
         int m_poids;
         std::pair<Sommet*, Sommet*> m_vect;

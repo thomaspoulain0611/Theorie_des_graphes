@@ -1,8 +1,7 @@
 #include "Graphe.h"
 
 
-
-    Graphe::Graphe(std::string nomFichier)
+Graphe::Graphe(std::string nomFichier)
 {
     std::ifstream ifs{nomFichier};//
     if(!ifs)// on verifie que le fo
@@ -98,6 +97,7 @@ void Graphe::poidsarete ()
     {
         m_aretes[i]->assimpoids("poids.txt");
     }
+}
 
 
 
@@ -112,4 +112,13 @@ void Graphe::poidsarete ()
     {
 
     }*/
+
+void Graphe::dessiner(Svgfile& svgout)
+{
+    for(size_t i=0; i<m_aretes.size(); i++)
+    {
+        m_sommets[i]->dessiner(svgout);
+        m_aretes[i]->dessiner(svgout);
+    }
+
 }

@@ -37,6 +37,7 @@ void Arete::setPoids(int poids)
 /*void Arete::setVect(std::pair<Sommet*, Sommet*> som)
 {
     m_vect=som;
+
 }*/
      int Arete::getindice()const
      {
@@ -58,3 +59,11 @@ void Arete::setPoids(int poids)
                 this->setPoids(poids);
         }
      }
+
+
+
+void Arete::dessiner(Svgfile& svgout)
+{
+    svgout.addLine(m_vect.first->getx(), m_vect.first->gety(), m_vect.second->getx(), m_vect.second->gety(), "green");
+}
+

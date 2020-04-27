@@ -30,6 +30,7 @@ void Sommet::setId(int id)
 {
     m_id=id;
 }
+
    char Sommet::getNom()const
    {
        return m_nom;
@@ -45,3 +46,14 @@ void Sommet::setId(int id)
             return m_coords.second;
 
         }
+
+
+
+
+
+
+void Sommet::dessiner(Svgfile& svgout)
+{
+    svgout.addDisk(m_coords.first, m_coords.second, 1, "red");
+}
+

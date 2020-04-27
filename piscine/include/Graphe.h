@@ -5,10 +5,12 @@
 #include <Arete.h>
 #include <iostream>
 #include <vector>
-#include<fstream>
+#include <fstream>
+#include <Svgfile.h>
 
 class Graphe
 {
+//<<<<<<< HEAD
 public:
     Graphe(std::string nomFichier);
     virtual ~Graphe();
@@ -21,6 +23,7 @@ public:
     //void setTaille(int taille);
     void setOrient(int orient);
     void poidsarete();
+    void dessiner(Svgfile& svgout);
     friend std::ostream& operator<<(std::ostream& out, const Graphe& r)
     {
 
@@ -41,6 +44,7 @@ private:
     int m_orient;
     std::vector<Sommet*> m_sommets;
     std::vector<Arete*> m_aretes;
+
 
 };
 
