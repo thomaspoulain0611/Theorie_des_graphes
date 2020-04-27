@@ -25,12 +25,12 @@ std::pair<Sommet*,Sommet*> Arete::getVect()
     return m_vect;
 }
 
-void Arete::setPoids()
+void Arete::setPoids(int poids)
 {
-
+    m_poids=poids;
 }
 
-void Arete::setVect()
+void Arete::setVect(std::pair<Sommet*, Sommet*> som)
 {
-
+    m_vect=som;
 }

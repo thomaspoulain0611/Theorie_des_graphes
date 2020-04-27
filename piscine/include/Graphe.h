@@ -17,9 +17,9 @@ class Graphe
         int getTaille();
         int getOrient();
 
-        void setOrdre();
-        void setTaille();
-        void setOrient();
+        void setOrdre(int ordre);
+        void setTaille(int taille);
+        void setOrient(int orient);
 
     private:
         int m_ordre;

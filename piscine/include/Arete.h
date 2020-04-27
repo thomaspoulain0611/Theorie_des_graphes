@@ -15,8 +15,8 @@ class Arete
         int getPoids();
         std::pair<Sommet*, Sommet*> getVect();
 
-        void setPoids();
-        void setVect();
+        void setPoids(int poids);
+        void setVect(std::pair<Sommet*, Sommet*> som);
 
     private:
         int m_poids;
