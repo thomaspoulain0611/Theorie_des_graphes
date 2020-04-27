@@ -3,14 +3,14 @@
 
 Arete::Arete(std::istream& is)
 {
-     int S1,S2;
+    int S1,S2;
     is>>m_indice>>S1>>S2;
 
-    Sommet *s1=new Sommet (S1);
+    Sommet *s1=new Sommet(S1);
     Sommet *s2=new Sommet(S2);
 
-    m_vect.first=s1;
-    m_vect.second=s2;
+    //m_vect.first=s1;
+    //m_vect.second=s2;
 
 }
 

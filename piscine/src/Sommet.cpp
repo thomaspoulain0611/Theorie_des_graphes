@@ -54,6 +54,6 @@ void Sommet::setId(int id)
 
 void Sommet::dessiner(Svgfile& svgout)
 {
-    svgout.addDisk(m_coords.first, m_coords.second, 1, "red");
+    svgout.addDisk(m_coords.first, m_coords.second, 5, "red");
 }
 

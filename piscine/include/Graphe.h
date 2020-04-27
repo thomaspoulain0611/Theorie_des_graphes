@@ -10,7 +10,6 @@
 
 class Graphe
 {
-//<<<<<<< HEAD
 public:
     Graphe(std::string nomFichier);
     virtual ~Graphe();

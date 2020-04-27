@@ -54,11 +54,7 @@ template<typename T>
 std::string attrib(std::string name, T val)
 {
     std::ostringstream oss;
-<<<<<<< HEAD
-    //oss << name << """ << val << "\" ";
-=======
-    oss << name << """ << val << "" ";
->>>>>>> e7fdab09095b35b702ff24492896b27ee787cf56
+    oss << name << "=\"" << val << "\" ";
     return oss.str();
 }
 
