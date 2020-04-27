@@ -137,10 +137,30 @@ for (size_t i=0; i<m_sommets.size();++i)
 
 void Graphe::dessiner(Svgfile& svgout)
 {
-    for(size_t i=0; i<m_aretes.size(); i++)
+    for(size_t i=0; i<m_sommets.size(); i++)
     {
         m_sommets[i]->dessiner(svgout);
+    }
+    for(size_t i=0; i<m_aretes.size(); i++)
+    {
+
         m_aretes[i]->dessiner(svgout);
     }
 
+}
+
+void Graphe::ecrireTousPoids(Svgfile& svgout)
+{
+    for(size_t i=0; i<m_aretes.size(); i++)
+    {
+        m_aretes[i]->ecrirePoids(svgout);
+    }
+}
+
+void Graphe::ecrireTousNoms(Svgfile& svgout)
+{
+    for(size_t i=0; i<m_sommets.size(); i++)
+    {
+        m_sommets[i]->ecrireNom(svgout);
+    }
 }

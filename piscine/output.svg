@@ -9,10 +9,6 @@
 <line x1 << val <<  y1 << val <<  x2 << val <<  y2 << val <<  stroke << val <<  />
 <circle cx << val <<  cy << val <<  r << val <<  fill << val <<  />
 <line x1 << val <<  y1 << val <<  x2 << val <<  y2 << val <<  stroke << val <<  />
-<circle cx << val <<  cy << val <<  r << val <<  fill << val <<  />
-<line x1 << val <<  y1 << val <<  x2 << val <<  y2 << val <<  stroke << val <<  />
-<circle cx << val <<  cy << val <<  r << val <<  fill << val <<  />
-<line x1 << val <<  y1 << val <<  x2 << val <<  y2 << val <<  stroke << val <<  />
 
 
 </svg>

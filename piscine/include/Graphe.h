@@ -10,7 +10,6 @@
 
 class Graphe
 {
-//<<<<<<< HEAD
 public:
     Graphe(std::string nomFichier);
     virtual ~Graphe();
@@ -23,7 +22,11 @@ public:
     //void setTaille(int taille);
     void setOrient(int orient);
     void poidsarete();
+
     void dessiner(Svgfile& svgout);
+    void ecrireTousPoids(Svgfile& svgout);
+    void ecrireTousNoms(Svgfile& svgout);
+
     friend std::ostream& operator<<(std::ostream& out, const Graphe& r)
     {
 
