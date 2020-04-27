@@ -9,7 +9,7 @@
 class Arete
 {
     public:
-        Arete();
+        Arete(std::istream& is);
         ~Arete();
 
         int getPoids();
@@ -21,6 +21,7 @@ class Arete
     private:
         int m_poids;
         std::pair<Sommet*, Sommet*> m_vect;
+        int m_indice;
 };
 
 #endif // ARETE_H

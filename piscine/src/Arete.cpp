@@ -1,9 +1,13 @@
 #include "Arete.h"
 #include <Sommet.h>
 
-Arete::Arete()
+Arete::Arete(std::istream& is)
 {
-    //ctor
+     int S1,S2;
+    is>>m_indice>>S1>>S2;
+    m_vect.first=S1;
+    m_vect.second=S2;
+
 }
 
 Arete::~Arete()

@@ -37,8 +37,13 @@
 	<math.h>
 	<Sommet.h>
 
-1587983360 c:\users\thoma\piscine\piscine\include\sommet.h
+1587984532 c:\users\thoma\piscine\piscine\include\sommet.h
+	<iostream>
+	<vector>
+	<fstream>
+	<string>
+	"math.h"
 
-1587983360 source:c:\users\thoma\piscine\piscine\src\sommet.cpp
+1587984571 source:c:\users\thoma\piscine\piscine\src\sommet.cpp
 	"Sommet.h"
 

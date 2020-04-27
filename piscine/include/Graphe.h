@@ -5,6 +5,7 @@
 #include <Arete.h>
 #include <iostream>
 #include <vector>
+#include<fstream>
 
 class Graphe
 {
@@ -24,8 +25,8 @@ class Graphe
         int m_ordre;
         int m_taille;
         int m_orient;
-        std::vector<Sommet*> m_vect_som;
-        std::vector<Arete*> m_vect_aret;
+        std::vector<Sommet*> m_sommets;
+        std::vector<Arete*> m_aretes;
 
 };
 

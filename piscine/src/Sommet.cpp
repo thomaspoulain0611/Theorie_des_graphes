@@ -1,8 +1,14 @@
 #include "Sommet.h"
 
-Sommet::Sommet()
+Sommet::Sommet(std::istream& is)
 {
-    //ctor
+    double x;
+    double y;
+    char nom;
+    is>>m_id>>m_nom>>x>>y;
+    m_coords.first=x;
+    m_coords.second=y;
+
 }
 
 Sommet::~Sommet()

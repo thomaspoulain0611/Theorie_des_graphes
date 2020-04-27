@@ -17,7 +17,7 @@
 
         for (size_t i=0;i<ordre;++i)
         {
-            m_sommets.push_back(new Sommet(ifs))
+            m_sommets.push_back(new Sommet(ifs));
         }
         int taille;
         ifs>>taille;
@@ -25,7 +25,7 @@
         throw std::runtime_error("Erreur de lecture d'ordre");
         for (size_t i=0;i<taille;++i)
         {
-            m_aretes.push_back(new Arete(ifs))
+            m_aretes.push_back(new Arete(ifs));
         }
 
 
