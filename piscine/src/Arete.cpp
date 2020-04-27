@@ -1,17 +1,11 @@
 #include "Arete.h"
 #include <Sommet.h>
 
-Arete::Arete(std::istream& is)
+Arete::Arete(int indice, Sommet*s1, Sommet*s2)
 {
-    int S1,S2;
-    is>>m_indice>>S1>>S2;
-
-    Sommet *s1=new Sommet(S1);
-    Sommet *s2=new Sommet(S2);
-
-    //m_vect.first=s1;
-    //m_vect.second=s2;
-
+    m_indice=indice;
+    m_vect.first=s1;
+    m_vect.second=s2;
 }
 
 Arete::~Arete()
@@ -64,6 +58,6 @@ void Arete::setPoids(int poids)
 
 void Arete::dessiner(Svgfile& svgout)
 {
-    svgout.addLine(m_vect.first->getx(), m_vect.first->gety(), m_vect.second->getx(), m_vect.second->gety(), "green");
+    svgout.addLine(m_vect.first->getx(), m_vect.first->gety(), m_vect.second->getx(), m_vect.second->gety(), "grey");
 }
 

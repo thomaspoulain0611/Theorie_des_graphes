@@ -9,7 +9,8 @@
 class Arete
 {
     public:
-        Arete(std::istream& is);
+        Arete(int indice, Sommet*s1,Sommet*s2);
+        //Arete(std::istream& is);
         ~Arete();
 
         int getPoids()const;
