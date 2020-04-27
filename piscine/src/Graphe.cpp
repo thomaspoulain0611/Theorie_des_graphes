@@ -135,21 +135,37 @@ for (size_t i=0; i<m_sommets.size();++i)
 
 }*/
 
-void Graphe::dessiner(Svgfile& svgout)
+void Graphe::dessinerTous(int& nom, int& poids)
 {
+    Svgfile svgout;
     for(size_t i=0; i<m_sommets.size(); i++)
     {
         m_sommets[i]->dessiner(svgout);
     }
+    if(nom==1)
+    {
+        for(size_t i=0; i<m_sommets.size(); i++)
+        {
+            m_sommets[i]->ecrireNom(svgout);
+        }
+    }
+
     for(size_t i=0; i<m_aretes.size(); i++)
     {
 
         m_aretes[i]->dessiner(svgout);
     }
+    if(poids==1)
+    {
+        for(size_t i=0; i<m_aretes.size(); i++)
+        {
+            m_aretes[i]->ecrirePoids(svgout);
+        }
+    }
 
 }
 
-void Graphe::ecrireTousPoids(Svgfile& svgout)
+/*void Graphe::ecrireTousPoids(Svgfile& svgout)
 {
     for(size_t i=0; i<m_aretes.size(); i++)
     {
@@ -163,4 +179,4 @@ void Graphe::ecrireTousNoms(Svgfile& svgout)
     {
         m_sommets[i]->ecrireNom(svgout);
     }
-}
+}*/

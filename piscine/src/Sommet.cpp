@@ -54,5 +54,5 @@ void Sommet::dessiner(Svgfile& svgout)
 
 void Sommet::ecrireNom(Svgfile& svgout)
 {
-    svgout.addText(m_coords.first, m_coords.second, m_nom, "black");
+    svgout.addText(this->m_coords.first, this->m_coords.second, this->m_nom, "black");
 }

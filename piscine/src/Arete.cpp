@@ -34,33 +34,27 @@ void Arete::setPoids(int poids)
     m_vect=som;
 
 }*/
-     int Arete::getindice()const
-     {
-         return m_indice;
-     }
-
-     void Arete::assimpoids(std::string nomFichier)
-     {
-         std::ifstream ifs{nomFichier};
-         if(!ifs)// on verifie que le fichier existe
-        throw std::runtime_error("Impossible d'ouvrir en lecture" + nomFichier );
-        int taille;
-        ifs>>taille;
-        int indice,poids;
-        for(int i=0;i<taille;++i)
-        {
-           ifs>>indice>>poids;
-           if(indice==m_indice)
-                this->setPoids(poids);
-        }
-     }
-
-
-
-void Arete::dessiner(Svgfile& svgout)
+int Arete::getindice()const
 {
-    svgout.addLine(m_vect.first->getx(), m_vect.first->gety(), m_vect.second->getx(), m_vect.second->gety(), "grey");
+    return m_indice;
 }
+
+void Arete::assimpoids(std::string nomFichier)
+{
+    std::ifstream ifs{nomFichier};
+    if(!ifs)// on verifie que le fichier existe
+        throw std::runtime_error("Impossible d'ouvrir en lecture" + nomFichier );
+    int taille;
+    ifs>>taille;
+    int indice,poids;
+    for(int i=0; i<taille; ++i)
+    {
+        ifs>>indice>>poids;
+        if(indice==m_indice)
+            this->setPoids(poids);
+    }
+}
+
 
 std::string Arete::nbToStrg(int nombre)const
 {
@@ -69,7 +63,13 @@ std::string Arete::nbToStrg(int nombre)const
     return a.str();
 }
 
+void Arete::dessiner(Svgfile& svgout)
+{
+    svgout.addLine(m_vect.first->getx(), m_vect.first->gety(), m_vect.second->getx(), m_vect.second->gety(), "grey");
+}
+
 void Arete::ecrirePoids(Svgfile& svgout)
 {
-    svgout.addText((m_vect.first->getx()+m_vect.second->getx())/2, (m_vect.first->gety()+m_vect.second->gety())/2, nbToStrg(m_poids), "red");
+    svgout.addText((this->m_vect.first->getx()+this->m_vect.second->getx())/2, (this->m_vect.first->gety()+this->m_vect.second->gety())/2, nbToStrg(m_poids), "red");
 }
+
