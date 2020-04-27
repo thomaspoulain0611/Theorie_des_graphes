@@ -24,3 +24,20 @@
 1587981634 source:c:\users\lilia\piscine\piscine\main.cpp
 	<iostream>
 
+1587981846 source:c:\users\thoma\piscine\piscine\main.cpp
+	<iostream>
+
+1587983360 source:c:\users\thoma\piscine\piscine\src\arete.cpp
+	"Arete.h"
+	<Sommet.h>
+
+1587983360 c:\users\thoma\piscine\piscine\include\arete.h
+	<iostream>
+	<math.h>
+	<Sommet.h>
+
+1587983360 c:\users\thoma\piscine\piscine\include\sommet.h
+
+1587983360 source:c:\users\thoma\piscine\piscine\src\sommet.cpp
+	"Sommet.h"
+
