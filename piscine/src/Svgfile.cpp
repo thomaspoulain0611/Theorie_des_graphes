@@ -44,7 +44,7 @@ template<typename T>
 std::string attrib(std::string name, T val)
 {
     std::ostringstream oss;
-    oss << name << """ << val << "\" ";
+    //oss << name << """ << val << "\" ";
     return oss.str();
 }
 void Svgfile::addText(double x, double y, std::string text, std::string color)

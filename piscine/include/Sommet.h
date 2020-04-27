@@ -12,12 +12,22 @@ class Sommet
     public:
 
         Sommet(std::istream& is);
+        Sommet(int id);
 
         ~Sommet();
 
-        int getId();
+        int getId()const;
+        char getNom()const;
+        double getx()const;
+        double gety()const;
 
         void setId(int id);
+
+       friend std::ostream& operator<<(std::ostream&out, const Sommet&a)
+        {
+           std::cout<<"("<<a.getId()<<","<<a.getNom()<<","<<a.getx()<<","<<a.gety()<<")"<<std::endl;
+        return out;
+        }
 
     private:
         int m_id;

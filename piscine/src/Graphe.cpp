@@ -7,15 +7,17 @@
     std::ifstream ifs{nomFichier};//
     if(!ifs)// on verifie que le fo
         throw std::runtime_error("Impossible d'ouvrir en lecture" + nomFichier );
-        int orientation;
-        ifs>>orientation;
+
+        ifs>>m_orient;
+        if (ifs.fail() )
+        throw std::runtime_error("Erreur de lecture d'orientation");
     int ordre;
     ifs>>ordre;
     if (ifs.fail() )
         throw std::runtime_error("Erreur de lecture d'ordre");
 
 
-        for (size_t i=0;i<ordre;++i)
+        for (int i=0;i<ordre;++i)
         {
             m_sommets.push_back(new Sommet(ifs));
         }
@@ -23,7 +25,7 @@
         ifs>>taille;
         if (ifs.fail() )
         throw std::runtime_error("Erreur de lecture d'ordre");
-        for (size_t i=0;i<taille;++i)
+        for (int i=0;i<taille;++i)
         {
             m_aretes.push_back(new Arete(ifs));
         }
@@ -52,42 +54,62 @@ Graphe::~Graphe()
 }
 
 
-Graphe::~Graphe()
+
+
+int Graphe::getOrdre()const
 {
-    //dtor
+    return (int) m_sommets.size();
 }
 
-int Graphe::getOrdre()
-{
-    return m_ordre;
-}
-
-int Graphe::getOrient()
+int Graphe::getOrient()const
 {
     return m_orient;
 }
 
-int Graphe::getTaille()
+int Graphe::getTaille()const
 {
-    return m_taille;
+    return (int) m_aretes.size();
 }
 
-void Graphe::setOrdre(int ordre)
+/*void Graphe::setOrdre(int ordre)
 {
     m_ordre=ordre;
-}
+}*/
 
 void Graphe::setOrient(int orient)
 {
     m_orient=orient;
 }
 
-void Graphe::setTaille(int taille)
+/*void Graphe::setTaille(int taille)
 {
     m_taille=taille;
-}
+}*/
 
-void Graphe::dessiner()
+/*void Graphe::dessiner()
 {
 
+}
+*/
+void Graphe::poidsarete ()
+
+{
+    for(size_t i=0;i<m_aretes.size();++i)
+    {
+        m_aretes[i]->assimpoids("poids.txt");
+    }
+
+
+
+
+
+    /*if(m_orient==1)
+        std::cout<<"Le graphe est orienté"<<std::endl;
+    else
+        std::cout<<"Le graphe n'est pas orienté"<<std::endl;
+    std::cout<<"Ordre du graphe :"<<m_sommets.size()<<std::endl;
+    for (size_t i=0; i<m_sommets.size();++i)
+    {
+
+    }*/
 }
