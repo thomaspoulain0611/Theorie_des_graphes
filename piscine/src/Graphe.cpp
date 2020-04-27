@@ -84,7 +84,7 @@ void Graphe::setTaille(int taille)
 
 void Graphe::dessiner(Svgfile& svgout)
 {
-    for(size_t i; i<m_aretes.size(); i++)
+    for(size_t i=0; i<m_aretes.size(); i++)
     {
         m_sommets[i]->dessiner(svgout);
         m_aretes[i]->dessiner(svgout);
