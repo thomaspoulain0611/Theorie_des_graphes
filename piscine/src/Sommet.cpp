@@ -31,29 +31,28 @@ void Sommet::setId(int id)
     m_id=id;
 }
 
-   char Sommet::getNom()const
-   {
-       return m_nom;
+std::string Sommet::getNom()const
+{
+    return m_nom;
 
-   }
-        double Sommet::getx()const
-        {
-            return m_coords.first;
+}
 
-        }
-        double Sommet::gety()const
-        {
-            return m_coords.second;
+double Sommet::getx()const
+{
+    return m_coords.first;
+}
 
-        }
-
-
-
-
-
+double Sommet::gety()const
+{
+    return m_coords.second;
+}
 
 void Sommet::dessiner(Svgfile& svgout)
 {
-    svgout.addDisk(m_coords.first, m_coords.second, 5, "pink");
+    svgout.addDisk(m_coords.first, m_coords.second, 10, "pink");
 }
 
+void Sommet::ecrireNom(Svgfile& svgout)
+{
+    svgout.addText(m_coords.first, m_coords.second, m_nom, "black");
+}

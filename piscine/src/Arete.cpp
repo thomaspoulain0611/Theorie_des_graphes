@@ -1,5 +1,6 @@
 #include "Arete.h"
 #include <Sommet.h>
+#include <sstream>
 
 Arete::Arete(int indice, Sommet*s1, Sommet*s2)
 {
@@ -61,3 +62,14 @@ void Arete::dessiner(Svgfile& svgout)
     svgout.addLine(m_vect.first->getx(), m_vect.first->gety(), m_vect.second->getx(), m_vect.second->gety(), "grey");
 }
 
+std::string Arete::nbToStrg(int nombre)const
+{
+    std::ostringstream a;
+    a<<nombre;
+    return a.str();
+}
+
+void Arete::ecrirePoids(Svgfile& svgout)
+{
+    svgout.addText((m_vect.first->getx()+m_vect.second->getx())/2, (m_vect.first->gety()+m_vect.second->gety())/2, nbToStrg(m_poids), "red");
+}

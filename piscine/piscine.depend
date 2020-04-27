@@ -1,27 +1,28 @@
 # depslib dependency file v1.0
-1588002583 source:c:\users\lilia\piscine\piscine\src\arete.cpp
+1588012010 source:c:\users\lilia\piscine\piscine\src\arete.cpp
 	"Arete.h"
 	<Sommet.h>
+	<sstream>
 
-1588002405 c:\users\lilia\piscine\piscine\include\arete.h
+1588011980 c:\users\lilia\piscine\piscine\include\arete.h
 	<iostream>
 	<math.h>
 	<Sommet.h>
 
-1588002687 source:c:\users\lilia\piscine\piscine\src\graphe.cpp
+1588011497 source:c:\users\lilia\piscine\piscine\src\graphe.cpp
 	"Graphe.h"
 
-1587999285 c:\users\lilia\piscine\piscine\include\graphe.h
+1588011497 c:\users\lilia\piscine\piscine\include\graphe.h
 	<Arete.h>
 	<iostream>
 	<vector>
 	<fstream>
 	<Svgfile.h>
 
-1588002782 source:c:\users\lilia\piscine\piscine\src\sommet.cpp
+1588012281 source:c:\users\lilia\piscine\piscine\src\sommet.cpp
 	"Sommet.h"
 
-1588001974 c:\users\lilia\piscine\piscine\include\sommet.h
+1588011922 c:\users\lilia\piscine\piscine\include\sommet.h
 	<iostream>
 	<vector>
 	<fstream>
@@ -29,9 +30,10 @@
 	"math.h"
 	<Svgfile.h>
 
-1588002405 source:c:\users\lilia\piscine\piscine\main.cpp
+1588017934 source:c:\users\lilia\piscine\piscine\main.cpp
 	<iostream>
 	"Graphe.h"
+	"Svgfile.h"
 
 1587996429 source:c:\users\thoma\piscine\piscine\main.cpp
 	<iostream>
