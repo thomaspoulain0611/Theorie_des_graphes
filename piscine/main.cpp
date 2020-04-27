@@ -24,7 +24,6 @@ void menu(Svgfile& svgout,std::string& commande, std::string& fichier)
         std::cout<<std::endl<<"nom du fichier : ";
         std::cin>>fichier;
         fflush(stdin);
-        a(fichier);
 
     }
     else if(commande=="load")
@@ -40,14 +39,17 @@ void menu(Svgfile& svgout,std::string& commande, std::string& fichier)
     }
     else if(commande=="dessiner")
     {
+        a.poidsarete();
         a.dessiner(svgout);
     }
     else if(commande=="afficher poids")
     {
+        a.poidsarete();
         a.ecrireTousPoids(svgout);
     }
     else if(commande=="afficher noms")
     {
+        a.poidsarete();
         a.ecrireTousNoms(svgout);
     }
 }

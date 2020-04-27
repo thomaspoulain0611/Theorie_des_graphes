@@ -10,6 +10,15 @@
 <line x1="100" y1="200" x2="200" y2="200" stroke="grey" />
 <line x1="300" y1="200" x2="200" y2="200" stroke="grey" />
 <line x1="200" y1="300" x2="200" y2="200" stroke="grey" />
+<text x="200" y="150" fill="red" >50</text>
+<text x="150" y="200" fill="red" >20</text>
+<text x="250" y="200" fill="red" >30</text>
+<text x="200" y="250" fill="red" >45</text>
+<text x="200" y="100" fill="black" >A</text>
+<text x="100" y="200" fill="black" >B</text>
+<text x="200" y="200" fill="black" >C</text>
+<text x="300" y="200" fill="black" >D</text>
+<text x="200" y="300" fill="black" >E</text>
 
 
 </svg>
