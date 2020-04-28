@@ -89,15 +89,20 @@ void menu( std::string& commande, std::string& fichier, int& nom, int& poids)
 
 int main()
 {
+    Graphe a("graphe.txt");
+
 
     std::string commande;
     std::string fichier;
+
+    //a.centralitevp();
 
     /*a.centralitedegre();
     a.centralitedegreN();
     a.poidsarete();
 
     a.centraliteproxi();
+    a.centraliteproxiN();
 
 
 
@@ -106,7 +111,7 @@ int main()
 
 
 
-    int poids;
+    /*int poids;
     int nom;
 
     std::cout<<"nom du fichier : ";
@@ -117,7 +122,7 @@ int main()
     {
         menu(commande, fichier, nom, poids);
     }
-    while(commande!="exit");
+    while(commande!="exit");*/
 
 
 

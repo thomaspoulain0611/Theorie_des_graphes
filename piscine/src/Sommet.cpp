@@ -85,6 +85,36 @@ void Sommet::setcd( double cd)
         m_cpn=cpn;
     }
 
+    double Sommet::getcvp()const
+    {
+        return m_cvp;
+    }
+
+    void Sommet::setcvp(double cvp)
+    {
+     m_cvp=cvp;
+    }
+
+    double Sommet::getcvpn()const
+    {
+        return m_cvpn;
+    }
+
+    void Sommet::setcvpn(double cvpn)
+    {
+        m_cvpn=cvpn;
+    }
+
+    double Sommet::getcsi()const
+    {
+        return m_csi;
+
+    }
+
+    void Sommet::setcsi(double csi)
+    {
+        m_csi=csi;
+    }
     char Sommet::get_color() const
 {
     return m_couleur;// on récupère la couleur du sommet

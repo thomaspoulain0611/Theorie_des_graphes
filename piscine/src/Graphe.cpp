@@ -120,16 +120,20 @@ void Graphe::poidsarete ()
 
 void Graphe::centralitedegre()
 {
-    double cd;
+
+    this->rempliradj();
     for(size_t i=0; i<m_sommets.size(); ++i)
     {
-        cd=0;
+
+        m_sommets[i]->setcd((double)m_sommets[i]->get_nb_adj());
+       /* cd=0;
         for(size_t j=0; j<m_aretes.size(); ++j)
         {
             if (m_aretes[j]->getindiceS1()==m_sommets[i]->getId()||m_aretes[j]->getindiceS2()==m_sommets[i]->getId())
-                cd+=1;
+           cd+=1;
         }
-        m_sommets[i]->setcd(cd);
+        m_sommets[i]->setcd(cd);*/
+
 
     }
 }
@@ -151,83 +155,121 @@ void Graphe::centralitedegreN()
 }
 
 
-double Graphe::trouverpoids(Sommet*s1,Sommet*s2)
+double Graphe::trouverpoids(int s1,int s2)
 {
     double poids;
 
     for(size_t i=0; i<m_aretes.size(); ++i)
     {
-        if (((m_aretes[i]->getindiceS1()==s1->getId())&&(m_aretes[i]->getindiceS2()==s2->getId()))||((m_aretes[i]->getindiceS1()==s1->getId())&&(m_aretes[i]->getindiceS2()==s2->getId())))
-            poids=m_aretes[i]->getPoids();
+        if (((m_aretes[i]->getindiceS1()==s1)&&(m_aretes[i]->getindiceS2()==s2))||((m_aretes[i]->getindiceS1()==s2)&&(m_aretes[i]->getindiceS2()==s1)))
+           {
+
+           poids=m_aretes[i]->getPoids();
+            std::cout<<"trouver poids :"<<poids<<std::endl;
+           }
+           std::cout<<"lilian"<<std::endl;
     }
 
     return poids;
 
 }
 
-std::vector<Sommet*> Graphe::dijkstraproxi(Sommet*depart,Sommet*arrivee)
+Sommet*Graphe::trouversommetindice(int indice)
+{
+    Sommet*s1;
+    for(size_t i=0; i<m_sommets.size();++i)
+    {
+        if (m_sommets[i]->getId()==indice)
+            s1=m_sommets[i];
+    }
+    return s1;
+}
+
+
+double Graphe::dijkstraproxi(int depart,int arrivee)
 
 
 {
 
-    std::vector<Sommet*> I_preds;//I_preds[i] donne le prédécesseur du sommet i
+    std::vector<int> I_preds;//I_preds[i] donne le prédécesseur du sommet i
     std::priority_queue<double, std::vector<double>, std::greater<double> > distances; //file de priorite avec le plus petit element en top
 //initialisation variables temporaires
-    Sommet*succ=nullptr;
+    int succ=0;
     int dist=0;
-    Sommet*sommet=nullptr;
+    int sommet=-6;
     size_t nb=0;
     double poids=0;
+    Sommet*S=nullptr;
 //initialisation: chaque case vecteur de predecesseurs à -1 et tous les sommets sont blancs/non parcourus
     for(size_t i=0; i<m_sommets.size(); ++i)
     {
         m_sommets[i]->set_color('B');//sommets non marqués
-        m_sommets[i]->set_distance(100000);//distance infinie
-         I_preds.push_back(nullptr);//autant de cases que de sommets
+        m_sommets[i]->set_distance(1000000000000000000);//distance infinie
+         I_preds.push_back(-1);//autant de cases que de sommets
     }
 
+    S=trouversommetindice(depart);
 
-    nb=depart->get_nb_adj();//on recupère le nombre de successeurs du sommet parcouru
+
+    nb=S->get_nb_adj();//on recupère le nombre de successeurs du sommet parcouru
+
     sommet=depart;//sommet actuel est celui de depart
 
 
 //tant qu'on arrive pas au sommet dont on souhaite connaitre le chemin
     while(sommet!=arrivee)
     {
-        nb=sommet->get_nb_adj();//on recupère le nombre de successeurs du sommet parcouru
+        S=trouversommetindice(sommet);
+
+        nb=S->get_nb_adj();//on recupère le nombre de successeurs du sommet parcouru
+
 
 
         for(size_t x=0; x<nb; ++x)//pour chaque successeur de sommet
         {
 
+        S=trouversommetindice(sommet);
 
 
-            succ=sommet->get_adj(x);//on récupère le sommet x
+
+
+            succ=S->get_adj(x)->getId();//on récupère le sommet x
+
+
 
             poids=trouverpoids(sommet,succ);
 
 
 
-                if(succ->get_color()=='B')//si successeur non découvert
+            S=trouversommetindice(succ);
+
+
+
+
+                if(S->get_color()=='B')//si successeur non découvert
                 {
+
                     //si poids de l'arête entre le sommet et son voisin + distance séparant le sommet actuel et le sommet de départ
                     //donne une distance plus petite que la distance qu'il avait jusque là
-                    if(dist+poids<succ->get_distance())
+                    if(dist+poids<S->get_distance())
                     {
 
-                        succ->set_distance(dist+poids);//on donne à succ la nouvelle distance du chemin plus court
-                        std::cout<<" distance:"<<succ->get_distance()<<std::endl;
-                        I_preds.at(succ->getId())=sommet;//on marque sommet comme prédécesseur de succ//que mettre la ? A voir demain.
-                        std::cout<<"sommet:"<<sommet->getId()<<std::endl;
+                        S->set_distance(dist+poids);//on donne à succ la nouvelle distance du chemin plus court
+
+                        I_preds.at(succ)=sommet;//on marque sommet comme prédécesseur de succ/
+
+                        //std::cout<<"sommet:"<<sommet->getId()<<std::endl;
                         distances.push(dist+poids);//on ajoute cette nouvelle distance à la file de priorité
 
                     }
                     else
-                        distances.push(dist+succ->get_distance());//sinon on ajoute l'ancienne distance (entre succ et sommet de départ) à la file
+                        distances.push(dist+S->get_distance());//sinon on ajoute l'ancienne distance (entre succ et sommet de départ) à la file
                 }
             }
 
-            sommet->set_color('N');//on marque le sommet parcouru
+
+            S=trouversommetindice(sommet);
+            S->set_color('N');//on marque le sommet parcouru
             dist=distances.top();//distance du chemin le plus court est la valeur au top de la file de priorité
             distances.pop();//on supprimme cette distance de la file
 
@@ -237,39 +279,46 @@ std::vector<Sommet*> Graphe::dijkstraproxi(Sommet*depart,Sommet*arrivee)
                 //si on trouve le sommet correspondant au chemin le plus court et qu'il est non parcouru
                 if((m_sommets[y]->get_distance()==dist)&&(m_sommets[y]->get_color()=='B'))
                 {
-                    sommet=m_sommets[y];;//ce sommet est le nouveau sommet de parcours
+                    sommet=m_sommets[y]->getId();
+                    //ce sommet est le nouveau sommet de parcours
                 }
             }
+
         }
-        std::cout<<"salut"<<std::endl;
-         return I_preds;
+        std::cout<<" distance entre sommet"<<depart<<"et sommet"<<arrivee<<"="<<dist<<std::endl;
+
+         return dist;
 
 
 }
-double Graphe::distanceproxi(std::vector<Sommet*> nouv,Sommet*depart, Sommet*arrivee)
+/*double Graphe::distanceproxi(std::vector<int> nouv,int depart, int arrivee)
 {
 
-    Sommet*pred;
+    int pred=0;
     double somme=0;
+    std::cout<<"depart :"<<depart<<std::endl;
+    std::cout<<"arrivee :"<<arrivee<<std::endl;
 
     for(size_t i=0; i<nouv.size(); ++i) // on parcourt tous les prédecesseurs
     {
-        if(nouv[i]==arrivee)// si numero case correspond au sommet d'arrivée
+        std::cout<<"i :"<<i<<std::endl;
+        if((int)i==arrivee)// si numero case correspond au sommet d'arrivée
         {
             //std::cout<<i;// on affiche le sommet d'arrivée
             pred=nouv[i];//on note son predecesseur
+            std::cout<<"pred :"<<pred<<std::endl;
 
             while(pred!=depart)// tant que le prédecesseur n'est pas le sommet de départ
             {
-                std::cout<<"<--"<<pred;// on affiche "<--"
+                std::cout<<"<-- pred:"<<pred;// on affiche "<--"
 
-                pred=nouv[pred->getId()];// predecesseur prend la valeur du predecesseur du sommet alors traité
+                pred=nouv[pred];// predecesseur prend la valeur du predecesseur du sommet alors traité
             }
             std::cout<<"<--"<<depart<<" : longueur ";// on affiche le sommet de départ
 
             //affichage poids
             pred=nouv[i];// on remet à pred la valeur du prédecesseur de notre nombre d'arrivée
-            Sommet* parcours=pred;
+            int parcours=pred;
 
             double poids;
             poids=trouverpoids(pred,nouv[i]);
@@ -280,7 +329,7 @@ double Graphe::distanceproxi(std::vector<Sommet*> nouv,Sommet*depart, Sommet*arr
 
             while(parcours!=depart)// tant que parcours est différent de départ
             {
-                pred=nouv[parcours->getId()];
+                pred=nouv[parcours];
                 poids=trouverpoids(pred,parcours);
 
                 // on assimile à pred la valeur du prédecesseur du sommet étudié
@@ -292,8 +341,9 @@ double Graphe::distanceproxi(std::vector<Sommet*> nouv,Sommet*depart, Sommet*arr
 
         }
     }
+    std::cout<<"somme :"<<somme<<std::endl;
     return somme;
-}
+}*/
 
 
 void Graphe::centraliteproxi()
@@ -309,17 +359,83 @@ void Graphe::centraliteproxi()
 
         for (size_t j=0; j<m_sommets.size(); ++j)
         {
+            if ((m_sommets[i]->getId())!=(m_sommets[j]->getId()))
+                {
 
-            std::vector<Sommet*>preds=dijkstraproxi(m_sommets[i],m_sommets[j]);
-            cp=distanceproxi(preds,m_sommets[i],m_sommets[j]);
+
+
+            cp+=dijkstraproxi(m_sommets[i]->getId(),m_sommets[j]->getId());
+            //cp+=distanceproxi(preds,m_sommets[i]->getId(),m_sommets[j]->getId());
+                }
             //ideal:: dijkstraproxi(m_sommets[i],m_sommets[j]
-            //cp+=dijkstraproxi(m_sommets[i],m_sommets[j]
+
         }
         cp=1/cp;
-        m_sommets[i]->setcp(cp);
+       m_sommets[i]->setcp(cp);
 
     }
 }
+
+void Graphe::centraliteproxiN()
+{
+
+    double cp;
+    for (size_t i=0; i<m_sommets.size(); ++i)
+    {
+
+        cp=m_sommets[i]->getcp();
+
+
+        m_sommets[i]->setcpn(cp*(m_sommets.size()-1));
+
+    }
+}
+
+/*void Graphe::centralitevp()
+{
+
+    double lambda=0;
+    double csi=0;
+    std::stack<double>slambda;
+
+    this->rempliradj();
+    for(size_t i=0;i<m_sommets.size();++i)
+    {
+        m_sommets[i]->setcvp(1);
+    }
+
+
+        while ()
+        {
+               for(size_t i=0;i<m_sommets.size();++i)
+               {
+                   csi=0;
+
+
+
+
+            for(size_t j=0;j<m_sommets[i]->get_nb_adj();++j)
+            {
+               csi+=m_sommets[i]->get_adj(j)->getcvp();
+            }
+            m_sommets[i]->setcsi(csi);
+
+               }
+            for (size_t k=0; k<m_sommets.size();++k)
+            {
+                lambda+=pow(m_sommets[k]->getcsi(),2);
+            }
+            lambda=pow(lambda,1/2);
+            std::cout<<"lambda :"<<lambda<<std::endml;
+            for (size_t i=0; i<m_sommets.size();++i)
+            {
+                m_sommets[i]->setcvp((m_sommets[i]->getcsi())/lambda);
+            }
+
+           // for (size_t l=0; )
+        }
+    }*/
+
 
 void Graphe::rempliradj()
 {
@@ -342,7 +458,8 @@ void Graphe::affichercentralite()
 {
     for (size_t i=0; i<m_sommets.size(); ++i)
     {
-        std::cout<<"indice :"<<m_sommets[i]->getId()<<", centralite degre non normalisee:"<<m_sommets[i]->getcd()<<", centralite degre normalisee:"<<m_sommets[i]->getcdn()<<", centralite proxi :"<<m_sommets[i]->getcp()<<std::endl;
+        std::cout<<"indice :"<<m_sommets[i]->getId()<<", centralite degre non normalisee:"<<m_sommets[i]->getcd()<<", centralite degre normalisee:"<<m_sommets[i]->getcdn()<<", centralite proxi :"<<m_sommets[i]->getcp();
+        std::cout<<", centralite proxi normalisee:"<<m_sommets[i]->getcpn()<<std::endl;
 
     }
 }
