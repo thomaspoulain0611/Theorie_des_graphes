@@ -15,6 +15,10 @@ class Arete
 
         int getPoids()const;
         int getindice()const;
+        int getindiceS1()const;
+        int getindiceS2()const;
+        Sommet* getSommet1()const;
+        Sommet* getSommet2()const;
         //std::pair<Sommet*, Sommet*> getVect();
         void assimpoids(std::string nomFichier);
 

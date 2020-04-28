@@ -23,12 +23,25 @@ public:
     //void setTaille(int taille);
     void setOrient(int orient);
     void poidsarete();
+    double trouverpoids(Sommet*s1,Sommet*s2);
 
-    void dessinerTous(int& nom, int& poids);
+
+
+    void centralitedegre();
+    void rempliradj();
+
+    void centralitedegreN();
+    void centraliteproxi();
+    std::vector<Sommet*>dijkstraproxi(Sommet*depart,Sommet*arrivee);
+    double distanceproxi(std::vector<Sommet*>,Sommet*nouveau, Sommet*arrivee);
+    void affichercentralite();
+
+    void dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cp, int& cpn);
 
     void enregistrer(std::ofstream& ofs);
 
     void addSommet();
+
 
     friend std::ostream& operator<<(std::ostream& out, const Graphe& r)
     {

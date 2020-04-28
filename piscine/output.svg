@@ -2,13 +2,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1000" height="800">
 
 <circle cx << val <<  cy << val <<  r << val <<  fill << val <<  />
-<line x1 << val <<  y1 << val <<  x2 << val <<  y2 << val <<  stroke << val <<  />
+<circle cx << val <<  cy << val <<  r << val <<  fill << val <<  />
+<circle cx << val <<  cy << val <<  r << val <<  fill << val <<  />
+<circle cx << val <<  cy << val <<  r << val <<  fill << val <<  />
 <circle cx << val <<  cy << val <<  r << val <<  fill << val <<  />
 <line x1 << val <<  y1 << val <<  x2 << val <<  y2 << val <<  stroke << val <<  />
-<circle cx << val <<  cy << val <<  r << val <<  fill << val <<  />
 <line x1 << val <<  y1 << val <<  x2 << val <<  y2 << val <<  stroke << val <<  />
-<circle cx << val <<  cy << val <<  r << val <<  fill << val <<  />
 <line x1 << val <<  y1 << val <<  x2 << val <<  y2 << val <<  stroke << val <<  />
+<line x1 << val <<  y1 << val <<  x2 << val <<  y2 << val <<  stroke << val <<  />
+<text x << val <<  y << val <<  fill << val <<  >50</text>
+<text x << val <<  y << val <<  fill << val <<  >20</text>
+<text x << val <<  y << val <<  fill << val <<  >30</text>
+<text x << val <<  y << val <<  fill << val <<  >45</text>
 
 
 </svg>

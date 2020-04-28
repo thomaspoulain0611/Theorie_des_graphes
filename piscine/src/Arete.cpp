@@ -7,6 +7,7 @@ Arete::Arete(int indice, Sommet*s1, Sommet*s2)
     m_indice=indice;
     m_vect.first=s1;
     m_vect.second=s2;
+    m_poids=0;
 }
 
 Arete::~Arete()
@@ -34,11 +35,29 @@ void Arete::setPoids(int poids)
     m_vect=som;
 
 }*/
+
 int Arete::getindice()const
 {
     return m_indice;
 }
+int Arete::getindiceS1()const
+{
+    return m_vect.first->getId();
+}
+int Arete::getindiceS2()const
+{
+    return m_vect.second->getId();
+}
 
+Sommet* Arete:: getSommet1()const
+{
+    return m_vect.first;
+}
+
+Sommet* Arete::getSommet2()const
+{
+    return m_vect.second;
+}
 void Arete::assimpoids(std::string nomFichier)
 {
     std::ifstream ifs{nomFichier};
@@ -54,7 +73,6 @@ void Arete::assimpoids(std::string nomFichier)
             this->setPoids(poids);
     }
 }
-
 
 std::string Arete::nbToStrg(int nombre)const
 {
