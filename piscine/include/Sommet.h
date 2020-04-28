@@ -22,6 +22,7 @@ class Sommet
         double getx()const;
         double gety()const;
 
+
         double getcd()const;
         double getcdn()const;
         double getcp()const;
@@ -33,6 +34,7 @@ class Sommet
         Sommet* get_adj(int x) const;
 
         void rempliradj();
+
 
 
 

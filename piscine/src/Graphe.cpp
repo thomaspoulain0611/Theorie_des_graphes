@@ -54,7 +54,7 @@ Graphe::Graphe(std::string nomFichier)
     }
 
 
-    /* int taille;
+/*     int taille;
      ifs>>taille;
      if ( ifs.fail() )
          throw std::runtime_error("Erreur de lecture de taille");
@@ -68,6 +68,7 @@ Graphe::Graphe(std::string nomFichier)
      }*/
 }
 
+
 Graphe::~Graphe()
 {
     for (auto s : m_sommets)
@@ -75,8 +76,6 @@ Graphe::~Graphe()
     for (auto s : m_aretes)
         delete s;
 }
-
-
 
 
 int Graphe::getOrdre()const
@@ -109,11 +108,7 @@ void Graphe::setOrient(int orient)
     m_taille=taille;
 }*/
 
-/*void Graphe::dessiner()
-{
 
-}
-*/
 void Graphe::poidsarete ()
 
 {
@@ -366,32 +361,45 @@ for (size_t i=0; i<m_sommets.size();++i)
 
 }*/
 
-void Graphe::dessiner(Svgfile& svgout)
+void Graphe::enregistrer(std::ofstream& ofs)
 {
+
+
+}
+
+/*void Graphe::addSommet()
+{
+    Sommet *s= new Sommet;
+    std::cout<<"id : "<<std::endl;
+    std::cin>>s->
+}*/
+
+void Graphe::dessinerTous(int& nom, int& poids)
+{
+    Svgfile svgout;
     for(size_t i=0; i<m_sommets.size(); i++)
     {
         m_sommets[i]->dessiner(svgout);
     }
+    if(nom==1)
+    {
+        for(size_t i=0; i<m_sommets.size(); i++)
+        {
+            m_sommets[i]->ecrireNom(svgout);
+        }
+    }
+
     for(size_t i=0; i<m_aretes.size(); i++)
     {
 
         m_aretes[i]->dessiner(svgout);
     }
-
-}
-
-void Graphe::ecrireTousPoids(Svgfile& svgout)
-{
-    for(size_t i=0; i<m_aretes.size(); i++)
+    if(poids==1)
     {
-        m_aretes[i]->ecrirePoids(svgout);
+        for(size_t i=0; i<m_aretes.size(); i++)
+        {
+            m_aretes[i]->ecrirePoids(svgout);
+        }
     }
-}
 
-void Graphe::ecrireTousNoms(Svgfile& svgout)
-{
-    for(size_t i=0; i<m_sommets.size(); i++)
-    {
-        m_sommets[i]->ecrireNom(svgout);
-    }
 }

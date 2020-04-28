@@ -12,6 +12,7 @@ class Graphe
 {
 public:
     Graphe(std::string nomFichier);
+    Graphe();
     virtual ~Graphe();
 
     int getOrdre()const;
@@ -24,6 +25,7 @@ public:
     void poidsarete();
     double trouverpoids(Sommet*s1,Sommet*s2);
 
+
     void dessiner(Svgfile& svgout);
     void ecrireTousPoids(Svgfile& svgout);
     void ecrireTousNoms(Svgfile& svgout);
@@ -35,6 +37,13 @@ public:
     std::vector<Sommet*>dijkstraproxi(Sommet*depart,Sommet*arrivee);
     double distanceproxi(std::vector<Sommet*>,Sommet*nouveau, Sommet*arrivee);
     void affichercentralite();
+
+    void dessinerTous(int& nom, int& poids);
+
+    void enregistrer(std::ofstream& ofs);
+
+    void addSommet();
+
 
     friend std::ostream& operator<<(std::ostream& out, const Graphe& r)
     {
