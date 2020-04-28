@@ -76,27 +76,7 @@ void Arete::assimpoids(std::string nomFichier)
 
 
 
-int Arete::getindice()const
-{
-    return m_indice;
-}
 
-
-void Arete::assimpoids(std::string nomFichier)
-{
-    std::ifstream ifs{nomFichier};
-    if(!ifs)// on verifie que le fichier existe
-        throw std::runtime_error("Impossible d'ouvrir en lecture" + nomFichier );
-    int taille;
-    ifs>>taille;
-    int indice,poids;
-    for(int i=0; i<taille; ++i)
-    {
-        ifs>>indice>>poids;
-        if(indice==m_indice)
-            this->setPoids(poids);
-    }
-}
 
 
 std::string Arete::nbToStrg(int nombre)const

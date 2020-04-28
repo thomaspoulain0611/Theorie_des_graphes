@@ -7,13 +7,7 @@ HANDLE hConsole=GetStdHandle(STD_OUTPUT_HANDLE);
 void menu( std::string& commande, std::string& fichier, int& nom, int& poids)
 {
 
-    Graphe a("graphe.txt");
 
-    a.poidsarete();
-    std::cout<<a<<std::endl;
-    a.dessiner(svgout);
-
-    SetConsoleTextAttribute(hConsole, 9);
 
     Graphe a(fichier);
     SetConsoleTextAttribute(hConsole, 13);
@@ -34,9 +28,7 @@ void menu( std::string& commande, std::string& fichier, int& nom, int& poids)
 
 
 
-        std::cout<<std::endl<<"nom du fichier : ";
-        std::cin>>fichier;
-        fflush(stdin);
+
 
         poids=0;
         nom=0;
@@ -100,8 +92,8 @@ int main()
 
     std::string commande;
     std::string fichier;
-    Graphe a("graphe.txt");
-    a.centralitedegre();
+
+    /*a.centralitedegre();
     a.centralitedegreN();
     a.poidsarete();
 
@@ -109,11 +101,11 @@ int main()
 
 
 
-    a.affichercentralite();
+    a.affichercentralite();*/
 
 
-    /*do
-=======
+
+
     int poids;
     int nom;
 
@@ -121,11 +113,11 @@ int main()
     std::cin>>fichier;
 
     do
->>>>>>> 6dbd61fb2929f0c52c539797783789af99145ff3
+
     {
         menu(commande, fichier, nom, poids);
     }
-    while(commande!="exit");*/
+    while(commande!="exit");
 
 
 
