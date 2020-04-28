@@ -12,6 +12,7 @@ class Graphe
 {
 public:
     Graphe(std::string nomFichier);
+    Graphe();
     virtual ~Graphe();
 
     int getOrdre()const;
@@ -24,8 +25,10 @@ public:
     void poidsarete();
 
     void dessinerTous(int& nom, int& poids);
-    //void ecrireTousPoids(Svgfile& svgout);
-    //void ecrireTousNoms(Svgfile& svgout);
+
+    void enregistrer(std::ofstream& ofs);
+
+    void addSommet();
 
     friend std::ostream& operator<<(std::ostream& out, const Graphe& r)
     {

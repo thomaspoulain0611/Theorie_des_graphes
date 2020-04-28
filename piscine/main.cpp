@@ -6,7 +6,7 @@ HANDLE hConsole=GetStdHandle(STD_OUTPUT_HANDLE);
 
 void menu( std::string& commande, std::string& fichier, int& nom, int& poids)
 {
-    Graphe a("graphe.txt");
+    Graphe a(fichier);
     SetConsoleTextAttribute(hConsole, 13);
     std::cout<<std::endl<<"Options :"<<std::endl;
     SetConsoleTextAttribute(hConsole, 15);
@@ -19,15 +19,7 @@ void menu( std::string& commande, std::string& fichier, int& nom, int& poids)
     if(commande=="exit")
     {
     }
-    /*else if(commande=="load")
-    {
-
-        std::cout<<std::endl<<"nom du fichier : ";
-        std::cin>>fichier;
-        fflush(stdin);
-        Graphe a(fichier);
-    }*/
-    else if(commande=="dessiner")
+    else if(commande=="dessiner" )
     {
         poids=0;
         nom=0;
@@ -87,7 +79,6 @@ void menu( std::string& commande, std::string& fichier, int& nom, int& poids)
 
 int main()
 {
-    Graphe a("graphe.txt");
 
     std::string commande;
     std::string fichier;
@@ -95,11 +86,12 @@ int main()
     int poids;
     int nom;
 
-    do
+    std::cout<<"nom du fichier : ";
+    std::cin>>fichier;
+
+// C:\Users\apoll\PISCINE\piscine\main.cpp   do
     {
         menu(commande, fichier, nom, poids);
-        a.poidsarete();
-        a.dessinerTous(nom, poids);
     }
     while(commande!="exit");
 
