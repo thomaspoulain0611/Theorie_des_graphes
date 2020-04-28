@@ -6,10 +6,11 @@
 <circle cx="200" cy="200" r="10" fill="pink" />
 <circle cx="300" cy="200" r="10" fill="pink" />
 <circle cx="200" cy="300" r="10" fill="pink" />
-<line x1="200" y1="100" x2="200" y2="200" stroke="grey" />
+<circle cx="400" cy="500" r="10" fill="pink" />
 <line x1="100" y1="200" x2="200" y2="200" stroke="grey" />
 <line x1="300" y1="200" x2="200" y2="200" stroke="grey" />
 <line x1="200" y1="300" x2="200" y2="200" stroke="grey" />
+<line x1="200" y1="300" x2="400" y2="500" stroke="grey" />
 
 
 </svg>

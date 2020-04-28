@@ -13,6 +13,7 @@ class Sommet
 public:
 
     Sommet(std::istream& is);
+    Sommet(int id);
     ~Sommet();
 
     int getId()const;

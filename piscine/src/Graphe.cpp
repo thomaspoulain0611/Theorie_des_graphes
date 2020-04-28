@@ -54,18 +54,18 @@ Graphe::Graphe(std::string nomFichier)
     }
 
 
-/*     int taille;
-     ifs>>taille;
-     if ( ifs.fail() )
-         throw std::runtime_error("Erreur de lecture de taille");
-     for (int i=0; i<ordre; ++i)
-     {
-         m_sommets.push_back(new Sommet{i+1});// vu que ca part de 0 on lui attribue la valeur i+1
-     }
-     for (int i=0; i<taille; ++i)
-     {
-         m_aretes.push_back(new Arete(ifs));// lire le prochain truc que le flux va lire
-     }*/
+    /*     int taille;
+         ifs>>taille;
+         if ( ifs.fail() )
+             throw std::runtime_error("Erreur de lecture de taille");
+         for (int i=0; i<ordre; ++i)
+         {
+             m_sommets.push_back(new Sommet{i+1});// vu que ca part de 0 on lui attribue la valeur i+1
+         }
+         for (int i=0; i<taille; ++i)
+         {
+             m_aretes.push_back(new Arete(ifs));// lire le prochain truc que le flux va lire
+         }*/
 }
 
 
@@ -179,7 +179,7 @@ std::vector<Sommet*> Graphe::dijkstraproxi(Sommet*depart,Sommet*arrivee)
     {
         m_sommets[i]->set_color('B');//sommets non marqués
         m_sommets[i]->set_distance(100000);//distance infinie
-         I_preds.push_back(nullptr);//autant de cases que de sommets
+        I_preds.push_back(nullptr);//autant de cases que de sommets
     }
 
 
@@ -204,41 +204,41 @@ std::vector<Sommet*> Graphe::dijkstraproxi(Sommet*depart,Sommet*arrivee)
 
 
 
-                if(succ->get_color()=='B')//si successeur non découvert
-                {
-                    //si poids de l'arête entre le sommet et son voisin + distance séparant le sommet actuel et le sommet de départ
-                    //donne une distance plus petite que la distance qu'il avait jusque là
-                    if(dist+poids<succ->get_distance())
-                    {
-
-                        succ->set_distance(dist+poids);//on donne à succ la nouvelle distance du chemin plus court
-                        std::cout<<" distance:"<<succ->get_distance()<<std::endl;
-                        I_preds.at(succ->getId())=sommet;//on marque sommet comme prédécesseur de succ//que mettre la ? A voir demain.
-                        std::cout<<"sommet:"<<sommet->getId()<<std::endl;
-                        distances.push(dist+poids);//on ajoute cette nouvelle distance à la file de priorité
-
-                    }
-                    else
-                        distances.push(dist+succ->get_distance());//sinon on ajoute l'ancienne distance (entre succ et sommet de départ) à la file
-                }
-            }
-
-            sommet->set_color('N');//on marque le sommet parcouru
-            dist=distances.top();//distance du chemin le plus court est la valeur au top de la file de priorité
-            distances.pop();//on supprimme cette distance de la file
-
-            //on parcourt tous les sommets
-            for(size_t y=0; y<m_sommets.size(); ++y)
+            if(succ->get_color()=='B')//si successeur non découvert
             {
-                //si on trouve le sommet correspondant au chemin le plus court et qu'il est non parcouru
-                if((m_sommets[y]->get_distance()==dist)&&(m_sommets[y]->get_color()=='B'))
+                //si poids de l'arête entre le sommet et son voisin + distance séparant le sommet actuel et le sommet de départ
+                //donne une distance plus petite que la distance qu'il avait jusque là
+                if(dist+poids<succ->get_distance())
                 {
-                    sommet=m_sommets[y];;//ce sommet est le nouveau sommet de parcours
+
+                    succ->set_distance(dist+poids);//on donne à succ la nouvelle distance du chemin plus court
+                    std::cout<<" distance:"<<succ->get_distance()<<std::endl;
+                    I_preds.at(succ->getId())=sommet;//on marque sommet comme prédécesseur de succ//que mettre la ? A voir demain.
+                    std::cout<<"sommet:"<<sommet->getId()<<std::endl;
+                    distances.push(dist+poids);//on ajoute cette nouvelle distance à la file de priorité
+
                 }
+                else
+                    distances.push(dist+succ->get_distance());//sinon on ajoute l'ancienne distance (entre succ et sommet de départ) à la file
             }
         }
-        std::cout<<"salut"<<std::endl;
-         return I_preds;
+
+        sommet->set_color('N');//on marque le sommet parcouru
+        dist=distances.top();//distance du chemin le plus court est la valeur au top de la file de priorité
+        distances.pop();//on supprimme cette distance de la file
+
+        //on parcourt tous les sommets
+        for(size_t y=0; y<m_sommets.size(); ++y)
+        {
+            //si on trouve le sommet correspondant au chemin le plus court et qu'il est non parcouru
+            if((m_sommets[y]->get_distance()==dist)&&(m_sommets[y]->get_color()=='B'))
+            {
+                sommet=m_sommets[y];;//ce sommet est le nouveau sommet de parcours
+            }
+        }
+    }
+    std::cout<<"salut"<<std::endl;
+    return I_preds;
 
 
 }
@@ -360,12 +360,6 @@ void Graphe::enregistrer(std::ofstream& ofs)
 
 
 }
-/*void Graphe::addSommet()
-{
-    Sommet *s= new Sommet;
-    std::cout<<"id : "<<std::endl;
-    std::cin>>s->
-}*/
 
 void Graphe::dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cpn, int& cp)
 {
@@ -427,41 +421,36 @@ void Graphe::dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cpn, int
             m_aretes[i]->ecrirePoids(svgout);
         }
     }
-
 }
 
-/*std::vector<int> Graphe::bfs (Sommet s)//recupère sommet de départ et retourne vecteur de prédécesseurs
+std::vector<int> Graphe::bfs (int id)//recupère sommet de départ et retourne vecteur de prédécesseurs
 {
-    int id=s.getId();
     std::vector<int> I_preds;//I_preds[i] donne le prédécesseur du sommet i
     std::queue<int> file;//file déclaration
     int succ=0;
     size_t nb=0;
-
     //on met tous les sommets en blanc: non parcourus
     for(size_t i=0; i<m_sommets.size(); ++i)
     {
         m_sommets[i]->set_color('B');
     }
-
     //on crée un vecteur de predecesseurs avec chaque case initialisée à -1
     for(size_t y=0; y<m_sommets.size(); ++y)
     {
         I_preds.push_back(-1);
     }
-
     //on ajoute le sommet initial à la file et on le colorie en gris
     file.push(id);
     m_sommets[id]->set_color('G');
 
     while(!file.empty())//tant que la file n'est pas vide
     {
-        nb=m_sommets[id]->get_nb_succ();//on recupère le nombre de successeurs du sommet parcouru
+        nb=m_sommets[id]->get_nb_adj();//on recupère le nombre de successeurs du sommet parcouru
         file.pop();//on supprime premier élément de la file
 
         for(size_t i=0; i<nb; ++i)//tant que successeur
         {
-            succ=m_sommets[id]->get_succ(i);//on récupère valeur du successeur i
+            succ=m_sommets[id]->get_adj(i)->getId();//on récupère valeur du successeur i
 
             if(m_sommets[succ]->get_color()=='B')//s'il n'a pas été parcouru, on le met en gris
             {
@@ -471,13 +460,10 @@ void Graphe::dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cpn, int
             }
         }
         m_sommets[id]->set_color('N');//sommet parcouru donc noir
-
         if(!file.empty())//si la file n'est pas vide
             id=file.front();//le sommet de parcours est le sommet en tête de file
-
     }
-
-    return I_preds;//on retourne le vecteur affectant à chaque sommet un prédécesseur (case 0: prédécesseur du sommet 0, etc)
+    return I_preds;
 }
 
 void Graphe::comp_connexe(int id)
@@ -491,13 +477,13 @@ void Graphe::comp_connexe(int id)
     do//tant qu'il y a des sommets non découverts
     {
         s=false;//on part du principe que tout a été découvert
-        I_preds=bfs(sommet);//parcours bfs à partir d'un sommet pour marquer sommets de sa composante
+        I_preds=bfs(id);//parcours bfs à partir d'un sommet pour marquer sommets de sa composante
 
         std::cout<<std::endl<<"composante connexe "<<j<<" : ";
         //on cherche dans le vecteur I_preds tous les sommets de la composante de sommet après découverte par bfs
         for(size_t i=0; i<I_preds.size(); ++i)
         {
-            if((I_preds[i]!=-1)||(i==sommet))//s'il sagit du sommet de départ ou de sommets de sa composante
+            if((I_preds[i]!=-1)||(i==id))//s'il sagit du sommet de départ ou de sommets de sa composante
             {
                 composante.push_back(i);//sommet découvert
                 std::cout<<i<<" ";//on affiche ce sommet
@@ -521,7 +507,7 @@ void Graphe::comp_connexe(int id)
                 if(compt==(int)composante.size())//si le sommet n'a jamais été découvert lors des parcours précédents
                 {
                     s=true;//il reste des sommets non marqués
-                    sommet=w;//le nouveau sommet de parcours est ce sommet non marqué
+                    id=w;//le nouveau sommet de parcours est ce sommet non marqué
                     w=m_sommets.size();//on sort de la boucle
                 }
             }
@@ -530,4 +516,30 @@ void Graphe::comp_connexe(int id)
     }
     while(s);//tant qu'il reste des sommets non découverts
 
-}*/
+}
+
+void Graphe::vulnerabilite()
+{
+    int id;
+    int seul=0;
+    std::cout<<"Entrez l'id de l'arete a supprimer : ";
+    std::cin>>id;
+    for(size_t i=0; i<m_sommets.size(); i++)
+    {
+        for(size_t j=0; j<m_aretes.size(); j++)
+        {
+            if((m_aretes[j]->getSommet1()!=m_sommets[i] || m_aretes[j]->getSommet2()!=m_sommets[i]))
+            {
+                seul++;
+            }
+        }
+    }
+    for(size_t i=0; i<m_sommets.size(); i++)
+    {
+        if((m_aretes[id]->getSommet1()==m_sommets[i] || m_aretes[id]->getSommet2()==m_sommets[i]) && (seul==(int)m_aretes.size()-1))
+        {
+            std::cout<<"L'arete : "<<id<<" rend le graphe vulnerable si elle est supprimee"<<std::endl;
+        }
+    }
+    std::cout<<"L'arete : "<<id<<" ne rend pas le graphe vulnerable si elle est supprimee"<<std::endl;
+}

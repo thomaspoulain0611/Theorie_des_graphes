@@ -17,6 +17,10 @@ Sommet::Sommet(std::istream& is)
 
 }
 
+Sommet::Sommet(int id)
+{
+    m_id=id;
+}
 
 Sommet::~Sommet()
 {
@@ -117,6 +121,7 @@ void Sommet::setadj(Sommet* s1)
 {
     m_adj.push_back(s1);
 }
+
 
 void Sommet::dessiner(Svgfile& svgout)
 {

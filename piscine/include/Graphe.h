@@ -25,8 +25,6 @@ public:
     void poidsarete();
     double trouverpoids(Sommet*s1,Sommet*s2);
 
-
-
     void centralitedegre();
     void rempliradj();
 
@@ -40,9 +38,9 @@ public:
 
     void enregistrer(std::ofstream& ofs);
 
-    std::vector<int> bfs (Sommet s);
-    void comp_connexe(Sommet s);
-
+    std::vector<int> bfs(int id);
+    void comp_connexe(int id);
+    void vulnerabilite();
 
     friend std::ostream& operator<<(std::ostream& out, const Graphe& r)
     {
