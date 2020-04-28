@@ -28,7 +28,7 @@ class Arete
          friend std::ostream& operator<<(std::ostream&out, const Arete&a)
     {
 
-        std::cout<<"(indice arete :"<<a.m_indice<<", premiere extremite:"<<a.m_vect.first->getId()<<"premieres coordonnees x:"<<a.m_vect.first->getx()<<", deuxieme extremite:"<<a.m_vect.second->getId()<<", poids:"<<a.m_poids<<")"<<std::endl;
+        std::cout<<"(indice arete :"<<a.m_indice<<", premiere extremite:"<<a.m_vect.first->getId()<<", premieres coordonnees x:"<<a.m_vect.first->getx()<<", deuxieme extremite:"<<a.m_vect.second->getId()<<", poids:"<<a.m_poids<<")"<<std::endl;
         return out;
     }
 

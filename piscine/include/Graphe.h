@@ -23,9 +23,9 @@ public:
     void setOrient(int orient);
     void poidsarete();
 
-    void dessiner(Svgfile& svgout);
-    void ecrireTousPoids(Svgfile& svgout);
-    void ecrireTousNoms(Svgfile& svgout);
+    void dessinerTous(int& nom, int& poids);
+    //void ecrireTousPoids(Svgfile& svgout);
+    //void ecrireTousNoms(Svgfile& svgout);
 
     friend std::ostream& operator<<(std::ostream& out, const Graphe& r)
     {

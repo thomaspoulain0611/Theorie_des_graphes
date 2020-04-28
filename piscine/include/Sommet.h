@@ -22,9 +22,6 @@ class Sommet
         double getx()const;
         double gety()const;
 
-        int getX();
-        int getY();
-
         void setId(int id);
 
         void dessiner(Svgfile& svgout);

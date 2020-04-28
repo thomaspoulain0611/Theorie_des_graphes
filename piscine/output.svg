@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1000" height="800">
 
+<<<<<<< HEAD
 <circle cx << val <<  cy << val <<  r << val <<  fill << val <<  />
 <line x1 << val <<  y1 << val <<  x2 << val <<  y2 << val <<  stroke << val <<  />
 <circle cx << val <<  cy << val <<  r << val <<  fill << val <<  />
@@ -9,6 +10,17 @@
 <line x1 << val <<  y1 << val <<  x2 << val <<  y2 << val <<  stroke << val <<  />
 <circle cx << val <<  cy << val <<  r << val <<  fill << val <<  />
 <line x1 << val <<  y1 << val <<  x2 << val <<  y2 << val <<  stroke << val <<  />
+=======
+<circle cx="200" cy="100" r="10" fill="pink" />
+<circle cx="100" cy="200" r="10" fill="pink" />
+<circle cx="200" cy="200" r="10" fill="pink" />
+<circle cx="300" cy="200" r="10" fill="pink" />
+<circle cx="200" cy="300" r="10" fill="pink" />
+<line x1="200" y1="100" x2="200" y2="200" stroke="grey" />
+<line x1="100" y1="200" x2="200" y2="200" stroke="grey" />
+<line x1="300" y1="200" x2="200" y2="200" stroke="grey" />
+<line x1="200" y1="300" x2="200" y2="200" stroke="grey" />
+>>>>>>> 91644d5034abd621c5d2cc989effb73808a1aaa7
 
 
 </svg>
