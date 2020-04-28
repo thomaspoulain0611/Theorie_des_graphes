@@ -6,9 +6,6 @@ HANDLE hConsole=GetStdHandle(STD_OUTPUT_HANDLE);
 
 void menu( std::string& commande, std::string& fichier, int& nom, int& poids)
 {
-
-
-
     Graphe a(fichier);
     SetConsoleTextAttribute(hConsole, 13);
 
@@ -25,11 +22,6 @@ void menu( std::string& commande, std::string& fichier, int& nom, int& poids)
     }
     else if(commande=="dessiner" )
     {
-
-
-
-
-
         poids=0;
         nom=0;
         a.poidsarete();
@@ -99,12 +91,7 @@ int main()
 
     a.centraliteproxi();
 
-
-
     a.affichercentralite();*/
-
-
-
 
     int poids;
     int nom;
@@ -113,7 +100,6 @@ int main()
     std::cin>>fichier;
 
     do
-
     {
         menu(commande, fichier, nom, poids);
     }

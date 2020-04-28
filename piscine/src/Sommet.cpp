@@ -58,34 +58,34 @@ void Sommet::setcd( double cd)
     m_cd=cd;
 }
 
-    double Sommet::getcdn()const
-    {
-        return m_cdn;
-    }
+double Sommet::getcdn()const
+{
+    return m_cdn;
+}
 
-    void Sommet::setcdn(double cdn)
-    {
-        m_cdn=cdn;
-    }
+void Sommet::setcdn(double cdn)
+{
+    m_cdn=cdn;
+}
 
-    double Sommet::getcp()const
-    {
-        return m_cp;
-    }
-    void Sommet::setcp(double cp)
-    {
-        m_cp=cp;
-    }
-    double Sommet::getcpn()const
-    {
-        return m_cpn;
-    }
-    void Sommet::setcpn(double cpn)
-    {
-        m_cpn=cpn;
-    }
+double Sommet::getcp()const
+{
+    return m_cp;
+}
+void Sommet::setcp(double cp)
+{
+    m_cp=cp;
+}
+double Sommet::getcpn()const
+{
+    return m_cpn;
+}
+void Sommet::setcpn(double cpn)
+{
+    m_cpn=cpn;
+}
 
-    char Sommet::get_color() const
+char Sommet::get_color() const
 {
     return m_couleur;// on récupère la couleur du sommet
 }

@@ -42,7 +42,8 @@ public:
 
     void enregistrer(std::ofstream& ofs);
 
-    void addSommet();
+    std::vector<int> bfs (Sommet s);
+    void comp_connexe(Sommet s);
 
 
     friend std::ostream& operator<<(std::ostream& out, const Graphe& r)
