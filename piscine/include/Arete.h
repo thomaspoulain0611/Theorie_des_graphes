@@ -15,11 +15,20 @@ class Arete
 
         int getPoids()const;
         int getindice()const;
+        int getindiceS1()const;
+        int getindiceS2()const;
+        Sommet* getSommet1()const;
+        Sommet* getSommet2()const;
         //std::pair<Sommet*, Sommet*> getVect();
         void assimpoids(std::string nomFichier);
 
         void setPoids(int poids);
         //void setVect(std::pair<Sommet*, Sommet*> som);
+
+        void dessiner(Svgfile& svgout);
+        void ecrirePoids(Svgfile& svgout);
+        std::string nbToStrg(int nombre)const;
+
          friend std::ostream& operator<<(std::ostream&out, const Arete&a)
     {
 
@@ -27,8 +36,6 @@ class Arete
         return out;
     }
 
-
-        void dessiner(Svgfile& svgout);
 
     private:
         int m_poids;
