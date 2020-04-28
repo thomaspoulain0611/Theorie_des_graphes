@@ -6,7 +6,7 @@
 Graphe::Graphe(std::string nomFichier)
 {
     std::ifstream ifs{nomFichier};//
-    if(!ifs)// on verifie que le fo
+    if(!ifs)// on verifie que le f
         throw std::runtime_error("Impossible d'ouvrir en lecture" + nomFichier );
 
     ifs>>m_orient;
@@ -165,9 +165,9 @@ double Graphe::trouverpoids(int s1,int s2)
            {
 
            poids=m_aretes[i]->getPoids();
-            std::cout<<"trouver poids :"<<poids<<std::endl;
+
            }
-           std::cout<<"lilian"<<std::endl;
+
     }
 
     return poids;
@@ -285,7 +285,7 @@ double Graphe::dijkstraproxi(int depart,int arrivee)
             }
 
         }
-        std::cout<<" distance entre sommet"<<depart<<"et sommet"<<arrivee<<"="<<dist<<std::endl;
+
 
          return dist;
 
@@ -491,9 +491,14 @@ void Graphe::enregistrer(std::ofstream& ofs)
     std::cin>>s->
 }*/
 
-void Graphe::dessinerTous(int& nom, int& poids)
+
+
+
+
+void Graphe::dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cpn, int& cp)
 {
     Svgfile svgout;
+
     for(size_t i=0; i<m_sommets.size(); i++)
     {
         m_sommets[i]->dessiner(svgout);
@@ -503,6 +508,38 @@ void Graphe::dessinerTous(int& nom, int& poids)
         for(size_t i=0; i<m_sommets.size(); i++)
         {
             m_sommets[i]->ecrireNom(svgout);
+        }
+    }
+
+    if (cdn==1)
+    {
+        for (size_t i=0; i<m_sommets.size(); ++i)
+        {
+            m_sommets[i]->ecrireCentraliteDegreN(svgout);
+        }
+    }
+
+    if (cd==1)
+    {
+        for (size_t i=0; i<m_sommets.size(); ++i)
+        {
+            m_sommets[i]->ecrireCentraliteDegre(svgout);
+        }
+    }
+
+    if (cpn==1)
+    {
+        for (size_t i=0; i<m_sommets.size(); ++i)
+        {
+            m_sommets[i]->ecrireCentralitePN(svgout);
+        }
+    }
+
+    if (cp==1)
+    {
+        for (size_t i=0; i<m_sommets.size(); ++i)
+        {
+            m_sommets[i]->ecrireCentraliteP(svgout);
         }
     }
 
@@ -520,3 +557,105 @@ void Graphe::dessinerTous(int& nom, int& poids)
     }
 
 }
+
+/*std::vector<int> Graphe::bfs (Sommet s)//recupère sommet de départ et retourne vecteur de prédécesseurs
+{
+    int id=s.getId();
+    std::vector<int> I_preds;//I_preds[i] donne le prédécesseur du sommet i
+    std::queue<int> file;//file déclaration
+    int succ=0;
+    size_t nb=0;
+
+    //on met tous les sommets en blanc: non parcourus
+    for(size_t i=0; i<m_sommets.size(); ++i)
+    {
+        m_sommets[i]->set_color('B');
+    }
+
+    //on crée un vecteur de predecesseurs avec chaque case initialisée à -1
+    for(size_t y=0; y<m_sommets.size(); ++y)
+    {
+        I_preds.push_back(-1);
+    }
+
+    //on ajoute le sommet initial à la file et on le colorie en gris
+    file.push(id);
+    m_sommets[id]->set_color('G');
+
+    while(!file.empty())//tant que la file n'est pas vide
+    {
+        nb=m_sommets[id]->get_nb_succ();//on recupère le nombre de successeurs du sommet parcouru
+        file.pop();//on supprime premier élément de la file
+
+        for(size_t i=0; i<nb; ++i)//tant que successeur
+        {
+            succ=m_sommets[id]->get_succ(i);//on récupère valeur du successeur i
+
+            if(m_sommets[succ]->get_color()=='B')//s'il n'a pas été parcouru, on le met en gris
+            {
+                m_sommets[succ]->set_color('G');
+                I_preds.at(succ)=id;//sommet est son predecesseur
+                file.push(succ);//on l'ajoute à la file
+            }
+        }
+        m_sommets[id]->set_color('N');//sommet parcouru donc noir
+
+        if(!file.empty())//si la file n'est pas vide
+            id=file.front();//le sommet de parcours est le sommet en tête de file
+
+    }
+
+    return I_preds;//on retourne le vecteur affectant à chaque sommet un prédécesseur (case 0: prédécesseur du sommet 0, etc)
+}
+
+void Graphe::comp_connexe(int id)
+{
+    //déclaration et initialisation des variables
+    std::vector<int> composante;//pour stocker tous les sommets découverts dans une composante
+    std::vector<int> I_preds;//vecteur des prédécesseurs
+    int j=1;
+    bool s;
+
+    do//tant qu'il y a des sommets non découverts
+    {
+        s=false;//on part du principe que tout a été découvert
+        I_preds=bfs(sommet);//parcours bfs à partir d'un sommet pour marquer sommets de sa composante
+
+        std::cout<<std::endl<<"composante connexe "<<j<<" : ";
+        //on cherche dans le vecteur I_preds tous les sommets de la composante de sommet après découverte par bfs
+        for(size_t i=0; i<I_preds.size(); ++i)
+        {
+            if((I_preds[i]!=-1)||(i==sommet))//s'il sagit du sommet de départ ou de sommets de sa composante
+            {
+                composante.push_back(i);//sommet découvert
+                std::cout<<i<<" ";//on affiche ce sommet
+            }
+        }
+
+        ++j;//incrémente pour jième composante
+        I_preds.clear();//vide le vecteur
+
+        for(size_t w=0; w<m_sommets.size(); ++w)//pour chaque sommet du graphe
+        {
+            int compt=0;
+
+            if(m_sommets[w]->get_color()=='B')//si sommet non découvert lors de ce parcours bfs
+            {
+                for(size_t h=0; h<composante.size(); ++h)//on cherche si ce sommet a été découvert avant
+                {
+                    if((int)w!=composante[h])
+                        ++compt;
+                }
+                if(compt==(int)composante.size())//si le sommet n'a jamais été découvert lors des parcours précédents
+                {
+                    s=true;//il reste des sommets non marqués
+                    sommet=w;//le nouveau sommet de parcours est ce sommet non marqué
+                    w=m_sommets.size();//on sort de la boucle
+                }
+            }
+        }
+
+    }
+    while(s);//tant qu'il reste des sommets non découverts
+
+}*/

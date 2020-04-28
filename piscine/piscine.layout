@@ -2,7 +2,16 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
+<<<<<<< HEAD
+<<<<<<< HEAD
+	<File name="main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="142" topLine="0" />
+=======
+	<File name="src\Sommet.cpp" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+=======
 	<File name="src\Svgfile.cpp" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+>>>>>>> 9369b34d28e7ce2505e23826d6dbd87df063a497
 		<Cursor>
 			<Cursor1 position="2776" topLine="59" />
 		</Cursor>
@@ -44,7 +53,16 @@
 	</File>
 	<File name="src\Sommet.cpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
+<<<<<<< HEAD
+<<<<<<< HEAD
+			<Cursor1 position="521" topLine="36" />
+>>>>>>> 36bd2f437e4ea3b9dea700e53d50fd7091b0124e
+=======
+			<Cursor1 position="540" topLine="17" />
+>>>>>>> 6dbd61fb2929f0c52c539797783789af99145ff3
+=======
 			<Cursor1 position="0" topLine="93" />
+>>>>>>> 9369b34d28e7ce2505e23826d6dbd87df063a497
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

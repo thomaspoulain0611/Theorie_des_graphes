@@ -26,9 +26,7 @@ public:
     double trouverpoids(int s1,int s2);
 
 
-    void dessiner(Svgfile& svgout);
-    void ecrireTousPoids(Svgfile& svgout);
-    void ecrireTousNoms(Svgfile& svgout);
+
     void centralitedegre();
     void rempliradj();
     Sommet*trouversommetindice(int indice);
@@ -42,11 +40,12 @@ public:
    void centralitevp();
     void affichercentralite();
 
-    void dessinerTous(int& nom, int& poids);
+    void dessinerTous(int& nom, int& poids,int&cdn,int&cd,int&cpn,int&cp);
 
     void enregistrer(std::ofstream& ofs);
 
-    void addSommet();
+    std::vector<int> bfs (Sommet s);
+    void comp_connexe(Sommet s);
 
 
     friend std::ostream& operator<<(std::ostream& out, const Graphe& r)
