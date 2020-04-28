@@ -1,4 +1,5 @@
 #include "Sommet.h"
+#include <sstream>
 
 Sommet::Sommet(std::istream& is)
 {
@@ -125,4 +126,31 @@ void Sommet::dessiner(Svgfile& svgout)
 void Sommet::ecrireNom(Svgfile& svgout)
 {
     svgout.addText(this->m_coords.first, this->m_coords.second, this->m_nom, "black");
+}
+
+void Sommet::ecrireCentraliteDegreN(Svgfile& svgout)
+{
+    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cdn),"green");
+}
+
+void Sommet::ecrireCentraliteDegre(Svgfile& svgout)
+{
+    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cd),"green");
+}
+
+void Sommet::ecrireCentraliteP(Svgfile& svgout)
+{
+    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cp),"green");
+}
+
+void Sommet::ecrireCentralitePN(Svgfile& svgout)
+{
+    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cpn),"green");
+}
+
+std::string Sommet::nbToStrg(int nombre)const
+{
+    std::ostringstream a;
+    a<<nombre;
+    return a.str();
 }

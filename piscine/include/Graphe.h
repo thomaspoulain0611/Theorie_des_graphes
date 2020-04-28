@@ -26,9 +26,7 @@ public:
     double trouverpoids(Sommet*s1,Sommet*s2);
 
 
-    void dessiner(Svgfile& svgout);
-    void ecrireTousPoids(Svgfile& svgout);
-    void ecrireTousNoms(Svgfile& svgout);
+
     void centralitedegre();
     void rempliradj();
 
@@ -38,7 +36,7 @@ public:
     double distanceproxi(std::vector<Sommet*>,Sommet*nouveau, Sommet*arrivee);
     void affichercentralite();
 
-    void dessinerTous(int& nom, int& poids);
+    void dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cp, int& cpn);
 
     void enregistrer(std::ofstream& ofs);
 

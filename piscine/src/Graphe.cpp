@@ -360,10 +360,17 @@ void Graphe::enregistrer(std::ofstream& ofs)
 
 
 }
+/*void Graphe::addSommet()
+{
+    Sommet *s= new Sommet;
+    std::cout<<"id : "<<std::endl;
+    std::cin>>s->
+}*/
 
-void Graphe::dessinerTous(int& nom, int& poids)
+void Graphe::dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cpn, int& cp)
 {
     Svgfile svgout;
+
     for(size_t i=0; i<m_sommets.size(); i++)
     {
         m_sommets[i]->dessiner(svgout);
@@ -373,6 +380,38 @@ void Graphe::dessinerTous(int& nom, int& poids)
         for(size_t i=0; i<m_sommets.size(); i++)
         {
             m_sommets[i]->ecrireNom(svgout);
+        }
+    }
+
+    if (cdn==1)
+    {
+        for (size_t i=0; i<m_sommets.size(); ++i)
+        {
+            m_sommets[i]->ecrireCentraliteDegreN(svgout);
+        }
+    }
+
+    if (cd==1)
+    {
+        for (size_t i=0; i<m_sommets.size(); ++i)
+        {
+            m_sommets[i]->ecrireCentraliteDegre(svgout);
+        }
+    }
+
+    if (cpn==1)
+    {
+        for (size_t i=0; i<m_sommets.size(); ++i)
+        {
+            m_sommets[i]->ecrireCentralitePN(svgout);
+        }
+    }
+
+    if (cp==1)
+    {
+        for (size_t i=0; i<m_sommets.size(); ++i)
+        {
+            m_sommets[i]->ecrireCentraliteP(svgout);
         }
     }
 
@@ -391,7 +430,7 @@ void Graphe::dessinerTous(int& nom, int& poids)
 
 }
 
-std::vector<int> Graphe::bfs (Sommet s)//recupère sommet de départ et retourne vecteur de prédécesseurs
+/*std::vector<int> Graphe::bfs (Sommet s)//recupère sommet de départ et retourne vecteur de prédécesseurs
 {
     int id=s.getId();
     std::vector<int> I_preds;//I_preds[i] donne le prédécesseur du sommet i
@@ -491,4 +530,4 @@ void Graphe::comp_connexe(int id)
     }
     while(s);//tant qu'il reste des sommets non découverts
 
-}
+}*/

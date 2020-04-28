@@ -9,22 +9,23 @@
 	<math.h>
 	<Sommet.h>
 
-1588066048 source:c:\users\lilia\piscine\piscine\src\graphe.cpp
+1588070002 source:c:\users\lilia\piscine\piscine\src\graphe.cpp
 	"Graphe.h"
 	<queue>
 	<stack>
 
-1588068754 c:\users\lilia\piscine\piscine\include\graphe.h
+1588069589 c:\users\lilia\piscine\piscine\include\graphe.h
 	<Arete.h>
 	<iostream>
 	<vector>
 	<fstream>
 	<Svgfile.h>
 
-1588067084 source:c:\users\lilia\piscine\piscine\src\sommet.cpp
+1588069588 source:c:\users\lilia\piscine\piscine\src\sommet.cpp
 	"Sommet.h"
+	<sstream>
 
-1588067084 c:\users\lilia\piscine\piscine\include\sommet.h
+1588069743 c:\users\lilia\piscine\piscine\include\sommet.h
 	<iostream>
 	<vector>
 	<fstream>
@@ -32,7 +33,7 @@
 	"math.h"
 	<Svgfile.h>
 
-1588067084 source:c:\users\lilia\piscine\piscine\main.cpp
+1588070435 source:c:\users\lilia\piscine\piscine\main.cpp
 	<iostream>
 	"Graphe.h"
 	"Svgfile.h"
@@ -75,7 +76,34 @@
 	<sstream>
 	<windows.h>
 
-1587986236 D
+1587994940 D
+
+1587981849 source:c:\users\apoll\essai\piscine\piscine\main.cpp
+	<iostream>
+
+1587986447 source:c:\users\apoll\essai\piscine\piscine\src\arete.cpp
+	"Arete.h"
+	<Sommet.h>
+
+1587986447 c:\users\apoll\essai\piscine\piscine\include\arete.h
+	<iostream>
+	<math.h>
+	<Sommet.h>
+
+1587986447 c:\users\apoll\essai\piscine\piscine\include\sommet.h
+	<iostream>
+	<vector>
+	<fstream>
+	<string>
+	"math.h"
+
+1587986447 source:c:\users\apoll\essai\piscine\piscine\src\sommet.cpp
+	"Sommet.h"
+
+1587986447 source:c:\users\apoll\essai\piscine\piscine\src\svgfile.cpp
+	"Svgfile.h"
+
+1587986447 c:\users\apoll\essai\piscine\piscine\include\svgfile.h
 
 1588063720 source:c:\users\thoma\piscine\piscine\src\graphe.cpp
 	"Graphe.h"
@@ -91,7 +119,17 @@
 
 1587994940 
 
-1588066104 c:\users\lilia\piscine\piscine\include\svgfile.h
+1588069588 c:\users\lilia\piscine\piscine\include\svgfile.h
+	<set>
+	<iostream>
+	<fstream>
+	<ostream>
+	<sstream>
+	<windows.h>
+
+1587986495 09972d9db5bc88f61a254342ab7563082a517
+
+1587986495 a32fa6ddedf31f3bda800ff250378f1092a08
 	<set>
 	<iostream>
 	<fstream>
@@ -101,7 +139,62 @@
 
 1587986495 dab09095b35b702ff24492896b27ee787cf56
 
-1587996708 source:c:\users\lilia\piscine\piscine\src\svgfile.cpp
+1588068766 source:c:\users\apoll\piscine\piscine\main.cpp
+	<iostream>
+	"Graphe.h"
+	"Svgfile.h"
+
+1588067410 c:\users\apoll\piscine\piscine\include\graphe.h
+	<Arete.h>
+	<iostream>
+	<vector>
+	<fstream>
+	<Svgfile.h>
+
+1588066110 c:\users\apoll\piscine\piscine\include\arete.h
+	<iostream>
+	<math.h>
+	<Sommet.h>
+
+1588067205 c:\users\apoll\piscine\piscine\include\sommet.h
+	<iostream>
+	<vector>
+	<fstream>
+	<string>
+	"math.h"
+	<Svgfile.h>
+
+1588002487 c:\users\apoll\piscine\piscine\include\svgfile.h
+	<set>
+	<iostream>
+	<fstream>
+	<ostream>
+	<sstream>
+	<windows.h>
+
+1588066709 source:c:\users\apoll\piscine\piscine\src\arete.cpp
+	"Arete.h"
+	<Sommet.h>
+	<sstream>
+
+1588067695 source:c:\users\apoll\piscine\piscine\src\graphe.cpp
+	"Graphe.h"
+	<queue>
+	<stack>
+
+1588069391 source:c:\users\apoll\piscine\piscine\src\sommet.cpp
+	"Sommet.h"
+	<sstream>
+
+1588019543 source:c:\users\apoll\piscine\piscine\src\svgfile.cpp
+	"Svgfile.h"
+	<iostream>
+
+1588069588 source:c:\users\lilia\piscine\piscine\src\svgfile.cpp
+	"Svgfile.h"
+	<iostream>
+
+1587996708 d2f437e4ea3b9dea700e53d50fd7091b0124e
 	"Svgfile.h"
 	<iostream>
 

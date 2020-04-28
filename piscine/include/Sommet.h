@@ -45,6 +45,12 @@ public:
     void dessiner(Svgfile& svgout);
     void ecrireNom(Svgfile& svgout);
 
+    void ecrireCentraliteDegreN(Svgfile& svgout);
+    void ecrireCentraliteDegre(Svgfile& svgout);
+    void ecrireCentraliteP(Svgfile& svgout);
+    void ecrireCentralitePN(Svgfile& svgout);
+    std::string nbToStrg(int nombre) const;
+
     friend std::ostream& operator<<(std::ostream&out, const Sommet&a)
     {
         std::cout<<"("<<a.getId()<<","<<a.getNom()<<","<<a.getx()<<","<<a.gety()<<")"<<std::endl;
@@ -61,7 +67,6 @@ private:
     double m_cdn;
     double m_cp;
     double m_cpn;
-
 
     std::pair<double,double>m_coords;
     std::string m_nom;
