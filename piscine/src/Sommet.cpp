@@ -54,6 +54,16 @@ double Sommet::getcd()const
     return m_cd;
 }
 
+std::vector<Sommet*> Sommet::getAdj()const
+{
+    return m_adj;
+}
+
+void Sommet::setVectAdj(std::vector<Sommet*> thomaslpb)
+{
+    m_adj=thomaslpb;
+}
+
 void Sommet::setcd( double cd)
 {
     m_cd=cd;

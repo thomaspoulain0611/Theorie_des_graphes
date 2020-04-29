@@ -37,9 +37,11 @@ public:
 
     size_t get_nb_adj() const;
     Sommet* get_adj(int x) const;
+    std::vector<Sommet*> getAdj()const;
 
     void rempliradj();
 
+    void setVectAdj(std::vector<Sommet*> thomaslpb);
     void setId(int id);
     void setcd(double cd);
     void setcdn(double cdn);

@@ -44,10 +44,10 @@ public:
 
     void enregistrer(std::ofstream& ofs);
 
-    std::vector<int> bfs ();
-    void comp_connexe();
-    void afficherBFS(std::vector<int> connex)const;
-
+    std::vector<int> bfs (int id);
+    int nb_comp_connexe(int idSommet);
+    void deleteArete(std::vector<int> id);
+    void deleteAreteIndice(std::vector<int> id);
 
     friend std::ostream& operator<<(std::ostream& out, const Graphe& r)
     {
