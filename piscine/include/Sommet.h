@@ -30,7 +30,7 @@ public:
     double getcpn()const;
     double getcvp()const;
     double getcsi()const;
-    double getcvpn()const;
+
     char get_color() const;
     double get_distance()const;
 
@@ -50,7 +50,7 @@ public:
     void setcpn(double cpn);
     void setcvp(double cvp);
     void setcsi(double csi);
-    void setcvpn(double cvpn);
+
     void setadj(Sommet* s1);
     void set_color(char color);
     void set_distance(double distance);
@@ -80,7 +80,7 @@ private:
     double m_cpn;
     double m_cvp;
     double m_csi;
-    double m_cvpn;
+
     std::pair<double,double>m_coords;
     std::string m_nom;
 

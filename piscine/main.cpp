@@ -144,9 +144,11 @@ int main()
     std::string fichier;
 
 
-    //a.centralitevp();
+    a.rempliradj();
 
-    a.centralitedegre();
+
+    a.centralitevp();
+     a.centralitedegre();
     a.centralitedegreN();
     a.poidsarete();
 

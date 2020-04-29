@@ -97,15 +97,7 @@ void Sommet::setcd( double cd)
      m_cvp=cvp;
     }
 
-    double Sommet::getcvpn()const
-    {
-        return m_cvpn;
-    }
 
-    void Sommet::setcvpn(double cvpn)
-    {
-        m_cvpn=cvpn;
-    }
 
     double Sommet::getcsi()const
     {

@@ -121,11 +121,13 @@ void Graphe::poidsarete ()
 void Graphe::centralitedegre()
 {
 
-    this->rempliradj();
+    //this->rempliradj();
     for(size_t i=0; i<m_sommets.size(); ++i)
     {
+        std::cout<<" nb adj:"<<m_sommets[i]->get_nb_adj()<<std::endl;
 
         m_sommets[i]->setcd((double)m_sommets[i]->get_nb_adj());
+        std::cout<<"cd"<<m_sommets[i]->getcd()<<std::endl;
        /* cd=0;
         for(size_t j=0; j<m_aretes.size(); ++j)
         {
@@ -349,7 +351,7 @@ double Graphe::dijkstraproxi(int depart,int arrivee)
 void Graphe::centraliteproxi()
 {
     double cp;
-    this->rempliradj();
+    //this->rempliradj();
 
 
 
@@ -391,22 +393,25 @@ void Graphe::centraliteproxiN()
     }
 }
 
-/*void Graphe::centralitevp()
+void Graphe::centralitevp()
 {
 
     double lambda=0;
     double csi=0;
-    std::stack<double>slambda;
+    double compteur=0;
 
-    this->rempliradj();
+
+   // this->rempliradj();
     for(size_t i=0;i<m_sommets.size();++i)
     {
         m_sommets[i]->setcvp(1);
     }
 
 
-        while ()
+        while (compteur<50)
+
         {
+            lambda=0;
                for(size_t i=0;i<m_sommets.size();++i)
                {
                    csi=0;
@@ -417,24 +422,30 @@ void Graphe::centraliteproxiN()
             for(size_t j=0;j<m_sommets[i]->get_nb_adj();++j)
             {
                csi+=m_sommets[i]->get_adj(j)->getcvp();
+
+
             }
             m_sommets[i]->setcsi(csi);
+            std::cout<<"csi :"<<m_sommets[i]->getcsi()<<std::endl;;
 
                }
             for (size_t k=0; k<m_sommets.size();++k)
             {
-                lambda+=pow(m_sommets[k]->getcsi(),2);
+                lambda+=pow(m_sommets[k]->getcsi(),(2));
             }
-            lambda=pow(lambda,1/2);
-            std::cout<<"lambda :"<<lambda<<std::endml;
+
+            lambda=sqrt(lambda);
+            std::cout<<"lambda :"<<lambda<<std::endl;
             for (size_t i=0; i<m_sommets.size();++i)
             {
                 m_sommets[i]->setcvp((m_sommets[i]->getcsi())/lambda);
+               std::cout<<"cvp "<<i<<":"<< m_sommets[i]->getcvp()<<std::endl;
             }
+            compteur++;
 
            // for (size_t l=0; )
         }
-    }*/
+    }
 
 
 void Graphe::rempliradj()
@@ -458,8 +469,8 @@ void Graphe::affichercentralite()
 {
     for (size_t i=0; i<m_sommets.size(); ++i)
     {
-        std::cout<<"indice :"<<m_sommets[i]->getId()<<", centralite degre non normalisee:"<<m_sommets[i]->getcd()<<", centralite degre normalisee:"<<m_sommets[i]->getcdn()<<", centralite proxi :"<<m_sommets[i]->getcp();
-        std::cout<<", centralite proxi normalisee:"<<m_sommets[i]->getcpn()<<std::endl;
+        std::cout<<"indice :"<<m_sommets[i]->getId()<<", cd:"<<m_sommets[i]->getcd()<<", cdn:"<<m_sommets[i]->getcdn()<<", cp :"<<m_sommets[i]->getcp();
+        std::cout<<", cpn:"<<m_sommets[i]->getcpn()<<" cvp:"<<m_sommets[i]->getcvp()<<std::endl;
 
     }
 }
