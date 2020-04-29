@@ -54,18 +54,18 @@ Graphe::Graphe(std::string nomFichier)
     }
 
 
-/*     int taille;
-     ifs>>taille;
-     if ( ifs.fail() )
-         throw std::runtime_error("Erreur de lecture de taille");
-     for (int i=0; i<ordre; ++i)
-     {
-         m_sommets.push_back(new Sommet{i+1});// vu que ca part de 0 on lui attribue la valeur i+1
-     }
-     for (int i=0; i<taille; ++i)
-     {
-         m_aretes.push_back(new Arete(ifs));// lire le prochain truc que le flux va lire
-     }*/
+    /*     int taille;
+         ifs>>taille;
+         if ( ifs.fail() )
+             throw std::runtime_error("Erreur de lecture de taille");
+         for (int i=0; i<ordre; ++i)
+         {
+             m_sommets.push_back(new Sommet{i+1});// vu que ca part de 0 on lui attribue la valeur i+1
+         }
+         for (int i=0; i<taille; ++i)
+         {
+             m_aretes.push_back(new Arete(ifs));// lire le prochain truc que le flux va lire
+         }*/
 }
 
 
@@ -127,6 +127,7 @@ void Graphe::centralitedegre()
         std::cout<<" nb adj:"<<m_sommets[i]->get_nb_adj()<<std::endl;
 
         m_sommets[i]->setcd((double)m_sommets[i]->get_nb_adj());
+
         std::cout<<"cd"<<m_sommets[i]->getcd()<<std::endl;
        /* cd=0;
         for(size_t j=0; j<m_aretes.size(); ++j)
@@ -135,6 +136,15 @@ void Graphe::centralitedegre()
            cd+=1;
         }
         m_sommets[i]->setcd(cd);*/
+
+        /* cd=0;
+         for(size_t j=0; j<m_aretes.size(); ++j)
+         {
+             if (m_aretes[j]->getindiceS1()==m_sommets[i]->getId()||m_aretes[j]->getindiceS2()==m_sommets[i]->getId())
+            cd+=1;
+         }
+         m_sommets[i]->setcd(cd);*/
+
 
 
     }
@@ -164,11 +174,11 @@ double Graphe::trouverpoids(int s1,int s2)
     for(size_t i=0; i<m_aretes.size(); ++i)
     {
         if (((m_aretes[i]->getindiceS1()==s1)&&(m_aretes[i]->getindiceS2()==s2))||((m_aretes[i]->getindiceS1()==s2)&&(m_aretes[i]->getindiceS2()==s1)))
-           {
+        {
 
-           poids=m_aretes[i]->getPoids();
+            poids=m_aretes[i]->getPoids();
 
-           }
+        }
 
     }
 
@@ -179,7 +189,7 @@ double Graphe::trouverpoids(int s1,int s2)
 Sommet*Graphe::trouversommetindice(int indice)
 {
     Sommet*s1;
-    for(size_t i=0; i<m_sommets.size();++i)
+    for(size_t i=0; i<m_sommets.size(); ++i)
     {
         if (m_sommets[i]->getId()==indice)
             s1=m_sommets[i];
@@ -189,8 +199,6 @@ Sommet*Graphe::trouversommetindice(int indice)
 
 
 double Graphe::dijkstraproxi(int depart,int arrivee)
-
-
 {
 
     std::vector<int> I_preds;//I_preds[i] donne le prédécesseur du sommet i
@@ -207,91 +215,63 @@ double Graphe::dijkstraproxi(int depart,int arrivee)
     {
         m_sommets[i]->set_color('B');//sommets non marqués
         m_sommets[i]->set_distance(1000000000000000000);//distance infinie
-         I_preds.push_back(-1);//autant de cases que de sommets
+        I_preds.push_back(-1);//autant de cases que de sommets
     }
 
     S=trouversommetindice(depart);
 
-
-    nb=S->get_nb_adj();//on recupère le nombre de successeurs du sommet parcouru
-
+    nb=S->get_nb_adj();//on recupère le nombre de successeurs du sommet parcour
     sommet=depart;//sommet actuel est celui de depart
-
-
 //tant qu'on arrive pas au sommet dont on souhaite connaitre le chemin
     while(sommet!=arrivee)
     {
         S=trouversommetindice(sommet);
-
         nb=S->get_nb_adj();//on recupère le nombre de successeurs du sommet parcouru
-
-
-
         for(size_t x=0; x<nb; ++x)//pour chaque successeur de sommet
         {
-
-        S=trouversommetindice(sommet);
-
-
-
-
+            S=trouversommetindice(sommet);
             succ=S->get_adj(x)->getId();//on récupère le sommet x
-
-
-
             poids=trouverpoids(sommet,succ);
-
-
-
             S=trouversommetindice(succ);
 
-
-
-
-                if(S->get_color()=='B')//si successeur non découvert
-                {
-
-                    //si poids de l'arête entre le sommet et son voisin + distance séparant le sommet actuel et le sommet de départ
-                    //donne une distance plus petite que la distance qu'il avait jusque là
-                    if(dist+poids<S->get_distance())
-                    {
-
-                        S->set_distance(dist+poids);//on donne à succ la nouvelle distance du chemin plus court
-
-                        I_preds.at(succ)=sommet;//on marque sommet comme prédécesseur de succ/
-
-                        //std::cout<<"sommet:"<<sommet->getId()<<std::endl;
-                        distances.push(dist+poids);//on ajoute cette nouvelle distance à la file de priorité
-
-                    }
-                    else
-                        distances.push(dist+S->get_distance());//sinon on ajoute l'ancienne distance (entre succ et sommet de départ) à la file
-                }
-            }
-
-
-            S=trouversommetindice(sommet);
-            S->set_color('N');//on marque le sommet parcouru
-            dist=distances.top();//distance du chemin le plus court est la valeur au top de la file de priorité
-            distances.pop();//on supprimme cette distance de la file
-
-            //on parcourt tous les sommets
-            for(size_t y=0; y<m_sommets.size(); ++y)
+            if(S->get_color()=='B')//si successeur non découvert
             {
-                //si on trouve le sommet correspondant au chemin le plus court et qu'il est non parcouru
-                if((m_sommets[y]->get_distance()==dist)&&(m_sommets[y]->get_color()=='B'))
-                {
-                    sommet=m_sommets[y]->getId();
-                    //ce sommet est le nouveau sommet de parcours
-                }
-            }
 
+                //si poids de l'arête entre le sommet et son voisin + distance séparant le sommet actuel et le sommet de départ
+                //donne une distance plus petite que la distance qu'il avait jusque là
+                if(dist+poids<S->get_distance())
+                {
+
+                    S->set_distance(dist+poids);//on donne à succ la nouvelle distance du chemin plus court
+
+                    I_preds.at(succ)=sommet;//on marque sommet comme prédécesseur de succ/
+
+                    //std::cout<<"sommet:"<<sommet->getId()<<std::endl;
+                    distances.push(dist+poids);//on ajoute cette nouvelle distance à la file de priorité
+
+                }
+                else
+                    distances.push(dist+S->get_distance());//sinon on ajoute l'ancienne distance (entre succ et sommet de départ) à la file
+            }
+        }
+        S=trouversommetindice(sommet);
+        S->set_color('N');//on marque le sommet parcouru
+        dist=distances.top();//distance du chemin le plus court est la valeur au top de la file de priorité
+        distances.pop();//on supprimme cette distance de la file
+
+        //on parcourt tous les sommets
+        for(size_t y=0; y<m_sommets.size(); ++y)
+        {
+            //si on trouve le sommet correspondant au chemin le plus court et qu'il est non parcouru
+            if((m_sommets[y]->get_distance()==dist)&&(m_sommets[y]->get_color()=='B'))
+            {
+                sommet=m_sommets[y]->getId();
+                //ce sommet est le nouveau sommet de parcours
+            }
         }
 
-
-         return dist;
-
-
+    }
+    return dist;
 }
 /*double Graphe::distanceproxi(std::vector<int> nouv,int depart, int arrivee)
 {
@@ -351,9 +331,13 @@ double Graphe::dijkstraproxi(int depart,int arrivee)
 void Graphe::centraliteproxi()
 {
     double cp;
+
     //this->rempliradj();
 
 
+
+
+    this->rempliradj();
 
     for (size_t i=0; i<m_sommets.size(); ++i)
     {
@@ -362,18 +346,16 @@ void Graphe::centraliteproxi()
         for (size_t j=0; j<m_sommets.size(); ++j)
         {
             if ((m_sommets[i]->getId())!=(m_sommets[j]->getId()))
-                {
+            {
 
-
-
-            cp+=dijkstraproxi(m_sommets[i]->getId(),m_sommets[j]->getId());
-            //cp+=distanceproxi(preds,m_sommets[i]->getId(),m_sommets[j]->getId());
-                }
+                cp+=dijkstraproxi(m_sommets[i]->getId(),m_sommets[j]->getId());
+                //cp+=distanceproxi(preds,m_sommets[i]->getId(),m_sommets[j]->getId());
+            }
             //ideal:: dijkstraproxi(m_sommets[i],m_sommets[j]
 
         }
         cp=1/cp;
-       m_sommets[i]->setcp(cp);
+        m_sommets[i]->setcp(cp);
 
     }
 }
@@ -489,11 +471,6 @@ for (size_t i=0; i<m_sommets.size();++i)
 
 }*/
 
-void Graphe::enregistrer(std::ofstream& ofs)
-{
-
-
-}
 
 /*void Graphe::addSommet()
 {
@@ -566,107 +543,204 @@ void Graphe::dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cpn, int
             m_aretes[i]->ecrirePoids(svgout);
         }
     }
-
 }
 
-/*std::vector<int> Graphe::bfs (Sommet s)//recupère sommet de départ et retourne vecteur de prédécesseurs
+void Graphe::deleteArete( std::vector<int> id)
 {
-    int id=s.getId();
+    int s1,s2;
+    int nbConnex;
+    std::vector<Sommet*> vect1, vect2;
+    for (size_t x=0; x<id.size(); x++)
+    {
+        for(size_t i=0; i<m_aretes.size(); i++)
+        {
+            if(m_aretes[i]->getindice()==id[x])
+            {
+                s1=m_aretes[i]->getindiceS1();
+                s2=m_aretes[i]->getindiceS2();
+                for(size_t j=0; j<m_sommets.size(); j++)
+                {
+                    if(m_sommets[j]->getId()==s1)
+                    {
+                        for(size_t k=0; k<m_sommets[j]->get_nb_adj(); k++)
+                        {
+                            if(m_sommets[j]->get_adj(k)->getId()==s2)
+                            {
+                                vect1=m_sommets[j]->getAdj();
+                                vect1.erase(vect1.begin()+k);
+                                m_sommets[j]->setVectAdj(vect1);
+                            }
+                        }
+                    }
+                    if(m_sommets[j]->getId()==s2)
+                    {
+                        for(size_t k=0; k<m_sommets[j]->get_nb_adj(); k++)
+                        {
+                            if(m_sommets[j]->get_adj(k)->getId()==s1)
+                            {
+                                vect2=m_sommets[j]->getAdj();
+                                vect2.erase(vect2.begin()+k);
+                                m_sommets[j]->setVectAdj(vect2);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    nbConnex=this->nb_comp_connexe(1);
+    if(nbConnex==1)
+    {
+        SetConsoleTextAttribute(hConsole, 14);
+        std::cout<<std::endl<<std::endl<<"Le graphe ne devient pas vulnerable si vous supprimez cette arete"<<std::endl;
+    }
+    else
+    {
+        SetConsoleTextAttribute(hConsole, 14);
+        std::cout<<std::endl<<std::endl<<"Le graphe devient vulnerable si vous supprimez cette arete"<<std::endl;
+    }
+}
+
+void Graphe::deleteAreteIndice(std::vector<int> id)
+{
+    int s1,s2;
+    //int nbConnex;
+    std::vector<Sommet*> vect1, vect2;
+    for (size_t x=0; x<id.size(); x++)
+    {
+        for(size_t i=0; i<m_aretes.size(); i++)
+        {
+            if(m_aretes[i]->getindice()==id[x])
+            {
+                s1=m_aretes[i]->getindiceS1();
+                s2=m_aretes[i]->getindiceS2();
+                for(size_t j=0; j<m_sommets.size(); j++)
+                {
+                    if(m_sommets[j]->getId()==s1)
+                    {
+                        for(size_t k=0; k<m_sommets[j]->get_nb_adj(); k++)
+                        {
+                            if(m_sommets[j]->get_adj(k)->getId()==s2)
+                            {
+                                vect1=m_sommets[j]->getAdj();
+                                vect1.erase(vect1.begin()+k);
+                                m_sommets[j]->setVectAdj(vect1);
+                            }
+                        }
+                    }
+                    if(m_sommets[j]->getId()==s2)
+                    {
+                        for(size_t k=0; k<m_sommets[j]->get_nb_adj(); k++)
+                        {
+                            if(m_sommets[j]->get_adj(k)->getId()==s1)
+                            {
+                                vect2=m_sommets[j]->getAdj();
+                                vect2.erase(vect2.begin()+k);
+                                m_sommets[j]->setVectAdj(vect2);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+std::vector<int> Graphe::bfs (int id)//recupère sommet de départ et retourne vecteur de prédécesseurs
+{
+    int sommet=-6;
     std::vector<int> I_preds;//I_preds[i] donne le prédécesseur du sommet i
     std::queue<int> file;//file déclaration
-    int succ=0;
+    int adj=0;
     size_t nb=0;
-
+    Sommet* S=nullptr;
     //on met tous les sommets en blanc: non parcourus
     for(size_t i=0; i<m_sommets.size(); ++i)
     {
         m_sommets[i]->set_color('B');
     }
-
     //on crée un vecteur de predecesseurs avec chaque case initialisée à -1
     for(size_t y=0; y<m_sommets.size(); ++y)
     {
         I_preds.push_back(-1);
     }
-
+    S=trouversommetindice(id);
     //on ajoute le sommet initial à la file et on le colorie en gris
-    file.push(id);
-    m_sommets[id]->set_color('G');
-
+    sommet=id;
+    file.push(sommet);
+    S->set_color('G');
     while(!file.empty())//tant que la file n'est pas vide
     {
-        nb=m_sommets[id]->get_nb_succ();//on recupère le nombre de successeurs du sommet parcouru
+        S=trouversommetindice(sommet);
+        nb=S->get_nb_adj();//on recupère le nombre de successeurs du sommet parcouru
         file.pop();//on supprime premier élément de la file
-
         for(size_t i=0; i<nb; ++i)//tant que successeur
         {
-            succ=m_sommets[id]->get_succ(i);//on récupère valeur du successeur i
-
-            if(m_sommets[succ]->get_color()=='B')//s'il n'a pas été parcouru, on le met en gris
+            S=trouversommetindice(sommet);
+            adj=S->get_adj(i)->getId();//on récupère valeur du successeur i
+            S=trouversommetindice(adj);
+            if(S->get_color()=='B')//s'il n'a pas été parcouru, on le met en gris
             {
-                m_sommets[succ]->set_color('G');
-                I_preds.at(succ)=id;//sommet est son predecesseur
-                file.push(succ);//on l'ajoute à la file
+                S->set_color('G');
+                I_preds.at(adj)=sommet;//sommet est son predecesseur
+                file.push(adj);//on l'ajoute à la file
             }
         }
-        m_sommets[id]->set_color('N');//sommet parcouru donc noir
-
+        S=trouversommetindice(sommet);
+        S->set_color('N');//sommet parcouru donc noir
         if(!file.empty())//si la file n'est pas vide
-            id=file.front();//le sommet de parcours est le sommet en tête de file
-
+            sommet=file.front();//le sommet de parcours est le sommet en tête de file
     }
-
     return I_preds;//on retourne le vecteur affectant à chaque sommet un prédécesseur (case 0: prédécesseur du sommet 0, etc)
 }
 
-void Graphe::comp_connexe(int id)
+int Graphe::nb_comp_connexe(int idSommet)
 {
+
     //déclaration et initialisation des variables
     std::vector<int> composante;//pour stocker tous les sommets découverts dans une composante
     std::vector<int> I_preds;//vecteur des prédécesseurs
     int j=1;
     bool s;
-
     do//tant qu'il y a des sommets non découverts
     {
         s=false;//on part du principe que tout a été découvert
-        I_preds=bfs(sommet);//parcours bfs à partir d'un sommet pour marquer sommets de sa composante
-
+        I_preds=bfs(idSommet);//parcours bfs à partir d'un sommet pour marquer sommets de sa composante
+        SetConsoleTextAttribute(hConsole, 8);
         std::cout<<std::endl<<"composante connexe "<<j<<" : ";
         //on cherche dans le vecteur I_preds tous les sommets de la composante de sommet après découverte par bfs
         for(size_t i=0; i<I_preds.size(); ++i)
         {
-            if((I_preds[i]!=-1)||(i==sommet))//s'il sagit du sommet de départ ou de sommets de sa composante
+            if((I_preds[i]!=-1)||((int)i==idSommet))//s'il sagit du sommet de départ ou de sommets de sa composante
             {
                 composante.push_back(i);//sommet découvert
-                std::cout<<i<<" ";//on affiche ce sommet
+                SetConsoleTextAttribute(hConsole, 8);
+                std::cout<<i<<" ";
             }
         }
-
         ++j;//incrémente pour jième composante
         I_preds.clear();//vide le vecteur
-
         for(size_t w=0; w<m_sommets.size(); ++w)//pour chaque sommet du graphe
         {
             int compt=0;
-
-            if(m_sommets[w]->get_color()=='B')//si sommet non découvert lors de ce parcours bfs
-            {
-                for(size_t h=0; h<composante.size(); ++h)//on cherche si ce sommet a été découvert avant
+                if((m_sommets[w]->get_color()=='B'))
                 {
-                    if((int)w!=composante[h])
-                        ++compt;
+                    for(size_t h=0; h<composante.size(); ++h)//on cherche si ce sommet a été découvert avant
+                    {
+                        if((int)w!=composante[h])
+                            ++compt;
+                    }
+                    if(compt==(int)composante.size())//si le sommet n'a jamais été découvert lors des parcours précédents
+                    {
+                        s=true;//il reste des sommets non marqués
+                        idSommet=w;//le nouveau sommet de parcours est ce sommet non marqué
+                        w=m_sommets.size();//on sort de la boucle
+                    }
                 }
-                if(compt==(int)composante.size())//si le sommet n'a jamais été découvert lors des parcours précédents
-                {
-                    s=true;//il reste des sommets non marqués
-                    sommet=w;//le nouveau sommet de parcours est ce sommet non marqué
-                    w=m_sommets.size();//on sort de la boucle
-                }
-            }
         }
-
     }
-    while(s);//tant qu'il reste des sommets non découverts
+    while(s);//tant qu'il reste des sommets non découvert
 
-}*/
+    return j-1;
+}
+

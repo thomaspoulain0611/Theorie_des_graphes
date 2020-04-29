@@ -6,6 +6,7 @@
 #include <string>
 #include "math.h"
 #include <Svgfile.h>
+#include <queue>
 
 
 class Sommet
@@ -36,13 +37,11 @@ public:
 
     size_t get_nb_adj() const;
     Sommet* get_adj(int x) const;
+    std::vector<Sommet*> getAdj()const;
 
     void rempliradj();
 
-
-
-
-
+    void setVectAdj(std::vector<Sommet*> thomaslpb);
     void setId(int id);
     void setcd(double cd);
     void setcdn(double cdn);
@@ -54,7 +53,6 @@ public:
     void setadj(Sommet* s1);
     void set_color(char color);
     void set_distance(double distance);
-
 
     void dessiner(Svgfile& svgout);
     void ecrireNom(Svgfile& svgout);
@@ -72,6 +70,7 @@ public:
 private:
     int m_id;
     std::vector<Sommet*>m_adj;
+
     char m_couleur;
     double m_distance;
     double m_cd;

@@ -54,11 +54,15 @@ double Sommet::getcd()const
     return m_cd;
 }
 
-void Sommet::setcd( double cd)
+std::vector<Sommet*> Sommet::getAdj()const
 {
-    m_cd=cd;
+    return m_adj;
 }
 
+void Sommet::setVectAdj(std::vector<Sommet*> thomaslpb)
+{
+    m_adj=thomaslpb;
+}
 
     double Sommet::getcdn()const
     {
@@ -98,17 +102,10 @@ void Sommet::setcd( double cd)
     }
 
 
-
-    double Sommet::getcsi()const
-    {
-        return m_csi;
-
-    }
-
-    void Sommet::setcsi(double csi)
-    {
-        m_csi=csi;
-    }
+void Sommet::setcd( double cd)
+{
+    m_cd=cd;
+}
 
 
 
@@ -116,12 +113,26 @@ void Sommet::setcd( double cd)
 
 
 
+
+
+
+double Sommet::getcsi()const
+{
+    return m_csi;
+
+}
+
+void Sommet::setcsi(double csi)
+{
+    m_csi=csi;
+}
 
 char Sommet::get_color() const
 
 {
     return m_couleur;// on récupère la couleur du sommet
 }
+
 void Sommet::set_color(char color)
 {
     m_couleur=color;// on attribue une couleur au sommmet considéré
