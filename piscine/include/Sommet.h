@@ -6,14 +6,17 @@
 #include <string>
 #include "math.h"
 #include <Svgfile.h>
+#include <queue>
 
 
 class Sommet
 {
+
 public:
 
     Sommet(std::istream& is);
-    Sommet(int id);
+
+
     ~Sommet();
 
     int getId()const;
@@ -21,10 +24,14 @@ public:
     double getx()const;
     double gety()const;
 
+
     double getcd()const;
     double getcdn()const;
     double getcp()const;
     double getcpn()const;
+    double getcvp()const;
+    double getcsi()const;
+    double getcvpn()const;
     char get_color() const;
     double get_distance()const;
 
@@ -38,14 +45,15 @@ public:
     void setcdn(double cdn);
     void setcp(double cp);
     void setcpn(double cpn);
+    void setcvp(double cvp);
+    void setcsi(double csi);
+    void setcvpn(double cvpn);
     void setadj(Sommet* s1);
     void set_color(char color);
     void set_distance(double distance);
 
-
     void dessiner(Svgfile& svgout);
     void ecrireNom(Svgfile& svgout);
-
     void ecrireCentraliteDegreN(Svgfile& svgout);
     void ecrireCentraliteDegre(Svgfile& svgout);
     void ecrireCentraliteP(Svgfile& svgout);
@@ -57,20 +65,23 @@ public:
         std::cout<<"("<<a.getId()<<","<<a.getNom()<<","<<a.getx()<<","<<a.gety()<<")"<<std::endl;
         return out;
     }
-
 private:
     int m_id;
     std::vector<Sommet*>m_adj;
+
     char m_couleur;
     double m_distance;
-
     double m_cd;
     double m_cdn;
     double m_cp;
     double m_cpn;
-
+    double m_cvp;
+    double m_csi;
+    double m_cvpn;
     std::pair<double,double>m_coords;
     std::string m_nom;
+
+
 };
 
 #endif // SOMMET_H

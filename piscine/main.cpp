@@ -11,7 +11,7 @@ void menu( std::string& commande, std::string& fichier, int& nom, int& poids, in
 
     std::cout<<std::endl<<"Options :"<<std::endl;
     SetConsoleTextAttribute(hConsole, 15);
-    std::cout<<std::endl<<"exit"<<std::endl<<"dessiner"<<std::endl<<"afficher (graphe console)"<<std::endl<<"afficher poids"<<std::endl<<"enlever poids"<<std::endl<<"afficher Noms"<<std::endl<<"enlever noms"<<std::endl<<"indice centralite degre normalise"<<std::endl<<"indice centralite degre"<<std::endl<<"incide centralite proxi normalise"<<std::endl<<"indice centralite proxi"<<std::endl<<"vulnerabilite"<<std::endl<<"save (dans un fichier)"<<std::endl<<std::endl<<std::endl<<">";
+    std::cout<<std::endl<<"exit"<<std::endl<<"dessiner"<<std::endl<<"afficher (graphe console)"<<std::endl<<"afficher poids"<<std::endl<<"enlever poids"<<std::endl<<"afficher Noms"<<std::endl<<"enlever noms"<<std::endl<<"indice centralite degre normalise"<<std::endl<<"indice centralite degre"<<std::endl<<"incide centralite proxi normalise"<<std::endl<<"indice centralite proxi"<<std::endl<<"save (dans un fichier)"<<std::endl<<std::endl<<std::endl<<">";
     SetConsoleTextAttribute(hConsole, 10);
     std::getline(std::cin, commande);
     SetConsoleTextAttribute(hConsole, 15);
@@ -127,14 +127,6 @@ void menu( std::string& commande, std::string& fichier, int& nom, int& poids, in
         SetConsoleTextAttribute(hConsole, 14);
         std::cout<<std::endl<<"Les indices de centralité proxi non normalises ont ete affiches avec succes "<<std::endl;
     }
-    else if (commande=="vulnerabilite")
-    {
-        a.poidsarete();
-        a.centralitedegre();
-        a.centralitedegreN();
-        a.vulnerabilite();
-        fflush(stdin);
-    }
     else
     {
         SetConsoleTextAttribute(hConsole, 12);
@@ -145,13 +137,24 @@ void menu( std::string& commande, std::string& fichier, int& nom, int& poids, in
 
 int main()
 {
+    Graphe a("graphe.txt");
 
     std::string commande;
     std::string fichier;
 
+    //a.centralitevp();
+    //a.centralitedegre();
+    //a.centralitedegreN();
+    a.poidsarete();
+    //a.centraliteproxi();
+    //a.centraliteproxiN();
     //a.affichercentralite();
 
-    int poids;
+    a.afficherBFS(a.bfs());
+    std::cout<<std::endl;
+    a.comp_connexe();
+
+    /*int poids;
     int nom;
     int cdn;
     int cd;
@@ -160,16 +163,14 @@ int main()
 
     std::cout<<"nom du fichier : ";
     std::cin>>fichier;
+    fflush(stdin);
+
     do
     {
         menu(commande, fichier, nom, poids,cdn, cd, cpn, cp);
     }
     while(commande!="exit");
-
-    /*Graphe a("graphe.txt");
-    a.poidsarete();
-    std::cout<<a<<std::endl;
-    a.vulnerabilite();*/
+*/
 
 
     return 0;

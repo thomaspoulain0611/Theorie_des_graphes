@@ -17,10 +17,6 @@ Sommet::Sommet(std::istream& is)
 
 }
 
-Sommet::Sommet(int id)
-{
-    m_id=id;
-}
 
 Sommet::~Sommet()
 {
@@ -63,6 +59,7 @@ void Sommet::setcd( double cd)
     m_cd=cd;
 }
 
+
 double Sommet::getcdn()const
 {
     return m_cdn;
@@ -90,10 +87,43 @@ void Sommet::setcpn(double cpn)
     m_cpn=cpn;
 }
 
+double Sommet::getcvp()const
+{
+    return m_cvp;
+}
+
+void Sommet::setcvp(double cvp)
+{
+    m_cvp=cvp;
+}
+
+double Sommet::getcvpn()const
+{
+    return m_cvpn;
+}
+
+void Sommet::setcvpn(double cvpn)
+{
+    m_cvpn=cvpn;
+}
+
+double Sommet::getcsi()const
+{
+    return m_csi;
+
+}
+
+void Sommet::setcsi(double csi)
+{
+    m_csi=csi;
+}
+
 char Sommet::get_color() const
+
 {
     return m_couleur;// on récupère la couleur du sommet
 }
+
 void Sommet::set_color(char color)
 {
     m_couleur=color;// on attribue une couleur au sommmet considéré
@@ -121,7 +151,6 @@ void Sommet::setadj(Sommet* s1)
 {
     m_adj.push_back(s1);
 }
-
 
 void Sommet::dessiner(Svgfile& svgout)
 {

@@ -23,28 +23,34 @@ public:
     //void setTaille(int taille);
     void setOrient(int orient);
     void poidsarete();
-    double trouverpoids(Sommet*s1,Sommet*s2);
+    double trouverpoids(int s1,int s2);
+
+
 
     void centralitedegre();
     void rempliradj();
+    Sommet*trouversommetindice(int indice);
 
     void centralitedegreN();
     void centraliteproxi();
-    std::vector<Sommet*>dijkstraproxi(Sommet*depart,Sommet*arrivee);
-    double distanceproxi(std::vector<Sommet*>,Sommet*nouveau, Sommet*arrivee);
+    double dijkstraproxi(int depart,int arrivee);
+    // double distanceproxi(std::vector<int>preds, int depart, int arrivee);
+    void centraliteproxiN();
+
+    void centralitevp();
     void affichercentralite();
 
-    void dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cp, int& cpn);
+    void dessinerTous(int& nom, int& poids,int&cdn,int&cd,int&cpn,int&cp);
 
     void enregistrer(std::ofstream& ofs);
 
-    std::vector<int> bfs(int id);
-    void comp_connexe(int id);
-    void vulnerabilite();
+    std::vector<int> bfs ();
+    void comp_connexe();
+    void afficherBFS(std::vector<int> connex)const;
+
 
     friend std::ostream& operator<<(std::ostream& out, const Graphe& r)
     {
-
         out<<"Graphe d'orientation :"<<r.getOrient()<<std::endl;
         out <<"Graphe d'ordre :"<< r.getOrdre()<<std::endl;
         for (const auto t:r.m_sommets)
