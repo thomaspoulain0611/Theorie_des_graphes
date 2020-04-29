@@ -419,18 +419,18 @@ void Graphe::rempliradj()
         }
     }
 }
+
 void Graphe::affichercentralite()
 {
     for (size_t i=0; i<m_sommets.size(); ++i)
     {
-        std::cout<<"indice :"<<m_sommets[i]->getId()<<", centralite degre non normalisee:"<<m_sommets[i]->getcd()<<", centralite degre normalisee:"<<m_sommets[i]->getcdn()<<", centralite proxi :"<<m_sommets[i]->getcp();
-        std::cout<<", centralite proxi normalisee:"<<m_sommets[i]->getcpn()<<std::endl;
-
+        std::cout<<std::endl<<"indice : "<<m_sommets[i]->getId()<<std::endl;
+        std::cout<<"centralite degre non normalisee : "<<m_sommets[i]->getcd()<<std::endl;
+        std::cout<<"centralite degre normalisee : "<<m_sommets[i]->getcdn()<<std::endl;
+        std::cout<<"centralite proxi : "<<m_sommets[i]->getcp()<<std::endl;
+        std::cout<<"centralite proxi normalisee : "<<m_sommets[i]->getcpn()<<std::endl;
     }
 }
-
-
-
 
 
 /*if(m_orient==1)
@@ -442,81 +442,6 @@ for (size_t i=0; i<m_sommets.size();++i)
 {
 
 }*/
-
-
-/*void Graphe::addSommet()
-{
-    Sommet *s= new Sommet;
-    std::cout<<"id : "<<std::endl;
-    std::cin>>s->
-}*/
-
-
-
-
-
-void Graphe::dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cpn, int& cp)
-{
-    Svgfile svgout;
-
-    for(size_t i=0; i<m_sommets.size(); i++)
-    {
-        m_sommets[i]->dessiner(svgout);
-    }
-    if(nom==1)
-    {
-        for(size_t i=0; i<m_sommets.size(); i++)
-        {
-            m_sommets[i]->ecrireNom(svgout);
-        }
-    }
-
-    if (cdn==1)
-    {
-        for (size_t i=0; i<m_sommets.size(); ++i)
-        {
-            m_sommets[i]->ecrireCentraliteDegreN(svgout);
-        }
-    }
-
-    if (cd==1)
-    {
-        for (size_t i=0; i<m_sommets.size(); ++i)
-        {
-            m_sommets[i]->ecrireCentraliteDegre(svgout);
-        }
-    }
-
-    if (cpn==1)
-    {
-        for (size_t i=0; i<m_sommets.size(); ++i)
-        {
-            m_sommets[i]->ecrireCentralitePN(svgout);
-        }
-    }
-
-    if (cp==1)
-    {
-        for (size_t i=0; i<m_sommets.size(); ++i)
-        {
-            m_sommets[i]->ecrireCentraliteP(svgout);
-        }
-    }
-
-    for(size_t i=0; i<m_aretes.size(); i++)
-    {
-
-        m_aretes[i]->dessiner(svgout);
-    }
-    if(poids==1)
-    {
-        for(size_t i=0; i<m_aretes.size(); i++)
-        {
-            m_aretes[i]->ecrirePoids(svgout);
-        }
-    }
-}
-
 void Graphe::deleteArete( std::vector<int> id)
 {
     int s1,s2;
@@ -576,7 +501,6 @@ void Graphe::deleteArete( std::vector<int> id)
 void Graphe::deleteAreteIndice(std::vector<int> id)
 {
     int s1,s2;
-    int nbConnex;
     std::vector<Sommet*> vect1, vect2;
     for (size_t x=0; x<id.size(); x++)
     {
@@ -616,6 +540,11 @@ void Graphe::deleteAreteIndice(std::vector<int> id)
             }
         }
     }
+
+    this->centralitedegre();
+    this->centralitedegreN();
+    this->centraliteproxi();
+    this->centraliteproxiN();
 }
 
 std::vector<int> Graphe::bfs (int id)//recupère sommet de départ et retourne vecteur de prédécesseurs
@@ -695,20 +624,20 @@ int Graphe::nb_comp_connexe(int idSommet)
         for(size_t w=0; w<m_sommets.size(); ++w)//pour chaque sommet du graphe
         {
             int compt=0;
-                if((m_sommets[w]->get_color()=='B'))
+            if((m_sommets[w]->get_color()=='B'))
+            {
+                for(size_t h=0; h<composante.size(); ++h)//on cherche si ce sommet a été découvert avant
                 {
-                    for(size_t h=0; h<composante.size(); ++h)//on cherche si ce sommet a été découvert avant
-                    {
-                        if((int)w!=composante[h])
-                            ++compt;
-                    }
-                    if(compt==(int)composante.size())//si le sommet n'a jamais été découvert lors des parcours précédents
-                    {
-                        s=true;//il reste des sommets non marqués
-                        idSommet=w;//le nouveau sommet de parcours est ce sommet non marqué
-                        w=m_sommets.size();//on sort de la boucle
-                    }
+                    if((int)w!=composante[h])
+                        ++compt;
                 }
+                if(compt==(int)composante.size())//si le sommet n'a jamais été découvert lors des parcours précédents
+                {
+                    s=true;//il reste des sommets non marqués
+                    idSommet=w;//le nouveau sommet de parcours est ce sommet non marqué
+                    w=m_sommets.size();//on sort de la boucle
+                }
+            }
         }
     }
     while(s);//tant qu'il reste des sommets non découvert
@@ -716,3 +645,88 @@ int Graphe::nb_comp_connexe(int idSommet)
     return j-1;
 }
 
+void Graphe::dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cpn, int& cp)
+{
+    Svgfile svgout;
+    Sommet* t1, t2, t3, t4;
+
+    if(nom==0 && poids==0 && cdn==0 && cdn==0 && cd==0 && cpn==0 && cp==0)
+    {
+        for(size_t i=0; i<m_sommets.size(); i++)
+        {
+            m_sommets[i]->dessiner(svgout);
+        }
+    }
+    if(nom==1)
+    {
+        for(size_t i=0; i<m_sommets.size(); i++)
+        {
+            m_sommets[i]->dessiner(svgout);
+            m_sommets[i]->ecrireNom(svgout);
+        }
+    }
+    if (cdn==1)
+    {
+        for (size_t i=0; i<m_sommets.size(); ++i)
+        {
+            m_sommets[i]->ecrireCentraliteDegreN(svgout);
+            if(m_sommets[i+1]->getcdn()> m_sommets[i]->getcdn())
+            {
+                t1=m_sommets[i+1];
+            }
+        }
+        svgout.addDisk(t1->getx(),t1->gety(),12,"red");
+        for ()
+    }
+
+    if (cd==1)
+    {
+        for (size_t i=0; i<m_sommets.size(); ++i)
+        {
+            m_sommets[i]->ecrireCentraliteDegre(svgout);
+            if(m_sommets[i+1]->getcd()> m_sommets[i]->getcd())
+            {
+                t2=m_sommets[i+1];
+            }
+        }
+        svgout.addDisk(t2->getx(),t2->gety(),12,"red");
+    }
+
+    if (cpn==1)
+    {
+        for (size_t i=0; i<m_sommets.size(); ++i)
+        {
+            m_sommets[i]->ecrireCentralitePN(svgout);
+            if(m_sommets[i+1]->getcpn()> m_sommets[i]->getcpn())
+            {
+                t3=m_sommets[i+1];
+            }
+        }
+        svgout.addDisk(t3->getx(),t3->gety(),12,"red");
+    }
+
+    if (cp==1)
+    {
+        for (size_t i=0; i<m_sommets.size(); ++i)
+        {
+            m_sommets[i]->ecrireCentraliteP(svgout);
+            if(m_sommets[i+1]->getcp()> m_sommets[i]->getcp())
+            {
+                t4=m_sommets[i+1];
+            }
+        }
+        svgout.addDisk(t4->getx(),t4->gety(),12,"red");
+    }
+    for(size_t i=0; i<m_aretes.size(); i++)
+    {
+
+        m_aretes[i]->dessiner(svgout);
+    }
+    if(poids==1)
+    {
+        for(size_t i=0; i<m_aretes.size(); i++)
+        {
+            m_aretes[i]->ecrirePoids(svgout);
+        }
+    }
+}

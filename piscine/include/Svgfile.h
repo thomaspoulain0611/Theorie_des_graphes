@@ -6,6 +6,7 @@
 #include <ostream>
 #include <sstream>
 #include <windows.h>
+
 extern HANDLE hConsole;
 constexpr char defcol[] = "black";
 class Svgfile
