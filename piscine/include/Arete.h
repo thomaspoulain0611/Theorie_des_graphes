@@ -27,7 +27,7 @@ class Arete
 
         void dessiner(Svgfile& svgout);
         void ecrirePoids(Svgfile& svgout);
-        std::string nbToStrg(int nombre)const;
+        std::string nbToStrg(double nombre)const;
 
          friend std::ostream& operator<<(std::ostream&out, const Arete&a)
     {

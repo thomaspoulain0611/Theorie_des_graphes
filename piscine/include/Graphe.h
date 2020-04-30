@@ -1,18 +1,20 @@
 #ifndef GRAPHE_H
 #define GRAPHE_H
 
-
 #include <Arete.h>
 #include <iostream>
 #include <vector>
 #include <fstream>
 #include <Svgfile.h>
+#include <iterator>
+#include <numeric>
+#include <algorithm>
 
 class Graphe
 {
 public:
     Graphe(std::string nomFichier);
-    Graphe();
+
     virtual ~Graphe();
 
     int getOrdre()const;
@@ -25,7 +27,7 @@ public:
     void poidsarete();
     double trouverpoids(int s1,int s2);
 
-
+    void enregistrer();
 
     void centralitedegre();
     void rempliradj();
@@ -41,8 +43,6 @@ public:
     void affichercentralite();
 
     void dessinerTous(int& nom, int& poids,int&cdn,int&cd,int&cpn,int&cp);
-
-    void enregistrer(std::ofstream& ofs);
 
     std::vector<int> bfs (int id);
     int nb_comp_connexe(int idSommet);

@@ -69,7 +69,7 @@ void Arete::assimpoids(std::string nomFichier)
     }
 }
 
-std::string Arete::nbToStrg(int nombre)const
+std::string Arete::nbToStrg(double nombre)const
 {
     std::ostringstream a;
     a<<nombre;

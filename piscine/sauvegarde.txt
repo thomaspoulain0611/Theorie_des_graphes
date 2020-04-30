@@ -1,0 +1,5 @@
+id: 0| cd: 1| cdn: 0.25| cp: incalculable | cpn: incalculable
+id: 1| cd: 1| cdn: 0.25| cp: incalculable | cpn: incalculable
+id: 2| cd: 3| cdn: 0.75| cp: incalculable | cpn: incalculable
+id: 3| cd: 1| cdn: 0.25| cp: incalculable | cpn: incalculable
+id: 4| cd: 0| cdn: 0| cp: incalculable | cpn: incalculable

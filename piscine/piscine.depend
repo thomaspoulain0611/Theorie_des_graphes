@@ -1,31 +1,34 @@
 # depslib dependency file v1.0
-1588189211 source:c:\users\lilia\piscine\piscine\src\arete.cpp
+1588237968 source:c:\users\lilia\piscine\piscine\src\arete.cpp
 	"Arete.h"
 	<Sommet.h>
 	<sstream>
 
-1588089567 c:\users\lilia\piscine\piscine\include\arete.h
+1588237959 c:\users\lilia\piscine\piscine\include\arete.h
 	<iostream>
 	<math.h>
 	<Sommet.h>
 
-1588189981 source:c:\users\lilia\piscine\piscine\src\graphe.cpp
+1588242761 source:c:\users\lilia\piscine\piscine\src\graphe.cpp
 	"Graphe.h"
 	<queue>
 	<stack>
 
-1588178790 c:\users\lilia\piscine\piscine\include\graphe.h
+1588242791 c:\users\lilia\piscine\piscine\include\graphe.h
 	<Arete.h>
 	<iostream>
 	<vector>
 	<fstream>
 	<Svgfile.h>
+	<iterator>
+	<numeric>
+	<algorithm>
 
-1588189211 source:c:\users\lilia\piscine\piscine\src\sommet.cpp
+1588238053 source:c:\users\lilia\piscine\piscine\src\sommet.cpp
 	"Sommet.h"
 	<sstream>
 
-1588168687 c:\users\lilia\piscine\piscine\include\sommet.h
+1588237959 c:\users\lilia\piscine\piscine\include\sommet.h
 	<iostream>
 	<vector>
 	<fstream>
@@ -34,17 +37,17 @@
 	<Svgfile.h>
 	<queue>
 
-1588188564 source:c:\users\lilia\piscine\piscine\main.cpp
+1588242761 source:c:\users\lilia\piscine\piscine\main.cpp
 	<iostream>
 	"Graphe.h"
 	"Svgfile.h"
 
-1588087308 source:c:\users\thoma\piscine\piscine\main.cpp
+1588191279 source:c:\users\thoma\piscine\piscine\main.cpp
 	<iostream>
 	"Graphe.h"
 	"Svgfile.h"
 
-1588086062 source:c:\users\thoma\piscine\piscine\src\arete.cpp
+1588181786 source:c:\users\thoma\piscine\piscine\src\arete.cpp
 	"Arete.h"
 	<Sommet.h>
 	<sstream>
@@ -54,15 +57,16 @@
 	<math.h>
 	<Sommet.h>
 
-1588086611 c:\users\thoma\piscine\piscine\include\sommet.h
+1588181736 c:\users\thoma\piscine\piscine\include\sommet.h
 	<iostream>
 	<vector>
 	<fstream>
 	<string>
 	"math.h"
 	<Svgfile.h>
+	<queue>
 
-1588086810 source:c:\users\thoma\piscine\piscine\src\sommet.cpp
+1588184483 source:c:\users\thoma\piscine\piscine\src\sommet.cpp
 	"Sommet.h"
 	<sstream>
 
@@ -78,7 +82,7 @@
 	<sstream>
 	<windows.h>
 
-1587994940 D
+1587986447 D
 
 1587981849 source:c:\users\apoll\essai\piscine\piscine\main.cpp
 	<iostream>
@@ -107,12 +111,17 @@
 
 1587986447 c:\users\apoll\essai\piscine\piscine\include\svgfile.h
 
-1588087365 source:c:\users\thoma\piscine\piscine\src\graphe.cpp
+1588185551 source:c:\users\thoma\piscine\piscine\src\graphe.cpp
 	"Graphe.h"
 	<queue>
 	<stack>
 
-1588087170 c:\users\thoma\piscine\piscine\include\graphe.h
+1588087365 57c4854665e05bf842750f52f5df03ddcfdec
+	"Graphe.h"
+	<queue>
+	<stack>
+
+1588185012 c:\users\thoma\piscine\piscine\include\graphe.h
 	<Arete.h>
 	<iostream>
 	<vector>
@@ -192,7 +201,7 @@
 	"Svgfile.h"
 	<iostream>
 
-1588189249 source:c:\users\lilia\piscine\piscine\src\svgfile.cpp
+1588191511 source:c:\users\lilia\piscine\piscine\src\svgfile.cpp
 	"Svgfile.h"
 	<iostream>
 

@@ -103,11 +103,31 @@ void Graphe::setOrient(int orient)
     m_orient=orient;
 }
 
-/*void Graphe::setTaille(int taille)
+void Graphe::enregistrer()
 {
-    m_taille=taille;
-}*/
+    this->rempliradj();
+    this->poidsarete();
+    this->centralitedegre();
+    this->centralitedegreN();
+    this->centraliteproxi();
+    this->centraliteproxiN();
 
+    std::ofstream ofs{"sauvegarde.txt"};
+    if(!ofs)
+    {
+        std::cerr<<"Erreur  d'ouverture du fichier"<<std::endl;
+    }
+    else
+    {
+        for (size_t i=0; i<m_sommets.size(); ++i)
+        {
+            if(m_sommets[i]->getcp()!=0)
+                ofs<<"id: "<<m_sommets[i]->getId()<<"| cd: "<<m_sommets[i]->getcd()<<"| cdn: "<<m_sommets[i]->getcdn()<<"| cp: "<<m_sommets[i]->getcp()<<"| cpn: "<<m_sommets[i]->getcpn()<<std::endl;
+            else
+                ofs<<"id: "<<m_sommets[i]->getId()<<"| cd: "<<m_sommets[i]->getcd()<<"| cdn: "<<m_sommets[i]->getcdn()<<"| cp: incalculable | cpn: incalculable"<<std::endl;
+        }
+    }
+}
 
 void Graphe::poidsarete ()
 
@@ -121,10 +141,9 @@ void Graphe::poidsarete ()
 void Graphe::centralitedegre()
 {
 
-    this->rempliradj();
+    //this->rempliradj();
     for(size_t i=0; i<m_sommets.size(); ++i)
     {
-
         m_sommets[i]->setcd((double)m_sommets[i]->get_nb_adj());
         /* cd=0;
          for(size_t j=0; j<m_aretes.size(); ++j)
@@ -133,6 +152,15 @@ void Graphe::centralitedegre()
             cd+=1;
          }
          m_sommets[i]->setcd(cd);*/
+
+        /* cd=0;
+         for(size_t j=0; j<m_aretes.size(); ++j)
+         {
+             if (m_aretes[j]->getindiceS1()==m_sommets[i]->getId()||m_aretes[j]->getindiceS2()==m_sommets[i]->getId())
+            cd+=1;
+         }
+         m_sommets[i]->setcd(cd);*/
+
 
 
     }
@@ -318,27 +346,35 @@ double Graphe::dijkstraproxi(int depart,int arrivee)
 
 void Graphe::centraliteproxi()
 {
+    int i;
     double cp;
-    this->rempliradj();
-    for (size_t i=0; i<m_sommets.size(); ++i)
+    i=this->nb_comp_connexe(1);
+
+    if (i==1)
     {
-        cp=0;
 
-        for (size_t j=0; j<m_sommets.size(); ++j)
+        for (size_t i=0; i<m_sommets.size(); ++i)
         {
-            if ((m_sommets[i]->getId())!=(m_sommets[j]->getId()))
+            cp=0;
+
+            for (size_t j=0; j<m_sommets.size(); ++j)
             {
-
-                cp+=dijkstraproxi(m_sommets[i]->getId(),m_sommets[j]->getId());
-                //cp+=distanceproxi(preds,m_sommets[i]->getId(),m_sommets[j]->getId());
+                if ((m_sommets[i]->getId())!=(m_sommets[j]->getId()))
+                {
+                    cp+=dijkstraproxi(m_sommets[i]->getId(),m_sommets[j]->getId());
+                    //cp+=distanceproxi(preds,m_sommets[i]->getId(),m_sommets[j]->getId());
+                }
+                //ideal:: dijkstraproxi(m_sommets[i],m_sommets[j
             }
-            //ideal:: dijkstraproxi(m_sommets[i],m_sommets[j]
-
+            cp=1/cp;
+            m_sommets[i]->setcp(cp);
         }
-        cp=1/cp;
-        m_sommets[i]->setcp(cp);
-
     }
+    else
+        for(size_t i=0; i<m_sommets.size(); i++)
+        {
+            m_sommets[i]->setcp(0);
+        }
 }
 
 void Graphe::centraliteproxiN()
@@ -356,50 +392,52 @@ void Graphe::centraliteproxiN()
     }
 }
 
-/*void Graphe::centralitevp()
+void Graphe::centralitevp()
 {
 
     double lambda=0;
     double csi=0;
-    std::stack<double>slambda;
+    double compteur=0;
 
-    this->rempliradj();
-    for(size_t i=0;i<m_sommets.size();++i)
+
+    // this->rempliradj();
+    for(size_t i=0; i<m_sommets.size(); ++i)
     {
         m_sommets[i]->setcvp(1);
     }
 
+    while (compteur<50)
 
-        while ()
+    {
+        lambda=0;
+        for(size_t i=0; i<m_sommets.size(); ++i)
         {
-               for(size_t i=0;i<m_sommets.size();++i)
-               {
-                   csi=0;
-
-
-
-
-            for(size_t j=0;j<m_sommets[i]->get_nb_adj();++j)
+            csi=0;
+            for(size_t j=0; j<m_sommets[i]->get_nb_adj(); ++j)
             {
-               csi+=m_sommets[i]->get_adj(j)->getcvp();
+                csi+=m_sommets[i]->get_adj(j)->getcvp();
+
+
             }
             m_sommets[i]->setcsi(csi);
+            std::cout<<"csi :"<<m_sommets[i]->getcsi()<<std::endl;;
 
-               }
-            for (size_t k=0; k<m_sommets.size();++k)
-            {
-                lambda+=pow(m_sommets[k]->getcsi(),2);
-            }
-            lambda=pow(lambda,1/2);
-            std::cout<<"lambda :"<<lambda<<std::endml;
-            for (size_t i=0; i<m_sommets.size();++i)
-            {
-                m_sommets[i]->setcvp((m_sommets[i]->getcsi())/lambda);
-            }
-
-           // for (size_t l=0; )
         }
-    }*/
+        for (size_t k=0; k<m_sommets.size(); ++k)
+        {
+            lambda+=pow(m_sommets[k]->getcsi(),(2));
+        }
+
+        lambda=sqrt(lambda);
+        std::cout<<"lambda :"<<lambda<<std::endl;
+        for (size_t i=0; i<m_sommets.size(); ++i)
+        {
+            m_sommets[i]->setcvp((m_sommets[i]->getcsi())/lambda);
+            std::cout<<"cvp "<<i<<":"<< m_sommets[i]->getcvp()<<std::endl;
+        }
+        compteur++;
+    }
+}
 
 
 void Graphe::rempliradj()
@@ -424,11 +462,21 @@ void Graphe::affichercentralite()
 {
     for (size_t i=0; i<m_sommets.size(); ++i)
     {
+        SetConsoleTextAttribute(hConsole, 15);
         std::cout<<std::endl<<"indice : "<<m_sommets[i]->getId()<<std::endl;
         std::cout<<"centralite degre non normalisee : "<<m_sommets[i]->getcd()<<std::endl;
         std::cout<<"centralite degre normalisee : "<<m_sommets[i]->getcdn()<<std::endl;
-        std::cout<<"centralite proxi : "<<m_sommets[i]->getcp()<<std::endl;
-        std::cout<<"centralite proxi normalisee : "<<m_sommets[i]->getcpn()<<std::endl;
+        if(m_sommets[i]->getcp()==0)
+        {
+            SetConsoleTextAttribute(hConsole, 12);
+            std::cout<<"impossible de calculer centralite proxi et centralite proxi normalisee car graphe non connexe "<<std::endl;
+            SetConsoleTextAttribute(hConsole, 15);
+        }
+        else
+        {
+            std::cout<<"centralite proxi : "<<m_sommets[i]->getcp()<<std::endl;
+            std::cout<<"centralite proxi normalisee : "<<m_sommets[i]->getcpn()<<std::endl;
+        }
     }
 }
 
@@ -500,6 +548,27 @@ void Graphe::deleteArete( std::vector<int> id)
 
 void Graphe::deleteAreteIndice(std::vector<int> id)
 {
+    std::vector<double> vect_cd;
+    std::vector<double> vect_cdn;
+    std::vector<double> vect_cp;
+    std::vector<double> vect_cpn;
+    std::vector<int> vect_id;
+    this->poidsarete();
+    this->centralitedegre();
+    this->centralitedegreN();
+    this->centraliteproxi();
+    this->centraliteproxiN();
+    //this->centralitevp();
+
+    for(size_t i=0; i<m_sommets.size(); i++)
+    {
+        vect_cd.push_back(m_sommets[i]->getcd());
+        vect_cdn.push_back(m_sommets[i]->getcdn());
+        vect_cp.push_back(m_sommets[i]->getcp());
+        vect_cpn.push_back(m_sommets[i]->getcpn());
+        vect_id.push_back(m_sommets[i]->getId());
+    }
+
     int s1,s2;
     std::vector<Sommet*> vect1, vect2;
     for (size_t x=0; x<id.size(); x++)
@@ -541,10 +610,71 @@ void Graphe::deleteAreteIndice(std::vector<int> id)
         }
     }
 
+    this->poidsarete();
     this->centralitedegre();
     this->centralitedegreN();
     this->centraliteproxi();
     this->centraliteproxiN();
+    //this->centralitevp();
+
+    for(size_t i=0; i<m_sommets.size(); i++)
+    {
+        SetConsoleTextAttribute(hConsole, 15);
+        std::cout<<std::endl<<"indices de depart : "<<std::endl;
+        std::cout<<"indice du sommet : "<<vect_id[i]<<std::endl;
+        std::cout<<"indice centralite degre non normalise : "<<vect_cd[i]<<std::endl;
+        std::cout<<"indice centralite degre nomalise : "<<vect_cdn[i]<<std::endl;
+        if(vect_cp[i]==0)
+        {
+            SetConsoleTextAttribute(hConsole, 12);
+            std::cout<<"impossible de calculer centralite proxi et centralite proxi normalise car graphe non connexe "<<std::endl;
+            SetConsoleTextAttribute(hConsole, 15);
+        }
+        else
+        {
+            std::cout<<"indice centralite proxi non normalise : "<<vect_cp[i]<<std::endl;
+            std::cout<<"indice centralise proxi normalise : "<<vect_cpn[i]<<std::endl;
+        }
+        std::cout<<std::endl<<"indices apres suppression : "<<std::endl;
+        std::cout<<"indice du sommet : "<<m_sommets[i]->getId()<<std::endl;
+        std::cout<<"indice centralite degre non normalise : "<<m_sommets[i]->getcd()<<std::endl;
+        std::cout<<"indice centralite degre nomalise : "<<m_sommets[i]->getcdn()<<std::endl;
+        if(m_sommets[i]->getcp()==0)
+        {
+            SetConsoleTextAttribute(hConsole, 12);
+            std::cout<<"impossible de calculer centralite proxi et centralite proxi normalise car graphe non connexe "<<std::endl;
+            SetConsoleTextAttribute(hConsole, 15);
+        }
+        else
+        {
+            std::cout<<"indice centralite proxi non normalise : "<<m_sommets[i]->getcp()<<std::endl;
+            std::cout<<"indice centralise proxi normalise : "<<m_sommets[i]->getcpn()<<std::endl;
+        }
+        std::cout<<std::endl<<"Comparaisons apres suppression : "<<std::endl;
+        std::cout<<"indice du sommet : "<<m_sommets[i]->getId()<<std::endl;
+        std::cout<<"difference centralite degre non normalise : "<<vect_cd[i]-m_sommets[i]->getcd()<<std::endl;
+        std::cout<<"difference centralite degre normalise : "<<vect_cdn[i]-m_sommets[i]->getcdn()<<std::endl;
+        if(m_sommets[i]->getcp()==0 && vect_cp[i]!=0)
+        {
+            SetConsoleTextAttribute(hConsole, 12);
+            std::cout<<std::endl<<"La suppression de l'arete a rendu le graphe non connexe"<<std::endl;
+            std::cout<<"l'indice de centralite proxi du sommet "<<m_sommets[i]->getId()<<" n'est donc plus calculable alors qu'il avait pour valeur "<<vect_cp[i]<<std::endl;
+            std::cout<<"de meme pour l'indice de centralite proxi normalise"<<std::endl<<std::endl;
+            SetConsoleTextAttribute(hConsole, 15);
+        }
+        else if(vect_cp[i]==0)
+        {
+            SetConsoleTextAttribute(hConsole, 12);
+            std::cout<<std::endl<<"Les differences des 2 indices de centralite proxi ne sont pas calculables car le graphe"<<std::endl;
+            std::cout<<" n'etait pas connexe de base"<<std::endl<<std::endl;
+            SetConsoleTextAttribute(hConsole, 15);
+        }
+        else
+        {
+            std::cout<<"difference centralite degre proxi non normalise : "<<vect_cp[i]-m_sommets[i]->getcp()<<std::endl;
+            std::cout<<"difference centralite degre proxi normalise : "<<vect_cpn[i]-m_sommets[i]->getcpn()<<std::endl;
+        }
+    }
 }
 
 std::vector<int> Graphe::bfs (int id)//recupère sommet de départ et retourne vecteur de prédécesseurs
@@ -641,6 +771,7 @@ int Graphe::nb_comp_connexe(int idSommet)
         }
     }
     while(s);//tant qu'il reste des sommets non découvert
+    std::cout<<std::endl;
 
     return j-1;
 }
@@ -648,85 +779,84 @@ int Graphe::nb_comp_connexe(int idSommet)
 void Graphe::dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cpn, int& cp)
 {
     Svgfile svgout;
-    Sommet* t1, t2, t3, t4;
+    std::vector<double> vect_cd;
+    std::vector<double> vect_cdn;
+    std::vector<double> vect_cp;
+    std::vector<double> vect_cpn;
 
-    if(nom==0 && poids==0 && cdn==0 && cdn==0 && cd==0 && cpn==0 && cp==0)
+    this->rempliradj();
+    this->poidsarete();
+    this->centralitedegre();
+    this->centralitedegreN();
+    this->centraliteproxi();
+    this->centraliteproxiN();
+
+    for(size_t i=0; i<m_sommets.size(); i++)
     {
-        for(size_t i=0; i<m_sommets.size(); i++)
+        vect_cd.push_back(m_sommets[i]->getcd());
+        vect_cdn.push_back(m_sommets[i]->getcdn());
+        vect_cp.push_back(m_sommets[i]->getcp());
+        vect_cpn.push_back(m_sommets[i]->getcpn());
+    }
+    for(size_t i=0; i<m_sommets.size(); i++)
+    {
+        m_sommets[i]->dessiner(svgout);
+        for(size_t j=0; j<m_aretes.size(); j++)
         {
-            m_sommets[i]->dessiner(svgout);
+            m_aretes[j]->dessiner(svgout);
         }
     }
     if(nom==1)
     {
         for(size_t i=0; i<m_sommets.size(); i++)
         {
-            m_sommets[i]->dessiner(svgout);
             m_sommets[i]->ecrireNom(svgout);
         }
-    }
-    if (cdn==1)
-    {
-        for (size_t i=0; i<m_sommets.size(); ++i)
-        {
-            m_sommets[i]->ecrireCentraliteDegreN(svgout);
-            if(m_sommets[i+1]->getcdn()> m_sommets[i]->getcdn())
-            {
-                t1=m_sommets[i+1];
-            }
-        }
-        svgout.addDisk(t1->getx(),t1->gety(),12,"red");
-        for ()
-    }
-
-    if (cd==1)
-    {
-        for (size_t i=0; i<m_sommets.size(); ++i)
-        {
-            m_sommets[i]->ecrireCentraliteDegre(svgout);
-            if(m_sommets[i+1]->getcd()> m_sommets[i]->getcd())
-            {
-                t2=m_sommets[i+1];
-            }
-        }
-        svgout.addDisk(t2->getx(),t2->gety(),12,"red");
-    }
-
-    if (cpn==1)
-    {
-        for (size_t i=0; i<m_sommets.size(); ++i)
-        {
-            m_sommets[i]->ecrireCentralitePN(svgout);
-            if(m_sommets[i+1]->getcpn()> m_sommets[i]->getcpn())
-            {
-                t3=m_sommets[i+1];
-            }
-        }
-        svgout.addDisk(t3->getx(),t3->gety(),12,"red");
-    }
-
-    if (cp==1)
-    {
-        for (size_t i=0; i<m_sommets.size(); ++i)
-        {
-            m_sommets[i]->ecrireCentraliteP(svgout);
-            if(m_sommets[i+1]->getcp()> m_sommets[i]->getcp())
-            {
-                t4=m_sommets[i+1];
-            }
-        }
-        svgout.addDisk(t4->getx(),t4->gety(),12,"red");
-    }
-    for(size_t i=0; i<m_aretes.size(); i++)
-    {
-
-        m_aretes[i]->dessiner(svgout);
     }
     if(poids==1)
     {
         for(size_t i=0; i<m_aretes.size(); i++)
         {
             m_aretes[i]->ecrirePoids(svgout);
+        }
+    }
+    if (cdn==1)
+    {
+        for (size_t i=0; i<m_sommets.size(); ++i)
+        {
+            if(m_sommets[i]->getcdn()==*std::max_element(vect_cdn.begin(), vect_cdn.end()))
+                m_sommets[i]->dessinerMarque(svgout);
+            m_sommets[i]->ecrireCentraliteDegreN(svgout);
+        }
+    }
+
+    if (cd==1)
+    {
+        for (size_t i=0; i<m_sommets.size(); ++i)
+        {
+            if(m_sommets[i]->getcd()==*std::max_element(vect_cd.begin(), vect_cd.end()))
+                m_sommets[i]->dessinerMarque(svgout);
+            m_sommets[i]->ecrireCentraliteDegre(svgout);
+        }
+    }
+
+    if (cpn==1)
+    {
+        for (size_t i=0; i<m_sommets.size(); ++i)
+        {
+            if(m_sommets[i]->getcpn()==*std::max_element(vect_cpn.begin(), vect_cpn.end()))
+                m_sommets[i]->dessinerMarque(svgout);
+            m_sommets[i]->ecrireCentralitePN(svgout);
+        }
+    }
+
+    if (cp==1)
+    {
+        for (size_t i=0; i<m_sommets.size(); ++i)
+        {
+            if(m_sommets[i]->getcp()==*std::max_element(vect_cp.begin(), vect_cp.end()))
+                m_sommets[i]->dessinerMarque(svgout);
+            m_sommets[i]->ecrireCentraliteP(svgout);
         }
     }
 }

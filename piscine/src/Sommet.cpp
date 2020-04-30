@@ -64,57 +64,47 @@ void Sommet::setVectAdj(std::vector<Sommet*> thomaslpb)
     m_adj=thomaslpb;
 }
 
+    double Sommet::getcdn()const
+    {
+        return m_cdn;
+    }
+
+    void Sommet::setcdn(double cdn)
+    {
+        m_cdn=cdn;
+    }
+
+    double Sommet::getcp()const
+    {
+        return m_cp;
+    }
+    void Sommet::setcp(double cp)
+    {
+        m_cp=cp;
+    }
+    double Sommet::getcpn()const
+    {
+        return m_cpn;
+    }
+    void Sommet::setcpn(double cpn)
+    {
+        m_cpn=cpn;
+    }
+
+    double Sommet::getcvp()const
+    {
+        return m_cvp;
+    }
+
+    void Sommet::setcvp(double cvp)
+    {
+     m_cvp=cvp;
+    }
+
+
 void Sommet::setcd( double cd)
 {
     m_cd=cd;
-}
-
-
-double Sommet::getcdn()const
-{
-    return m_cdn;
-}
-
-void Sommet::setcdn(double cdn)
-{
-    m_cdn=cdn;
-}
-
-double Sommet::getcp()const
-{
-    return m_cp;
-}
-void Sommet::setcp(double cp)
-{
-    m_cp=cp;
-}
-double Sommet::getcpn()const
-{
-    return m_cpn;
-}
-void Sommet::setcpn(double cpn)
-{
-    m_cpn=cpn;
-}
-
-double Sommet::getcvp()const
-{
-    return m_cvp;
-}
-
-void Sommet::setcvp(double cvp)
-{
-    m_cvp=cvp;
-}
-
-double Sommet::getcvpn()const
-{
-    return m_cvpn;
-}
-
-void Sommet::setcvpn(double cvpn)
-{
-    m_cvpn=cvpn;
 }
 
 double Sommet::getcsi()const
@@ -164,7 +154,12 @@ void Sommet::setadj(Sommet* s1)
 
 void Sommet::dessiner(Svgfile& svgout)
 {
-    svgout.addDisk(m_coords.first, m_coords.second, 10, "pink");
+    svgout.addDisk(this->m_coords.first, this->m_coords.second, 10, "pink");
+}
+
+void Sommet::dessinerMarque(Svgfile& svgout)
+{
+    svgout.addDisk(this->m_coords.first, this->m_coords.second, 12, "red");
 }
 
 void Sommet::ecrireNom(Svgfile& svgout)
@@ -174,25 +169,25 @@ void Sommet::ecrireNom(Svgfile& svgout)
 
 void Sommet::ecrireCentraliteDegreN(Svgfile& svgout)
 {
-    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cdn),"green");
+    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cdn),"black");
 }
 
 void Sommet::ecrireCentraliteDegre(Svgfile& svgout)
 {
-    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cd),"green");
+    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cd),"black");
 }
 
 void Sommet::ecrireCentraliteP(Svgfile& svgout)
 {
-    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cp),"green");
+    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cp),"black");
 }
 
 void Sommet::ecrireCentralitePN(Svgfile& svgout)
 {
-    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cpn),"green");
+    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cpn),"black");
 }
 
-std::string Sommet::nbToStrg(int nombre)const
+std::string Sommet::nbToStrg(double nombre)const
 {
     std::ostringstream a;
     a<<nombre;
