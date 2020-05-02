@@ -71,6 +71,9 @@ public:
     void ecrireCentraliteDegre(Svgfile& svgout);
     void ecrireCentraliteP(Svgfile& svgout);
     void ecrireCentralitePN(Svgfile& svgout);
+    void ecrireCentraliteVP(Svgfile& svgout);
+    void ecrireCentraliteCI(Svgfile& svgout);
+    void ecrireCentraliteCIN(Svgfile& svgout);
     std::string nbToStrg(double nombre) const;
 
     friend std::ostream& operator<<(std::ostream&out, const Sommet&a)

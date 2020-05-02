@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1000" height="800">
 
+<<<<<<< HEAD
 <circle cx="227" cy="715" r="5" fill="pink" />
 <line x1="227" y1="715" x2="238" y2="675" stroke="grey" />
 <line x1="227" y1="715" x2="178" y2="670" stroke="grey" />
@@ -2113,6 +2114,22 @@
 <text x="614" y="598" fill="black" >SouthHayward</text>
 <text x="660" y="670" fill="black" >UnionCity</text>
 <text x="709" y="715" fill="black" >Fremont</text>
+=======
+<circle cx="200" cy="100" r="10" fill="blue" />
+<text x="200" y="100" fill="black" >APOPO</text>
+<circle cx="100" cy="200" r="10" fill="blue" />
+<text x="100" y="200" fill="black" >Bihoh</text>
+<circle cx="200" cy="200" r="10" fill="blue" />
+<text x="200" y="200" fill="black" >Cdfd</text>
+<circle cx="300" cy="200" r="10" fill="blue" />
+<text x="300" y="200" fill="black" >o</text>
+<circle cx="200" cy="300" r="10" fill="blue" />
+<text x="200" y="300" fill="black" >vfs23</text>
+<line x1="200" y1="100" x2="200" y2="200" stroke="grey" />
+<line x1="100" y1="200" x2="200" y2="200" stroke="grey" />
+<line x1="300" y1="200" x2="200" y2="200" stroke="grey" />
+<line x1="200" y1="100" x2="100" y2="200" stroke="grey" />
+>>>>>>> 561d6e839b64f60fef06ef5ba74d5831e121f5bd
 
 
 </svg>

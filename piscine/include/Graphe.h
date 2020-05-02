@@ -13,7 +13,7 @@
 class Graphe
 {
 public:
-    Graphe(std::string nomFichier, std::string nomFichierPoids);
+    Graphe(std::string fichier, std::string fichierPoids);
 
     virtual ~Graphe();
 
@@ -44,8 +44,9 @@ public:
     void centralitevp();
     void centraliteinter1pcc();
     void centraliteinter1Npcc();
-int  dijkstrainter1pcc( int depart, int arrivee, int sparcouru);
+    int  dijkstrainter1pcc( int depart, int arrivee, int sparcouru);
 
+<<<<<<< HEAD
 void dijkstrainter(int depart, int arrivee, int sparcouru);
 double presencesparcouru(int depart, int arrivee, int sparcouru, double distance);
 int pasParcouru(int x, std::vector<int>& chemin);
@@ -59,12 +60,22 @@ void centraliteinterN();
 void recupcpg();
 double getcpg()const;
 void setcpg(double cpg);
+=======
+
+    void dijkstrainter(int depart, int arrivee, int sparcouru);
+    double presencesparcouru(int depart, int arrivee, int sparcouru, double distance);
+    int isNotVisited(int x, std::vector<int>& chemin);
+    void centraliteinterarete();
+    double areteparcourue(int depart, int arrivee, int ex1, int ex2,double distance);
+>>>>>>> 561d6e839b64f60fef06ef5ba74d5831e121f5bd
 
 
+    void centraliteinter();
+    void centraliteinterN();
 
     void affichercentralite();
 
-    void dessinerTous(int& nom, int& poids,int&cdn,int&cd,int&cpn,int&cp);
+    void dessinerTous(int& nom, int& poids,int&cdn,int&cd,int&cvp,int&cpn,int&cp,int&ci,int&ciN,int& cia);
 
     std::vector<int> bfs (int id);
     int nb_comp_connexe(int idSommet);

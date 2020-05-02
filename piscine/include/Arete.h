@@ -20,24 +20,26 @@ class Arete
         Sommet* getSommet1()const;
         Sommet* getSommet2()const;
         double getciA()const;
-        double getciAN()const;
-        //std::pair<Sommet*, Sommet*> getVect();
         void assimpoids(std::string nomFichier);
 
         void setPoids(int poids);
 
         void setciA(double ciA);
-        void setciAN(double ciAN);
 
+        std::string trouverNomS1()const;
+        std::string trouverNomS2()const;
 
         void dessiner(Svgfile& svgout);
+        void effacer(Svgfile& svgout);
+        void marquerArete(Svgfile& svgout);
         void ecrirePoids(Svgfile& svgout);
+        void ecrireCIA(Svgfile& svgout);
         std::string nbToStrg(double nombre)const;
 
          friend std::ostream& operator<<(std::ostream&out, const Arete&a)
     {
 
-        std::cout<<"(indice arete :"<<a.m_indice<<", premiere extremite:"<<a.m_vect.first->getId()<<", premieres coordonnees x:"<<a.m_vect.first->getx()<<", deuxieme extremite:"<<a.m_vect.second->getId()<<", poids:"<<a.m_poids<<")"<<std::endl;
+        std::cout<<"(indice arete :"<<a.m_indice<<", premiere extremite:"<<a.m_vect.first->getId()<<", deuxieme extremite:"<<a.m_vect.second->getId()<<", poids:"<<a.m_poids<<")"<<std::endl;
         return out;
     }
 
@@ -46,7 +48,6 @@ class Arete
         int m_poids;
         std::pair<Sommet*, Sommet*> m_vect;
         double m_ciA;
-        double m_ciAN;
         int m_indice;
 };
 

@@ -58,37 +58,19 @@ double Arete::getciA()const
     return m_ciA;
 }
 
-double Arete::getciAN()const
-{
-    return m_ciAN;
-}
-
 void Arete::setciA(double ciA)
 {
     m_ciA=ciA;
 }
 
-void Arete::setciAN(double ciAN)
+std::string Arete::trouverNomS1()const
 {
-    m_ciAN=ciAN;
+    return m_vect.first->getNom();
 }
-
-
-/*void Arete::assimpoids(std::string nomFichier)
+std::string Arete::trouverNomS2()const
 {
-    std::ifstream ifs{nomFichier};
-    if(!ifs)// on verifie que le fichier existe
-        throw std::runtime_error("Impossible d'ouvrir en lecture" + nomFichier );
-    int taille;
-    ifs>>taille;
-    int indice,poids;
-    for(int i=0; i<taille; ++i)
-    {
-        ifs>>indice>>poids;
-        if(indice==m_indice)
-            this->setPoids(poids);
-    }
-}*/
+    return m_vect.second->getNom();
+}
 
 std::string Arete::nbToStrg(double nombre)const
 {
@@ -99,11 +81,26 @@ std::string Arete::nbToStrg(double nombre)const
 
 void Arete::dessiner(Svgfile& svgout)
 {
-    svgout.addLine(m_vect.first->getx(), m_vect.first->gety(), m_vect.second->getx(), m_vect.second->gety(), "grey");
+    svgout.addLine(this->m_vect.first->getx(), this->m_vect.first->gety(), this->m_vect.second->getx(), this->m_vect.second->gety(), "grey");
 }
 
 void Arete::ecrirePoids(Svgfile& svgout)
 {
     svgout.addText((this->m_vect.first->getx()+this->m_vect.second->getx())/2, (this->m_vect.first->gety()+this->m_vect.second->gety())/2, nbToStrg(m_poids), "red");
+}
+
+void Arete::ecrireCIA(Svgfile& svgout)
+{
+    svgout.addText((this->m_vect.first->getx()+this->m_vect.second->getx())/2, (this->m_vect.first->gety()+this->m_vect.second->gety())/2, nbToStrg(m_ciA), "black");
+}
+
+void Arete::marquerArete(Svgfile& svgout)
+{
+    svgout.addLine(this->m_vect.first->getx(), this->m_vect.first->gety(), this->m_vect.second->getx(), this->m_vect.second->gety(), "red");
+}
+
+void Arete::effacer(Svgfile& svgout)
+{
+    svgout.addLine(this->m_vect.first->getx(), this->m_vect.first->gety(), this->m_vect.second->getx(), this->m_vect.second->gety(), "transparent");
 }
 

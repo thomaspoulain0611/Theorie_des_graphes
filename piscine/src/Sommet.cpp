@@ -192,7 +192,11 @@ void Sommet::setadj(Sommet* s1)
 
 void Sommet::dessiner(Svgfile& svgout)
 {
+<<<<<<< HEAD
     svgout.addDisk(this->m_coords.first, this->m_coords.second, 5, "pink");
+=======
+    svgout.addDisk(this->m_coords.first, this->m_coords.second, 10, "blue");
+>>>>>>> 561d6e839b64f60fef06ef5ba74d5831e121f5bd
 }
 
 void Sommet::dessinerMarque(Svgfile& svgout)
@@ -223,6 +227,21 @@ void Sommet::ecrireCentraliteP(Svgfile& svgout)
 void Sommet::ecrireCentralitePN(Svgfile& svgout)
 {
     svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cpn),"black");
+}
+
+void Sommet::ecrireCentraliteVP(Svgfile& svgout)
+{
+    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cvp),"black");
+}
+
+void Sommet::ecrireCentraliteCI(Svgfile& svgout)
+{
+    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_ci),"black");
+}
+
+void Sommet::ecrireCentraliteCIN(Svgfile& svgout)
+{
+    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_ciN),"black");
 }
 
 std::string Sommet::nbToStrg(double nombre)const
