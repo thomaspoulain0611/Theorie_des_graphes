@@ -53,6 +53,27 @@ Sommet* Arete::getSommet2()const
     return m_vect.second;
 }
 
+double Arete::getciA()const
+{
+    return m_ciA;
+}
+
+double Arete::getciAN()const
+{
+    return m_ciAN;
+}
+
+void Arete::setciA(double ciA)
+{
+    m_ciA=ciA;
+}
+
+void Arete::setciAN(double ciAN)
+{
+    m_ciAN=ciAN;
+}
+
+
 /*void Arete::assimpoids(std::string nomFichier)
 {
     std::ifstream ifs{nomFichier};

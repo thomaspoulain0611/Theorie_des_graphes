@@ -431,12 +431,8 @@ void Graphe::centralitevp()
 
     double temp=0;
     double tampon;
-
     int q=0;
     std::vector<double>lambda;
-
-
-
     for(size_t i=0; i<m_sommets.size(); ++i)
     {
         m_sommets[i]->setcvp(1);
@@ -607,18 +603,6 @@ int Graphe::dijkstrainter1pcc( int depart, int arrivee, int sparcouru)
 
 
 
-            //affichage poids
-            //pred=nouveau[i];// on remet à pred la valeur du prédecesseur de notre nombre d'arrivée
-            /*int parcours=pred;// on initialise le sommet parcours et la somme(longueur chemin)
-
-
-            while(parcours!=depart)// tant que parcours est différent de départ
-            {
-                pred=nouveau[parcours];// on assimile à pred la valeur du prédecesseur du sommet étudié
-
-
-
-                parcours=pred;//maj du sommet parcouru*/
             }
 
 
@@ -870,6 +854,166 @@ void Graphe::centraliteinterN()
     }
 
 }
+
+double Graphe::areteparcourue(int depart, int arrivee, int ex1, int ex2,double distance)
+{
+    std::queue<std::vector<int>>touschemins;
+
+    Sommet*S;
+    Sommet*S1;
+    double poidschemin=0;
+    double presence=0;
+    double ciA;
+    std::vector<int>chemin;
+    chemin.push_back(depart);
+    double compteurpcc=0;
+    int id; //chaque chemin devra aller du depart donc on le push_back
+
+    touschemins.push(chemin);
+    while (!touschemins.empty())
+        {
+
+        chemin = touschemins.front();
+        touschemins.pop();
+        int last = chemin[chemin.size() - 1];
+
+        // if last vertex is the desired destination
+        // then print the path
+        if (last == arrivee)
+        {
+            poidschemin=0;
+
+            for (size_t i=0;i<chemin.size()-1;++i)
+            {
+
+                poidschemin+=trouverpoids(chemin[i],chemin[i+1]);
+
+            }
+
+
+            if (poidschemin==distance)
+            {
+                compteurpcc++;
+                for (size_t i=0;i<chemin.size()-1;++i)
+                {
+
+                    if (((chemin[i]==ex1)&&(chemin[i+1]==ex2))||((chemin[i]==ex2)&&(chemin[i+1]==ex1)))
+                        presence++;
+                }
+
+            }
+
+
+
+
+
+        }
+        S=trouversommetindice(last);
+
+        // traverse to all the nodes connected to
+        // current vertex and push new path to queue
+        for (double i = 0; i < S->get_nb_adj(); ++i)
+            {
+
+                S1=S->get_adj(i);
+                id=S1->getId();
+            if (isNotVisited(id, chemin))
+
+             {
+                std::vector<int> newpath(chemin);
+
+                id=S1->getId();
+
+                newpath.push_back(id);
+                touschemins.push(newpath);
+
+
+
+             }
+            }
+    }
+
+    ciA=presence/compteurpcc;
+
+
+    return ciA;
+    //return cheminsdepartarrivee;
+}
+
+void Graphe::centraliteinterarete()
+{
+
+    int p;
+    double ciA;
+    double distance;
+    std::vector<std::vector<int>> chemins;
+
+
+
+    p=this->nb_comp_connexe(1);
+
+
+    if ((p==1) && (m_sommets.size()>1))// on verifie qye la composante est connexe et que le graphe comporte au moins une arete
+    {
+        for (size_t i=0; i<m_aretes.size(); ++i) // on parcourt tous les sommets et c'est la valeur de ci1 de m_sommets[i]que l'on va determiner
+        {
+            ciA=0;
+            for (size_t j=0; j<m_sommets.size(); ++j)
+            {
+
+                for (size_t k=0; k<m_sommets.size(); ++k)
+                {
+                    if ((m_sommets[j]->getId())<(m_sommets[k]->getId()))
+                    {
+
+
+
+
+
+
+                        distance=dijkstraproxi(m_sommets[j]->getId(),m_sommets[k]->getId());
+                        ciA+=areteparcourue(m_sommets[j]->getId(),m_sommets[k]->getId(),m_aretes[i]->getindiceS1(),m_aretes[i]->getindiceS2(),distance);
+
+                        //chemins=trouvertouschemins(m_sommets[j]->getId(),m_sommets[k]->getId());
+                        //pluscourtschemins=pcc(chemins,distance);
+                        // programme permettant de
+
+                    }
+
+
+                }
+            }
+            m_aretes[i]->setciA(ciA);
+            std::cout<< " arete "<<m_aretes[i]->getindiceS1()<<m_aretes[i]->getindiceS2()<<" ciA ="<< m_aretes[i]->getciA()<<std::endl;
+
+
+        }
+
+    }
+    else
+        for(size_t i=0; i<m_aretes.size(); i++)
+        {
+            m_aretes[i]->setciA(-1);
+        }
+}
+
+void Graphe::centraliteinterareteN()
+{
+    double ciA=0;
+    for (size_t i=0; i<m_aretes.size(); ++i)
+    {
+        ciA=0;
+
+        ciA=m_aretes[i]->getciA();
+
+
+        m_aretes[i]->setciAN((2*ciA)/(pow((double)m_sommets.size(),2)-3*(double)m_sommets.size()+2));
+        std::cout<<" affichage ciAN :"<<m_aretes[i]->getciAN();
+
+    }
+
+}
+
 
 /*void Graphe::rempliradj()
 {
