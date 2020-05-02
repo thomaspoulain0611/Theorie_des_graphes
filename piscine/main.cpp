@@ -187,6 +187,7 @@ void menu( std::string& commande, std::string& fichier, std::string& fichierpoid
             }
             fflush(stdin);
             a.deleteArete(id);
+            id.clear();
         }
     }
     else if(commande=="vulnerabilite indice")
@@ -213,6 +214,7 @@ void menu( std::string& commande, std::string& fichier, std::string& fichierpoid
             }
             fflush(stdin);
             a.deleteAreteIndice(id2);
+            id2.clear();
         }
     }
     else if(commande=="afficher centralite")
@@ -275,7 +277,7 @@ int main()
 
     do
     {
-        menu(commande, fichier,fichierpoids,nom, poids,cdn, cd,cvp, cpn, cp,ci,ciN,cia,id, id2, taille, taille2, idArete, idArete2);
+        menu( commande, fichier,fichierpoids,nom, poids,cdn, cd,cvp, cpn, cp,ci,ciN,cia,id, id2, taille, taille2, idArete, idArete2);
     }
     while(commande!="exit");
 

@@ -30,6 +30,7 @@ class Arete
         std::string trouverNomS2()const;
 
         void dessiner(Svgfile& svgout);
+        void effacer(Svgfile& svgout);
         void marquerArete(Svgfile& svgout);
         void ecrirePoids(Svgfile& svgout);
         void ecrireCIA(Svgfile& svgout);

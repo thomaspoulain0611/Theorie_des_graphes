@@ -681,7 +681,7 @@ void Graphe::centraliteinterarete()
 
 
 
-    p=this->nb_comp_connexe(1);
+    p=this->nb_comp_connexe(m_sommets[0]->getId());
 
 
     if ((p==1) && (m_sommets.size()>1))// on verifie qye la composante est connexe et que le graphe comporte au moins une arete
@@ -701,11 +701,9 @@ void Graphe::centraliteinterarete()
                         ciA+=areteparcourue(m_sommets[j]->getId(),m_sommets[k]->getId(),m_aretes[i]->getindiceS1(),m_aretes[i]->getindiceS2(),distance);
                     }
 
-
                 }
             }
             m_aretes[i]->setciA(ciA);
-
 
         }
 
@@ -771,6 +769,7 @@ void Graphe::affichercentralite()
 
 void Graphe::deleteArete( std::vector<int> id)
 {
+    Svgfile svgout;
     int s1,s2;
     int nbConnex;
     std::vector<Sommet*> vect1, vect2;
@@ -812,6 +811,26 @@ void Graphe::deleteArete( std::vector<int> id)
             }
         }
     }
+    int compteur=0;
+    for(size_t i=0; i<m_sommets.size(); i++)
+    {
+        m_sommets[i]->dessiner(svgout);
+        m_sommets[i]->ecrireNom(svgout);
+    }
+    for(size_t p=0; p<m_aretes.size(); p++)
+    {
+        compteur=0;
+        for(size_t j=0; j<id.size(); j++)
+        {
+            std::cout<<"id :"<<id[j]<<std::endl;
+            if(m_aretes[p]->getindice()==id[j])
+                {
+                    compteur++;
+                }
+        }
+        if(compteur==0)
+            m_aretes[p]->dessiner(svgout);
+    }
     nbConnex=this->nb_comp_connexe(1);
     if(nbConnex==1)
     {
@@ -827,6 +846,7 @@ void Graphe::deleteArete( std::vector<int> id)
 
 void Graphe::deleteAreteIndice(std::vector<int> id)
 {
+    Svgfile svgout;
     std::string nomFichier;
     std::vector<double> vect_cd;
     std::vector<double> vect_cdn;
@@ -898,6 +918,28 @@ void Graphe::deleteAreteIndice(std::vector<int> id)
             }
         }
     }
+    int compteur=0;
+    for(size_t i=0; i<m_sommets.size(); i++)
+    {
+        m_sommets[i]->dessiner(svgout);
+        m_sommets[i]->ecrireNom(svgout);
+    }
+    for(size_t p=0; p<m_aretes.size(); p++)
+    {
+        compteur=0;
+        for(size_t j=0; j<id.size(); j++)
+        {
+            std::cout<<"id :"<<id[j]<<std::endl;
+            if(m_aretes[p]->getindice()==id[j])
+                {
+                    compteur++;
+                }
+        }
+        if(compteur==0)
+            m_aretes[p]->dessiner(svgout);
+    }
+
+
     this->centralitedegre();
     this->centralitedegreN();
     this->centraliteproxi();
@@ -1009,7 +1051,10 @@ void Graphe::deleteAreteIndice(std::vector<int> id)
             std::cout<<"difference centralite intermediarite non normalise : "<<vect_ci[i]-m_sommets[i]->getci()<<std::endl;
             std::cout<<"difference centralite intermediarite normalise : "<<vect_cin[i]-m_sommets[i]->getciN()<<std::endl;
         }
+
     }
+
+
 }
 
 std::vector<int> Graphe::bfs (int id)//recupère sommet de départ et retourne vecteur de prédécesseurs

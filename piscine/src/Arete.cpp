@@ -98,3 +98,9 @@ void Arete::marquerArete(Svgfile& svgout)
 {
     svgout.addLine(this->m_vect.first->getx(), this->m_vect.first->gety(), this->m_vect.second->getx(), this->m_vect.second->gety(), "red");
 }
+
+void Arete::effacer(Svgfile& svgout)
+{
+    svgout.addLine(this->m_vect.first->getx(), this->m_vect.first->gety(), this->m_vect.second->getx(), this->m_vect.second->gety(), "transparent");
+}
+
