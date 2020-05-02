@@ -111,31 +111,21 @@ Graphe::~Graphe()
 }
 
 
-int Graphe::getOrdre()const
-{
-    return (int) m_sommets.size();
-}
 
 int Graphe::getOrient()const
 {
     return m_orient;
 }
 
+int Graphe::getOrdre()const
+{
+    return (int)m_sommets.size();
+}
+
 int Graphe::getTaille()const
 {
-    return (int) m_aretes.size();
+    return (int)m_aretes.size();
 }
-
-/*void Graphe::setOrdre(int ordre)
-{
-    m_ordre=ordre;
-}*/
-
-void Graphe::setOrient(int orient)
-{
-    m_orient=orient;
-}
-
 void Graphe::enregistrer()
 {
     std::string nomFichier;
@@ -381,7 +371,7 @@ void Graphe::centraliteproxi()
 {
     int i;
     double cp;
-    i=this->nb_comp_connexe(1);
+    i=this->nb_comp_connexe(m_sommets[0]->getId());
 
     if (i==1)
     {
@@ -627,7 +617,7 @@ void Graphe::centraliteinter1pcc()
     int p;
     double ci1;
 
-    p=this->nb_comp_connexe(1);
+    p=this->nb_comp_connexe(m_sommets[0]->getId());
 
 
     if ((p==1) && (m_sommets.size()>2))// on verifie qye la composante est connexe et que le graphe comporte au moins trois sommets
@@ -685,11 +675,11 @@ void Graphe::centraliteinter1Npcc()
 
 }
 
-int Graphe::isNotVisited(int x, std::vector<int>& path)
+int Graphe::pasParcouru(int x, std::vector<int>& chemin)
 {
 
-    for (size_t i = 0; i < path.size(); i++)
-        if (path[i] == x)
+    for (size_t i = 0; i < chemin.size(); ++i)
+        if (chemin[i] == x)
             return 0;
     return 1;
 }
@@ -715,11 +705,11 @@ double Graphe::presencesparcouru(int depart, int arrivee, int sparcouru,double d
 
         chemin = touschemins.front();
         touschemins.pop();
-        int last = chemin[chemin.size() - 1];
+        int dernier = chemin[chemin.size() - 1];
 
         // if last vertex is the desired destination
         // then print the path
-        if (last == arrivee)
+        if (dernier == arrivee)
         {
             poidschemin=0;
 
@@ -747,7 +737,7 @@ double Graphe::presencesparcouru(int depart, int arrivee, int sparcouru,double d
 
 
         }
-        S=trouversommetindice(last);
+        S=trouversommetindice(dernier);
 
         // traverse to all the nodes connected to
         // current vertex and push new path to queue
@@ -756,15 +746,15 @@ double Graphe::presencesparcouru(int depart, int arrivee, int sparcouru,double d
 
                 S1=S->get_adj(i);
                 id=S1->getId();
-            if (isNotVisited(id, chemin))
+            if (pasParcouru(id, chemin))
 
              {
-                std::vector<int> newpath(chemin);
+                std::vector<int> nvchemin(chemin);
 
                 id=S1->getId();
 
-                newpath.push_back(id);
-                touschemins.push(newpath);
+                nvchemin.push_back(id);
+                touschemins.push(nvchemin);
 
 
 
@@ -917,7 +907,7 @@ double Graphe::areteparcourue(int depart, int arrivee, int ex1, int ex2,double d
 
                 S1=S->get_adj(i);
                 id=S1->getId();
-            if (isNotVisited(id, chemin))
+            if (pasParcouru(id, chemin))
 
              {
                 std::vector<int> newpath(chemin);
@@ -950,7 +940,7 @@ void Graphe::centraliteinterarete()
 
 
 
-    p=this->nb_comp_connexe(1);
+    p=this->nb_comp_connexe(m_sommets[0]->getId());
 
 
     if ((p==1) && (m_sommets.size()>1))// on verifie qye la composante est connexe et que le graphe comporte au moins une arete
@@ -1033,6 +1023,44 @@ void Graphe::centraliteinterareteN()
     }
 }*/
 
+double Graphe::getcpg()const
+{
+    return m_cpg;
+}
+void Graphe::setcpg(double cpg)
+{
+    m_cpg=cpg;
+}
+
+void Graphe::recupcpg()
+{
+    this->centraliteproxi();
+    double maximum=0;
+    double tampon=0;
+    double cpg=0;
+    double denominateur=0;
+    for(size_t i=0;i<m_sommets.size();++i)
+    {
+        std::cout<<"indice de proxi"<<m_sommets[i]->getcp()<<std::endl;
+        if (m_sommets[i]->getcp()>maximum)
+            maximum=m_sommets[i]->getcp();
+    }
+    std::cout<<"maximum est"<<maximum<<std::endl;
+    for(size_t i=0;i<m_sommets.size();++i)
+    {
+        tampon+=i*(maximum-m_sommets[i]->getcp());
+    }
+    std::cout<<"cpg inter"<<tampon<<std::endl;
+    denominateur=(pow((double)m_sommets.size(),2)-3*(double)m_sommets.size()+2)/(2*(double)m_sommets.size()-3);
+    std::cout<<"denominateur"<<denominateur<<std::endl;
+    cpg=tampon/denominateur;
+    std::cout<<"cpg"<<cpg<<std::endl;
+   this->setcpg(cpg);
+    std::cout<<"l'indice de centralite de proximite globale du graphe est"<<this->getcpg()<<std::endl;
+
+}
+
+
 void Graphe::affichercentralite()
 {
     for (size_t i=0; i<m_sommets.size(); ++i)
@@ -1108,7 +1136,7 @@ void Graphe::deleteArete( std::vector<int> id)
             }
         }
     }
-    nbConnex=this->nb_comp_connexe(1);
+    nbConnex=this->nb_comp_connexe(m_sommets[0]->getId());
     if(nbConnex==1)
     {
         SetConsoleTextAttribute(hConsole, 14);

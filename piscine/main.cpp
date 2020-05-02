@@ -188,23 +188,22 @@ void menu( std::string& commande, std::string& fichier, std::string& fichierpoid
 
 int main()
 {
-    Graphe a("graphe.txt","poids.txt");
+    //Graphe a("graphe.txt","poids.txt");
 
 
 
 
-    a.centraliteinterarete();
-    a.centraliteinterareteN();
+    //a.recupcpg();
 
 
 
 
-    /*std::string commande;
+    std::string commande;
     std::string fichier;
     std::string fichierpoids;
 
 
-   a.rempliradj();
+  /* a.rempliradj();
     a.centralitevp();
     a.centralitedegre();
     a.centralitedegreN();
@@ -216,7 +215,7 @@ int main()
     //a.comp_connexe(1);
     //std::cout<<std::endl;
     std::cout<<"nb compo connexes "<<a.nb_comp_connexe(1, idArete);
-    a.deleteArete(0);
+    a.deleteArete(0);*/
 
     int taille;
     int taille2;
@@ -249,7 +248,7 @@ int main()
         menu(commande, fichier,fichierpoids,nom, poids,cdn, cd, cpn, cp, id, id2, taille, taille2, idArete, idArete2);
 
     }
-    while(commande!="exit");*/
+    while(commande!="exit");
 
 
 
