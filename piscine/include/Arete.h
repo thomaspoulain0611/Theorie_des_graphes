@@ -19,15 +19,20 @@ class Arete
         int getindiceS2()const;
         Sommet* getSommet1()const;
         Sommet* getSommet2()const;
-        //std::pair<Sommet*, Sommet*> getVect();
+        double getciA()const;
         void assimpoids(std::string nomFichier);
 
         void setPoids(int poids);
-        //void setVect(std::pair<Sommet*, Sommet*> som);
+
+        void setciA(double ciA);
+
+        std::string trouverNomS1()const;
+        std::string trouverNomS2()const;
 
         void dessiner(Svgfile& svgout);
         void marquerArete(Svgfile& svgout);
         void ecrirePoids(Svgfile& svgout);
+        void ecrireCIA(Svgfile& svgout);
         std::string nbToStrg(double nombre)const;
 
          friend std::ostream& operator<<(std::ostream&out, const Arete&a)
@@ -41,6 +46,7 @@ class Arete
     private:
         int m_poids;
         std::pair<Sommet*, Sommet*> m_vect;
+        double m_ciA;
         int m_indice;
 };
 

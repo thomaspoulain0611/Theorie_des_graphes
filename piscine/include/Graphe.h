@@ -13,7 +13,7 @@
 class Graphe
 {
 public:
-    Graphe(std::string nomFichier, std::string nomFichierPoids);
+    Graphe(std::string fichier, std::string fichierPoids);
 
     virtual ~Graphe();
 
@@ -46,9 +46,12 @@ public:
     void centraliteinter1Npcc();
     int  dijkstrainter1pcc( int depart, int arrivee, int sparcouru);
 
+
     void dijkstrainter(int depart, int arrivee, int sparcouru);
     double presencesparcouru(int depart, int arrivee, int sparcouru, double distance);
     int isNotVisited(int x, std::vector<int>& chemin);
+    void centraliteinterarete();
+    double areteparcourue(int depart, int arrivee, int ex1, int ex2,double distance);
 
 
     void centraliteinter();
@@ -56,7 +59,7 @@ public:
 
     void affichercentralite();
 
-    void dessinerTous(int& nom, int& poids,int&cdn,int&cd,int&cvp,int&cpn,int&cp,int&ci,int&ciN,int& cia, int& cian);
+    void dessinerTous(int& nom, int& poids,int&cdn,int&cd,int&cvp,int&cpn,int&cp,int&ci,int&ciN,int& cia);
 
     std::vector<int> bfs (int id);
     int nb_comp_connexe(int idSommet);

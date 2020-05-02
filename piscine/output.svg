@@ -1,42 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1000" height="800">
 
-<circle cx="200" cy="100" r="10" fill="pink" />
+<circle cx="200" cy="100" r="10" fill="blue" />
 <line x1="200" y1="100" x2="200" y2="200" stroke="grey" />
 <line x1="100" y1="200" x2="200" y2="200" stroke="grey" />
-<line x1="200" y1="200" x2="300" y2="200" stroke="grey" />
-<line x1="200" y1="200" x2="200" y2="300" stroke="grey" />
+<line x1="300" y1="200" x2="200" y2="200" stroke="grey" />
+<line x1="200" y1="300" x2="200" y2="200" stroke="grey" />
 <line x1="200" y1="100" x2="100" y2="200" stroke="grey" />
-<circle cx="100" cy="200" r="10" fill="pink" />
+<circle cx="100" cy="200" r="10" fill="blue" />
 <line x1="200" y1="100" x2="200" y2="200" stroke="grey" />
 <line x1="100" y1="200" x2="200" y2="200" stroke="grey" />
-<line x1="200" y1="200" x2="300" y2="200" stroke="grey" />
-<line x1="200" y1="200" x2="200" y2="300" stroke="grey" />
+<line x1="300" y1="200" x2="200" y2="200" stroke="grey" />
+<line x1="200" y1="300" x2="200" y2="200" stroke="grey" />
 <line x1="200" y1="100" x2="100" y2="200" stroke="grey" />
-<circle cx="200" cy="200" r="10" fill="pink" />
+<circle cx="200" cy="200" r="10" fill="blue" />
 <line x1="200" y1="100" x2="200" y2="200" stroke="grey" />
 <line x1="100" y1="200" x2="200" y2="200" stroke="grey" />
-<line x1="200" y1="200" x2="300" y2="200" stroke="grey" />
-<line x1="200" y1="200" x2="200" y2="300" stroke="grey" />
+<line x1="300" y1="200" x2="200" y2="200" stroke="grey" />
+<line x1="200" y1="300" x2="200" y2="200" stroke="grey" />
 <line x1="200" y1="100" x2="100" y2="200" stroke="grey" />
-<circle cx="300" cy="200" r="10" fill="pink" />
+<circle cx="300" cy="200" r="10" fill="blue" />
 <line x1="200" y1="100" x2="200" y2="200" stroke="grey" />
 <line x1="100" y1="200" x2="200" y2="200" stroke="grey" />
-<line x1="200" y1="200" x2="300" y2="200" stroke="grey" />
-<line x1="200" y1="200" x2="200" y2="300" stroke="grey" />
+<line x1="300" y1="200" x2="200" y2="200" stroke="grey" />
+<line x1="200" y1="300" x2="200" y2="200" stroke="grey" />
 <line x1="200" y1="100" x2="100" y2="200" stroke="grey" />
-<circle cx="200" cy="300" r="10" fill="pink" />
+<circle cx="200" cy="300" r="10" fill="blue" />
 <line x1="200" y1="100" x2="200" y2="200" stroke="grey" />
 <line x1="100" y1="200" x2="200" y2="200" stroke="grey" />
-<line x1="200" y1="200" x2="300" y2="200" stroke="grey" />
-<line x1="200" y1="200" x2="200" y2="300" stroke="grey" />
+<line x1="300" y1="200" x2="200" y2="200" stroke="grey" />
+<line x1="200" y1="300" x2="200" y2="200" stroke="grey" />
 <line x1="200" y1="100" x2="100" y2="200" stroke="grey" />
-<text x="200" y="100" fill="black" >2</text>
-<text x="100" y="200" fill="black" >2</text>
-<circle cx="200" cy="200" r="12" fill="red" />
-<text x="200" y="200" fill="black" >4</text>
-<text x="300" y="200" fill="black" >1</text>
-<text x="200" y="300" fill="black" >1</text>
+<line x1="200" y1="100" x2="200" y2="200" stroke="red" />
+<text x="200" y="150" fill="black" >4</text>
+<line x1="100" y1="200" x2="200" y2="200" stroke="red" />
+<text x="150" y="200" fill="black" >4</text>
+<line x1="300" y1="200" x2="200" y2="200" stroke="red" />
+<text x="250" y="200" fill="black" >4</text>
+<line x1="200" y1="300" x2="200" y2="200" stroke="red" />
+<text x="200" y="250" fill="black" >4</text>
+<text x="150" y="150" fill="black" >0</text>
 
 
 </svg>

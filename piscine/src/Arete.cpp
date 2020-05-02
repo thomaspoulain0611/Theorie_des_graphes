@@ -53,21 +53,24 @@ Sommet* Arete::getSommet2()const
     return m_vect.second;
 }
 
-/*void Arete::assimpoids(std::string nomFichier)
+double Arete::getciA()const
 {
-    std::ifstream ifs{nomFichier};
-    if(!ifs)// on verifie que le fichier existe
-        throw std::runtime_error("Impossible d'ouvrir en lecture" + nomFichier );
-    int taille;
-    ifs>>taille;
-    int indice,poids;
-    for(int i=0; i<taille; ++i)
-    {
-        ifs>>indice>>poids;
-        if(indice==m_indice)
-            this->setPoids(poids);
-    }
-}*/
+    return m_ciA;
+}
+
+void Arete::setciA(double ciA)
+{
+    m_ciA=ciA;
+}
+
+std::string Arete::trouverNomS1()const
+{
+    return m_vect.first->getNom();
+}
+std::string Arete::trouverNomS2()const
+{
+    return m_vect.second->getNom();
+}
 
 std::string Arete::nbToStrg(double nombre)const
 {
@@ -86,7 +89,12 @@ void Arete::ecrirePoids(Svgfile& svgout)
     svgout.addText((this->m_vect.first->getx()+this->m_vect.second->getx())/2, (this->m_vect.first->gety()+this->m_vect.second->gety())/2, nbToStrg(m_poids), "red");
 }
 
+void Arete::ecrireCIA(Svgfile& svgout)
+{
+    svgout.addText((this->m_vect.first->getx()+this->m_vect.second->getx())/2, (this->m_vect.first->gety()+this->m_vect.second->gety())/2, nbToStrg(m_ciA), "black");
+}
+
 void Arete::marquerArete(Svgfile& svgout)
 {
-    svgout.addLine(this->m_vect.first->getx(), this->m_vect.first->gety(), this->m_vect.second->getx(), this->m_vect.second->gety(), "green");
+    svgout.addLine(this->m_vect.first->getx(), this->m_vect.first->gety(), this->m_vect.second->getx(), this->m_vect.second->gety(), "red");
 }

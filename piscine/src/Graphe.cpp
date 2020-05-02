@@ -4,85 +4,87 @@
 
 
 
-Graphe::Graphe(std::string nomFichier, std::string nomFichierPoids)
+Graphe::Graphe( std::string fichier, std::string fichierPoids)
 {
-    std::ifstream ifs{nomFichier};//
-    if(!ifs)// on verifie que le f
-        throw std::runtime_error("Impossible d'ouvrir en lecture" + nomFichier );
-
-    ifs>>m_orient;
-    if (ifs.fail() )
-        throw std::runtime_error("Erreur de lecture d'orientation");
-    int ordre;
-    ifs>>ordre;
-    if (ifs.fail() )
-        throw std::runtime_error("Erreur de lecture d'ordre");
-
-
-    for (int i=0; i<ordre; ++i)
-    {
-        m_sommets.push_back(new Sommet(ifs));
-    }
+    int taille2;
     int taille;
-    ifs>>taille;
-    if (ifs.fail() )
-        throw std::runtime_error("Erreur de lecture d'ordre");
-    int indice;
-    int s1;
-    int s2;
+    std::ifstream ifs(fichier);
 
-    for (int i=0; i<taille; ++i)
+    if(!ifs)
     {
-        ifs>>indice>>s1>>s2;
+        SetConsoleTextAttribute(hConsole, 12);
+        std::cout<<"Saisie du fichier graphe incorrecte"<<std::endl;
+        std::cout<<"Appuyer sur exit pour recommencer"<<std::endl;
+        SetConsoleTextAttribute(hConsole, 15);
+
+    }
+    else
+    {
+        ifs>>m_orient;
+        if (ifs.fail() )
+            throw std::runtime_error("Erreur de lecture d'orientation");
+        int ordre;
+        ifs>>ordre;
+        if (ifs.fail() )
+            throw std::runtime_error("Erreur de lecture d'ordre");
+        for (int i=0; i<ordre; ++i)
+        {
+            m_sommets.push_back(new Sommet(ifs));
+        }
+        ifs>>taille;
+        if (ifs.fail() )
+            throw std::runtime_error("Erreur de lecture de la taille");
+        int indice;
+        int s1;
+        int s2;
+        for (int i=0; i<taille; ++i)
+        {
+            ifs>>indice>>s1>>s2;
+            for (size_t i=0; i<m_sommets.size(); ++i)
+            {
+                for (size_t j=0; j<m_sommets.size(); ++j)
+                {
+                    if((s1==m_sommets[i]->getId())&&(s2==m_sommets[j]->getId()))
+                    {
+                        m_aretes.push_back(new Arete(indice,m_sommets[i],m_sommets[j]));
+                    }
+                }
+            }
+        }
         for (size_t i=0; i<m_sommets.size(); ++i)
         {
-
-            for (size_t j=0; j<m_sommets.size(); ++j)
+            for(size_t j=0; j<m_aretes.size(); ++j)
             {
-
-                if((s1==m_sommets[i]->getId())&&(s2==m_sommets[j]->getId()))
+                if((m_aretes[j]->getindiceS1())==m_sommets[i]->getId())
                 {
-
-                    m_aretes.push_back(new Arete(indice,m_sommets[i],m_sommets[j]));
-
+                    m_sommets[i]->setadj(m_aretes[j]->getSommet2());
                 }
-
+                if ((m_aretes[j]->getindiceS2()==m_sommets[i]->getId()))
+                {
+                    m_sommets[i]->setadj(m_aretes[j]->getSommet1());
+                }
             }
-
-
         }
-
     }
-    for (size_t i=0; i<m_sommets.size(); ++i)
+    std::ifstream is(fichierPoids);
+    if(!is)
     {
-        for(size_t j=0; j<m_aretes.size(); ++j)
+        SetConsoleTextAttribute(hConsole, 12);
+        std::cout<<"Saisie du fichier poids incorrecte"<<std::endl;
+        std::cout<<"Appuyer sur (exit) ou (changer fichier poids) pour recommencer "<<std::endl;
+    }
+    else
+    {
+        is>>taille2;
+        int indice2;
+        int poids;
+        for(int i=0; i<taille2; ++i)
         {
-            if((m_aretes[j]->getindiceS1())==m_sommets[i]->getId())
-            {
-                m_sommets[i]->setadj(m_aretes[j]->getSommet2());
-            }
-            if ((m_aretes[j]->getindiceS2()==m_sommets[i]->getId()))
-            {
-                m_sommets[i]->setadj(m_aretes[j]->getSommet1());
-            }
+            is>>indice2>>poids;
+            if(indice2==m_aretes[i]->getindice())
+                m_aretes[i]->setPoids(poids);
         }
     }
-
-
-    std::ifstream is{nomFichierPoids};
-    if(!is)// on verifie que le fichier existe
-        throw std::runtime_error("Impossible d'ouvrir en lecture" + nomFichier );
-    int taille2;
-    is>>taille2;
-    int indice2;
-    int poids;
-    for(int i=0; i<taille; ++i)
-    {
-        is>>indice2>>poids;
-        if(indice2==m_aretes[i]->getindice())
-            m_aretes[i]->setPoids(poids);
-    }
-
 }
 
 Graphe::~Graphe()
@@ -92,7 +94,6 @@ Graphe::~Graphe()
     for (auto s : m_aretes)
         delete s;
 }
-
 
 int Graphe::getOrdre()const
 {
@@ -125,7 +126,6 @@ void Graphe::enregistrer()
     this->centraliteinter();
     this->centraliteinterN();
 
-
     std::ofstream ofs{"sauvegarde.txt"};
     if(!ofs)
     {
@@ -136,13 +136,12 @@ void Graphe::enregistrer()
         for (size_t i=0; i<m_sommets.size(); ++i)
         {
             if(m_sommets[i]->getcp()!=0 && m_sommets[i]->getci()!=-1)
-                ofs<<"nom: "<<m_sommets[i]->getNom()<<"| cd: "<<m_sommets[i]->getcd()<<"| cdn: "<<m_sommets[i]->getcdn()<<"| cvp: "<<m_sommets[i]->getcvp()<<"| cp: "<<m_sommets[i]->getcp()<<"| cpn: "<<m_sommets[i]->getcpn()<<"| ci: "<<m_sommets[i]->getci()<<"| cin: "<<m_sommets[i]->getciN()<<std::endl;
+                ofs<<"id: "<<m_sommets[i]->getId()<<"| cd: "<<m_sommets[i]->getcd()<<"| cdn: "<<m_sommets[i]->getcdn()<<"| cvp: "<<m_sommets[i]->getcvp()<<"| cp: "<<m_sommets[i]->getcp()<<"| cpn: "<<m_sommets[i]->getcpn()<<"| ci: "<<m_sommets[i]->getci()<<"| cin: "<<m_sommets[i]->getciN()<<std::endl;
             else if(m_sommets[i]->getcp()==0)
-                ofs<<"nom: "<<m_sommets[i]->getNom()<<"| cd: "<<m_sommets[i]->getcd()<<"| cdn: "<<m_sommets[i]->getcdn()<<"| cvp: "<<m_sommets[i]->getcvp()<<"| cp: incalculable | cpn: incalculable"<<"| ci: "<<m_sommets[i]->getci()<<"| cin: "<<m_sommets[i]->getciN()<<std::endl;
+                ofs<<"id: "<<m_sommets[i]->getId()<<"| cd: "<<m_sommets[i]->getcd()<<"| cdn: "<<m_sommets[i]->getcdn()<<"| cvp: "<<m_sommets[i]->getcvp()<<"| cp: incalculable | cpn: incalculable"<<"| ci: "<<m_sommets[i]->getci()<<"| cin: "<<m_sommets[i]->getciN()<<std::endl;
             else if(m_sommets[i]->getci()==-1)
-                ofs<<"nom: "<<m_sommets[i]->getNom()<<"| cd: "<<m_sommets[i]->getcd()<<"| cdn: "<<m_sommets[i]->getcdn()<<"| cvp: "<<m_sommets[i]->getcvp()<<"| cp: "<<m_sommets[i]->getcp()<<"| cpn: "<<m_sommets[i]->getcpn()<<"| ci: incalculable | cin: incalculable "<<std::endl;
+                ofs<<"id: "<<m_sommets[i]->getId()<<"| cd: "<<m_sommets[i]->getcd()<<"| cdn: "<<m_sommets[i]->getcdn()<<"| cvp: "<<m_sommets[i]->getcvp()<<"| cp: "<<m_sommets[i]->getcp()<<"| cpn: "<<m_sommets[i]->getcpn()<<"| ci: incalculable | cin: incalculable "<<std::endl;
         }
-
     }
 }
 
@@ -154,7 +153,6 @@ void Graphe::centralitedegre()
     }
 }
 
-
 void Graphe::centralitedegreN()
 {
     double cd;
@@ -164,7 +162,6 @@ void Graphe::centralitedegreN()
         m_sommets[i]->setcdn(cd/((float)m_sommets.size()-1));
     }
 }
-
 
 double Graphe::trouverpoids(int s1,int s2)
 {
@@ -421,7 +418,7 @@ int Graphe::dijkstrainter1pcc( int depart, int arrivee, int sparcouru)
                 {
                     presence=1;
                 }
-                pred=I_preds[pred];// predecesseur prend la valeur du predecesseur du sommet alors trait
+                pred=I_preds[pred];// predecesseur prend la valeur du predecesseur du sommet alors traité
             }
             std::cout<<"<--"<<depart<<std::endl;
         }
@@ -589,6 +586,138 @@ void Graphe::centraliteinterN()
 
 }
 
+double Graphe::areteparcourue(int depart, int arrivee, int ex1, int ex2,double distance)
+{
+    std::queue<std::vector<int>>touschemins;
+
+    Sommet*S;
+    Sommet*S1;
+    double poidschemin=0;
+    double presence=0;
+    double ciA;
+    std::vector<int>chemin;
+    chemin.push_back(depart);
+    double compteurpcc=0;
+    int id; //chaque chemin devra aller du depart donc on le push_back
+
+    touschemins.push(chemin);
+    while (!touschemins.empty())
+    {
+
+        chemin = touschemins.front();
+        touschemins.pop();
+        int last = chemin[chemin.size() - 1];
+
+        // if last vertex is the desired destination
+        // then print the path
+        if (last == arrivee)
+        {
+            poidschemin=0;
+
+            for (size_t i=0; i<chemin.size()-1; ++i)
+            {
+
+                poidschemin+=trouverpoids(chemin[i],chemin[i+1]);
+
+            }
+
+
+            if (poidschemin==distance)
+            {
+                compteurpcc++;
+                for (size_t i=0; i<chemin.size()-1; ++i)
+                {
+
+                    if (((chemin[i]==ex1)&&(chemin[i+1]==ex2))||((chemin[i]==ex2)&&(chemin[i+1]==ex1)))
+                        presence++;
+                }
+
+            }
+
+
+
+
+
+        }
+        S=trouversommetindice(last);
+
+        // traverse to all the nodes connected to
+        // current vertex and push new path to queue
+        for (double i = 0; i < S->get_nb_adj(); ++i)
+        {
+
+            S1=S->get_adj(i);
+            id=S1->getId();
+            if (isNotVisited(id, chemin))
+
+            {
+                std::vector<int> newpath(chemin);
+
+                id=S1->getId();
+
+                newpath.push_back(id);
+                touschemins.push(newpath);
+
+
+
+            }
+        }
+    }
+
+    ciA=presence/compteurpcc;
+
+
+    return ciA;
+    //return cheminsdepartarrivee;
+}
+
+void Graphe::centraliteinterarete()
+{
+
+    int p;
+    double ciA;
+    double distance;
+    std::vector<std::vector<int>> chemins;
+
+
+
+    p=this->nb_comp_connexe(1);
+
+
+    if ((p==1) && (m_sommets.size()>1))// on verifie qye la composante est connexe et que le graphe comporte au moins une arete
+    {
+        for (size_t i=0; i<m_aretes.size(); ++i) // on parcourt tous les sommets et c'est la valeur de ci1 de m_sommets[i]que l'on va determiner
+        {
+            ciA=0;
+            for (size_t j=0; j<m_sommets.size(); ++j)
+            {
+
+                for (size_t k=0; k<m_sommets.size(); ++k)
+                {
+                    if ((m_sommets[j]->getId())<(m_sommets[k]->getId()))
+                    {
+
+                        distance=dijkstraproxi(m_sommets[j]->getId(),m_sommets[k]->getId());
+                        ciA+=areteparcourue(m_sommets[j]->getId(),m_sommets[k]->getId(),m_aretes[i]->getindiceS1(),m_aretes[i]->getindiceS2(),distance);
+                    }
+
+
+                }
+            }
+            m_aretes[i]->setciA(ciA);
+
+
+        }
+
+    }
+    else
+        for(size_t i=0; i<m_aretes.size(); i++)
+        {
+            m_aretes[i]->setciA(-1);
+        }
+}
+
+
 void Graphe::affichercentralite()
 {
     for (size_t i=0; i<m_sommets.size(); ++i)
@@ -621,7 +750,24 @@ void Graphe::affichercentralite()
             std::cout<<"centralite intermediarite normalisee : "<<m_sommets[i]->getciN()<<std::endl;
         }
     }
+    std::cout<<std::endl;
+    for(size_t j=0; j<m_aretes.size(); j++)
+    {
+        if(m_aretes[j]->getciA()==-1)
+        {
+            SetConsoleTextAttribute(hConsole, 12);
+            std::cout<<"impossible de calculer centralite intermediarite arete "<<std::endl;
+            SetConsoleTextAttribute(hConsole, 15);
+        }
+        else
+        {
+
+            std::cout<<"arete : "<<m_aretes[j]->trouverNomS1()<<"--"<<m_aretes[j]->trouverNomS2()<<std::endl;
+            std::cout<<"centralite intermediarite arete : "<<m_aretes[j]->getciA()<<std::endl;
+        }
+    }
 }
+
 
 void Graphe::deleteArete( std::vector<int> id)
 {
@@ -689,6 +835,7 @@ void Graphe::deleteAreteIndice(std::vector<int> id)
     std::vector<double> vect_cvp;
     std::vector<double> vect_ci;
     std::vector<double> vect_cin;
+
     std::vector<std::string> vect_nom;
 
     this->centralitedegre();
@@ -964,7 +1111,7 @@ int Graphe::nb_comp_connexe(int idSommet)
     return j-1;
 }
 
-void Graphe::dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cvp, int& cpn, int& cp, int& ci, int&ciN, int& cia, int& cian)
+void Graphe::dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cvp, int& cpn, int& cp, int& ci, int&ciN, int& cia)
 {
     Svgfile svgout;
     std::vector<double> vect_cd;
@@ -975,8 +1122,6 @@ void Graphe::dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cvp, int
     std::vector<double> vect_ci;
     std::vector<double> vect_cin;
     std::vector<double> vect_cia;
-    std::vector<double> vect_cian;
-    std::string nomFichier;
 
     this->centralitedegre();
     this->centralitedegreN();
@@ -985,6 +1130,7 @@ void Graphe::dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cvp, int
     this->centralitevp();
     this->centraliteinter();
     this->centraliteinterN();
+    this->centraliteinterarete();
 
     for(size_t i=0; i<m_sommets.size(); i++)
     {
@@ -995,6 +1141,10 @@ void Graphe::dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cvp, int
         vect_vp.push_back(m_sommets[i]->getcvp());
         vect_ci.push_back(m_sommets[i]->getci());
         vect_cin.push_back(m_sommets[i]->getciN());
+    }
+    for(size_t j=0; j<m_aretes.size(); j++)
+    {
+        vect_cia.push_back(m_aretes[j]->getciA());
     }
     for(size_t i=0; i<m_sommets.size(); i++)
     {
@@ -1081,5 +1231,12 @@ void Graphe::dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cvp, int
             if(m_sommets[i]->getciN()==*std::max_element(vect_cin.begin(), vect_cin.end()))
                 m_sommets[i]->dessinerMarque(svgout);
             m_sommets[i]->ecrireCentraliteCIN(svgout);
+        }
+    if(cia==1)
+        for (size_t i=0; i<m_aretes.size(); ++i)
+        {
+            if(m_aretes[i]->getciA()==*std::max_element(vect_cia.begin(), vect_cia.end()))
+                m_aretes[i]->marquerArete(svgout);
+            m_aretes[i]->ecrireCIA(svgout);
         }
 }
