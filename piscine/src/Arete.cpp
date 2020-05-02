@@ -78,7 +78,7 @@ std::string Arete::nbToStrg(double nombre)const
 
 void Arete::dessiner(Svgfile& svgout)
 {
-    svgout.addLine(m_vect.first->getx(), m_vect.first->gety(), m_vect.second->getx(), m_vect.second->gety(), "grey");
+    svgout.addLine(this->m_vect.first->getx(), this->m_vect.first->gety(), this->m_vect.second->getx(), this->m_vect.second->gety(), "grey");
 }
 
 void Arete::ecrirePoids(Svgfile& svgout)
@@ -86,3 +86,7 @@ void Arete::ecrirePoids(Svgfile& svgout)
     svgout.addText((this->m_vect.first->getx()+this->m_vect.second->getx())/2, (this->m_vect.first->gety()+this->m_vect.second->gety())/2, nbToStrg(m_poids), "red");
 }
 
+void Arete::marquerArete(Svgfile& svgout)
+{
+    svgout.addLine(this->m_vect.first->getx(), this->m_vect.first->gety(), this->m_vect.second->getx(), this->m_vect.second->gety(), "green");
+}

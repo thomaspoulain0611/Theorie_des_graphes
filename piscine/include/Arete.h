@@ -26,13 +26,14 @@ class Arete
         //void setVect(std::pair<Sommet*, Sommet*> som);
 
         void dessiner(Svgfile& svgout);
+        void marquerArete(Svgfile& svgout);
         void ecrirePoids(Svgfile& svgout);
         std::string nbToStrg(double nombre)const;
 
          friend std::ostream& operator<<(std::ostream&out, const Arete&a)
     {
 
-        std::cout<<"(indice arete :"<<a.m_indice<<", premiere extremite:"<<a.m_vect.first->getId()<<", premieres coordonnees x:"<<a.m_vect.first->getx()<<", deuxieme extremite:"<<a.m_vect.second->getId()<<", poids:"<<a.m_poids<<")"<<std::endl;
+        std::cout<<"(indice arete :"<<a.m_indice<<", premiere extremite:"<<a.m_vect.first->getId()<<", deuxieme extremite:"<<a.m_vect.second->getId()<<", poids:"<<a.m_poids<<")"<<std::endl;
         return out;
     }
 

@@ -85,23 +85,6 @@ Graphe::Graphe(std::string nomFichier, std::string nomFichierPoids)
 
 }
 
-
-
-/*     int taille;
-     ifs>>taille;
-     if ( ifs.fail() )
-         throw std::runtime_error("Erreur de lecture de taille");
-     for (int i=0; i<ordre; ++i)
-     {
-         m_sommets.push_back(new Sommet{i+1});// vu que ca part de 0 on lui attribue la valeur i+1
-     }
-     for (int i=0; i<taille; ++i)
-     {
-         m_aretes.push_back(new Arete(ifs));// lire le prochain truc que le flux va lire
-     }*/
-
-
-
 Graphe::~Graphe()
 {
     for (auto s : m_sommets)
@@ -126,11 +109,6 @@ int Graphe::getTaille()const
     return (int) m_aretes.size();
 }
 
-/*void Graphe::setOrdre(int ordre)
-{
-    m_ordre=ordre;
-}*/
-
 void Graphe::setOrient(int orient)
 {
     m_orient=orient;
@@ -139,12 +117,14 @@ void Graphe::setOrient(int orient)
 void Graphe::enregistrer()
 {
     std::string nomFichier;
-//    this->rempliradj();
-    // this->poidsarete(nomFichier);
     this->centralitedegre();
     this->centralitedegreN();
     this->centraliteproxi();
     this->centraliteproxiN();
+    this->centralitevp();
+    this->centraliteinter();
+    this->centraliteinterN();
+
 
     std::ofstream ofs{"sauvegarde.txt"};
     if(!ofs)
@@ -155,64 +135,33 @@ void Graphe::enregistrer()
     {
         for (size_t i=0; i<m_sommets.size(); ++i)
         {
-            if(m_sommets[i]->getcp()!=0)
-                ofs<<"id: "<<m_sommets[i]->getId()<<"| cd: "<<m_sommets[i]->getcd()<<"| cdn: "<<m_sommets[i]->getcdn()<<"| cp: "<<m_sommets[i]->getcp()<<"| cpn: "<<m_sommets[i]->getcpn()<<std::endl;
-            else
-                ofs<<"id: "<<m_sommets[i]->getId()<<"| cd: "<<m_sommets[i]->getcd()<<"| cdn: "<<m_sommets[i]->getcdn()<<"| cp: incalculable | cpn: incalculable"<<std::endl;
+            if(m_sommets[i]->getcp()!=0 && m_sommets[i]->getci()!=-1)
+                ofs<<"nom: "<<m_sommets[i]->getNom()<<"| cd: "<<m_sommets[i]->getcd()<<"| cdn: "<<m_sommets[i]->getcdn()<<"| cvp: "<<m_sommets[i]->getcvp()<<"| cp: "<<m_sommets[i]->getcp()<<"| cpn: "<<m_sommets[i]->getcpn()<<"| ci: "<<m_sommets[i]->getci()<<"| cin: "<<m_sommets[i]->getciN()<<std::endl;
+            else if(m_sommets[i]->getcp()==0)
+                ofs<<"nom: "<<m_sommets[i]->getNom()<<"| cd: "<<m_sommets[i]->getcd()<<"| cdn: "<<m_sommets[i]->getcdn()<<"| cvp: "<<m_sommets[i]->getcvp()<<"| cp: incalculable | cpn: incalculable"<<"| ci: "<<m_sommets[i]->getci()<<"| cin: "<<m_sommets[i]->getciN()<<std::endl;
+            else if(m_sommets[i]->getci()==-1)
+                ofs<<"nom: "<<m_sommets[i]->getNom()<<"| cd: "<<m_sommets[i]->getcd()<<"| cdn: "<<m_sommets[i]->getcdn()<<"| cvp: "<<m_sommets[i]->getcvp()<<"| cp: "<<m_sommets[i]->getcp()<<"| cpn: "<<m_sommets[i]->getcpn()<<"| ci: incalculable | cin: incalculable "<<std::endl;
         }
+
     }
 }
 
-/*void Graphe::poidsarete (std::string nomFichier)
-
-{
-    for(size_t i=0; i<m_aretes.size(); ++i)
-    {
-        m_aretes[i]->assimpoids(nomFichier);
-    }
-}*/
-
 void Graphe::centralitedegre()
 {
-
-    //this->rempliradj();
     for(size_t i=0; i<m_sommets.size(); ++i)
     {
         m_sommets[i]->setcd((double)m_sommets[i]->get_nb_adj());
-        /* cd=0;
-         for(size_t j=0; j<m_aretes.size(); ++j)
-         {
-             if (m_aretes[j]->getindiceS1()==m_sommets[i]->getId()||m_aretes[j]->getindiceS2()==m_sommets[i]->getId())
-            cd+=1;
-         }
-         m_sommets[i]->setcd(cd);*/
-
-        /* cd=0;
-         for(size_t j=0; j<m_aretes.size(); ++j)
-         {
-             if (m_aretes[j]->getindiceS1()==m_sommets[i]->getId()||m_aretes[j]->getindiceS2()==m_sommets[i]->getId())
-            cd+=1;
-         }
-         m_sommets[i]->setcd(cd);*/
-
-
-
     }
 }
 
 
 void Graphe::centralitedegreN()
 {
-
     double cd;
     for (size_t i=0; i<m_sommets.size(); ++i)
     {
-
         cd=m_sommets[i]->getcd();
-
-
         m_sommets[i]->setcdn(cd/((float)m_sommets.size()-1));
-
     }
 }
 
@@ -220,20 +169,14 @@ void Graphe::centralitedegreN()
 double Graphe::trouverpoids(int s1,int s2)
 {
     double poids;
-
     for(size_t i=0; i<m_aretes.size(); ++i)
     {
         if (((m_aretes[i]->getindiceS1()==s1)&&(m_aretes[i]->getindiceS2()==s2))||((m_aretes[i]->getindiceS1()==s2)&&(m_aretes[i]->getindiceS2()==s1)))
         {
-
             poids=m_aretes[i]->getPoids();
-
         }
-
     }
-
     return poids;
-
 }
 
 Sommet*Graphe::trouversommetindice(int indice)
@@ -250,8 +193,6 @@ Sommet*Graphe::trouversommetindice(int indice)
 
 double Graphe::dijkstraproxi(int depart,int arrivee)
 {
-
-
     std::vector<int> I_preds;//I_preds[i] donne le prédécesseur du sommet i
     std::priority_queue<double, std::vector<double>, std::greater<double> > distances; //file de priorite avec le plus petit element en top
 //initialisation variables temporaires
@@ -287,19 +228,14 @@ double Graphe::dijkstraproxi(int depart,int arrivee)
 
             if(S->get_color()=='B')//si successeur non découvert
             {
-
                 //si poids de l'arête entre le sommet et son voisin + distance séparant le sommet actuel et le sommet de départ
                 //donne une distance plus petite que la distance qu'il avait jusque là
                 if(dist+poids<S->get_distance())
                 {
-
                     S->set_distance(dist+poids);//on donne à succ la nouvelle distance du chemin plus court
-
                     I_preds.at(succ)=sommet;//on marque sommet comme prédécesseur de succ/
-
                     //std::cout<<"sommet:"<<sommet->getId()<<std::endl;
                     distances.push(dist+poids);//on ajoute cette nouvelle distance à la file de priorité
-
                 }
                 else
                     distances.push(dist+S->get_distance());//sinon on ajoute l'ancienne distance (entre succ et sommet de départ) à la file
@@ -324,58 +260,6 @@ double Graphe::dijkstraproxi(int depart,int arrivee)
     }
     return dist;
 }
-/*double Graphe::distanceproxi(std::vector<int> nouv,int depart, int arrivee)
-{
-
-    int pred=0;
-    std::cout<<"depart :"<<depart<<std::endl;
-    std::cout<<"arrivee :"<<arrivee<<std::endl;
-
-    for(size_t i=0; i<nouv.size(); ++i) // on parcourt tous les prédecesseurs
-    {
-        std::cout<<"i :"<<i<<std::endl;
-        if((int)i==arrivee)// si numero case correspond au sommet d'arrivée
-        {
-            //std::cout<<i;// on affiche le sommet d'arrivée
-            pred=nouv[i];//on note son predecesseur
-            std::cout<<"pred :"<<pred<<std::endl;
-
-            while(pred!=depart)// tant que le prédecesseur n'est pas le sommet de départ
-            {
-                std::cout<<"<-- pred:"<<pred;// on affiche "<--"
-
-                pred=nouv[pred];// predecesseur prend la valeur du predecesseur du sommet alors traité
-            }
-            std::cout<<"<--"<<depart<<" : longueur ";// on affiche le sommet de départ
-
-            //affichage poids
-            pred=nouv[i];// on remet à pred la valeur du prédecesseur de notre nombre d'arrivée
-            int parcours=pred;
-
-            double poids;
-            poids=trouverpoids(pred,nouv[i]);
-
-            // on initialise le sommet parcours et la somme(longueur chemin)
-            //std::cout<<m_sommets[pred]->get_poids(i);// on affiche le poids correspondant à l'arete entre le prédécesseur de i et i
-            somme+=poids;// on ajoute cette valeur à notre somme
-
-            while(parcours!=depart)// tant que parcours est différent de départ
-            {
-                pred=nouv[parcours];
-                poids=trouverpoids(pred,parcours);
-
-                // on assimile à pred la valeur du prédecesseur du sommet étudié
-                std::cout<<"+"<<poids;// on affiche le poids de l'arête entre ces deux sommets
-                somme+=poids;// on l'ajoute à la somme
-                parcours=pred;//maj du sommet parcouru
-            }
-
-
-        }
-    }
-
-}*/
-
 
 void Graphe::centraliteproxi()
 {
@@ -395,9 +279,7 @@ void Graphe::centraliteproxi()
                 if ((m_sommets[i]->getId())!=(m_sommets[j]->getId()))
                 {
                     cp+=dijkstraproxi(m_sommets[i]->getId(),m_sommets[j]->getId());
-                    //cp+=distanceproxi(preds,m_sommets[i]->getId(),m_sommets[j]->getId());
                 }
-                //ideal:: dijkstraproxi(m_sommets[i],m_sommets[j
             }
             cp=1/cp;
             m_sommets[i]->setcp(cp);
@@ -412,45 +294,29 @@ void Graphe::centraliteproxi()
 
 void Graphe::centraliteproxiN()
 {
-
     double cp;
     for (size_t i=0; i<m_sommets.size(); ++i)
     {
-
         cp=m_sommets[i]->getcp();
-
-
         m_sommets[i]->setcpn(cp*(m_sommets.size()-1));
-
     }
 }
 
 void Graphe::centralitevp()
 {
-
-
     double temp=0;
     double tampon;
-
     int q=0;
     std::vector<double>lambda;
-
-
-
     for(size_t i=0; i<m_sommets.size(); ++i)
     {
         m_sommets[i]->setcvp(1);
     }
-
-    for (size_t l=0;l<10000;++l)
+    for (size_t l=0; l<10000; ++l)
     {
         lambda.push_back(0);
     }
-
-
-
     do
-
     {
         lambda[q]=0;
         for(size_t i=0; i<m_sommets.size(); ++i)
@@ -459,47 +325,26 @@ void Graphe::centralitevp()
             for(size_t j=0; j<m_sommets[i]->get_nb_adj(); ++j)
             {
                 temp+=m_sommets[i]->get_adj(j)->getcvp();
-
-
-
             }
-           // std::cout<<"temp ="<<temp<<std::endl;
             m_sommets[i]->setcsi(temp);
-
-
         }
         for (size_t k=0; k<m_sommets.size(); ++k)
         {
             lambda[q]+=pow(m_sommets[k]->getcsi(),(2));
         }
-
         lambda[q]=sqrt(lambda[q]);
-        std::cout<<"lambda :"<<lambda[q]<<std::endl;
-
         for (size_t i=0; i<m_sommets.size(); ++i)
         {
             m_sommets[i]->setcvp((m_sommets[i]->getcsi())/lambda[q]);
-            //std::cout<<"cvp "<<i<<":"<< m_sommets[i]->getcvp()<<std::endl;
         }
-
         q++;
-        std::cout<<"i="<<q<<std::endl;
         tampon=lambda[q-1]-lambda[q-2];
-        std::cout<<" tampon="<<tampon<<std::endl;
-
-    }while ((q<2)||((tampon>0.001)||(tampon<-0.001)));
-    for (size_t i=0;i<m_sommets.size();++i)
-    {
-        std::cout<<"csi :"<<m_sommets[i]->getcsi()<<std::endl;
-        std::cout<<"cvp :"<<m_sommets[i]->getcvp()<<std::endl;
     }
-
+    while ((q<2)||((tampon>0.001)||(tampon<-0.001)));
 }
 
 int Graphe::dijkstrainter1pcc( int depart, int arrivee, int sparcouru)
 {
-
-
     std::vector<int> I_preds;//I_preds[i] donne le prédécesseur du sommet i
     std::priority_queue<double, std::vector<double>, std::greater<double> > distances; //file de priorite avec le plus petit element en top
 //initialisation variables temporaires
@@ -509,7 +354,6 @@ int Graphe::dijkstrainter1pcc( int depart, int arrivee, int sparcouru)
     size_t nb=0;
     double poids=0;
     Sommet*S=nullptr;
-
 //initialisation: chaque case vecteur de predecesseurs à -1 et tous les sommets sont blancs/non parcourus
     for(size_t i=0; i<m_sommets.size(); ++i)
     {
@@ -517,15 +361,12 @@ int Graphe::dijkstrainter1pcc( int depart, int arrivee, int sparcouru)
         m_sommets[i]->set_distance(1000000000000000000);//distance infinie
         I_preds.push_back(-1);//autant de cases que de sommets
     }
-
     S=trouversommetindice(depart);
-
     nb=S->get_nb_adj();//on recupère le nombre de successeurs du sommet parcour
     sommet=depart;//sommet actuel est celui de depart
 //tant qu'on arrive pas au sommet dont on souhaite connaitre le chemin
     while(sommet!=arrivee)
     {
-
         S=trouversommetindice(sommet);
         nb=S->get_nb_adj();//on recupère le nombre de successeurs du sommet parcouru
         for(size_t x=0; x<nb; ++x)//pour chaque successeur de sommet
@@ -534,22 +375,16 @@ int Graphe::dijkstrainter1pcc( int depart, int arrivee, int sparcouru)
             succ=S->get_adj(x)->getId();//on récupère le sommet x
             poids=trouverpoids(sommet,succ);
             S=trouversommetindice(succ);
-
             if(S->get_color()=='B')//si successeur non découvert
             {
-
                 //si poids de l'arête entre le sommet et son voisin + distance séparant le sommet actuel et le sommet de départ
                 //donne une distance plus petite que la distance qu'il avait jusque là
                 if(dist+poids<S->get_distance())
                 {
-
                     S->set_distance(dist+poids);//on donne à succ la nouvelle distance du chemin plus court
-
                     I_preds.at(succ)=sommet;//on marque sommet comme prédécesseur de succ/
-
                     //std::cout<<"sommet:"<<sommet->getId()<<std::endl;
                     distances.push(dist+poids);//on ajoute cette nouvelle distance à la file de priorité
-
                 }
                 else
                     distances.push(dist+S->get_distance());//sinon on ajoute l'ancienne distance (entre succ et sommet de départ) à la file
@@ -559,7 +394,6 @@ int Graphe::dijkstrainter1pcc( int depart, int arrivee, int sparcouru)
         S->set_color('N');//on marque le sommet parcouru
         dist=distances.top();//distance du chemin le plus court est la valeur au top de la file de priorité
         distances.pop();//on supprimme cette distance de la file
-
         //on parcourt tous les sommets
         for(size_t y=0; y<m_sommets.size(); ++y)
         {
@@ -570,82 +404,37 @@ int Graphe::dijkstrainter1pcc( int depart, int arrivee, int sparcouru)
                 //ce sommet est le nouveau sommet de parcours
             }
         }
-
     }
-
-
-
     int pred=0;
     int presence=0;
-
     for(size_t i=0; i<I_preds.size(); ++i) // on parcourt tous les prédecesseurs
     {
         if((int)i==arrivee)// si numero case correspond au sommet d'arrivée
         {
             std::cout<<i;
-             // on affiche le sommet d'arrivée
+            // on affiche le sommet d'arrivée
             pred=I_preds[i];//on note son predecesseur
-
-
             while(pred!=depart)// tant que le prédecesseur n'est pas le sommet de départ
             {
-
                 std::cout<<"<--"<<pred;// on affiche "<--"
-                 if (pred==sparcouru)
+                if (pred==sparcouru)
                 {
                     presence=1;
                 }
-
-
-                pred=I_preds[pred];// predecesseur prend la valeur du predecesseur du sommet alors traité
-
-
-
-
+                pred=I_preds[pred];// predecesseur prend la valeur du predecesseur du sommet alors trait
             }
-              std::cout<<"<--"<<depart<<std::endl;
-
-
-
-            //affichage poids
-            //pred=nouveau[i];// on remet à pred la valeur du prédecesseur de notre nombre d'arrivée
-            /*int parcours=pred;// on initialise le sommet parcours et la somme(longueur chemin)
-
-
-            while(parcours!=depart)// tant que parcours est différent de départ
-            {
-                pred=nouveau[parcours];// on assimile à pred la valeur du prédecesseur du sommet étudié
-
-
-
-                parcours=pred;//maj du sommet parcouru*/
-            }
-
-
-
+            std::cout<<"<--"<<depart<<std::endl;
         }
-          std::cout<<"presence ="<<presence<<std::endl;
+        std::cout<<"presence ="<<presence<<std::endl;
+    }
     return presence;
-
-
-
-
-
 }
 
-
-
-
-
 void Graphe::centraliteinter1pcc()
-
 {
     int p;
     double ci1;
-
     p=this->nb_comp_connexe(1);
-
-
     if ((p==1) && (m_sommets.size()>2))// on verifie qye la composante est connexe et que le graphe comporte au moins trois sommets
     {
         for (size_t i=0; i<m_sommets.size(); ++i) // on parcourt tous les sommets et c'est la valeur de ci1 de m_sommets[i]que l'on va determiner
@@ -657,25 +446,12 @@ void Graphe::centraliteinter1pcc()
                 {
                     if ((m_sommets[j]->getId())<(m_sommets[k]->getId()) &&(m_sommets[i]->getId()!=m_sommets[j]->getId())&&(m_sommets[i]->getId()!=m_sommets[k]->getId()))
                     {
-
-
-
-std::cout<<" sommet de depart: "<<m_sommets[j]->getId()<<" sommet d'arrivee: "<<m_sommets[k]->getId()<<" sommet etudie "<<m_sommets[i]->getId()<<std::endl;
-                        //preds=dijkstrainter1pcc(m_sommets[j]->getId(),m_sommets[k]->getId(),m_sommets[i]->getId());
-                        //ci1+=affichagePCC(preds,m_sommets[j]->getId(),m_sommets[k]->getId(),m_sommets[i]->getId());
                         ci1+=dijkstrainter1pcc(m_sommets[j]->getId(),m_sommets[k]->getId(),m_sommets[i]->getId());
-
                     }
-
-
                 }
             }
             m_sommets[i]->setci1(ci1);
-            std::cout<< "sommet "<<m_sommets[i]->getId()<<" ci1 ="<< m_sommets[i]->getci1()<<std::endl;
-
-
         }
-
     }
     else
         for(size_t i=0; i<m_sommets.size(); i++)
@@ -686,19 +462,13 @@ std::cout<<" sommet de depart: "<<m_sommets[j]->getId()<<" sommet d'arrivee: "<<
 
 void Graphe::centraliteinter1Npcc()
 {
-     double ci1N=0;
+    double ci1N=0;
     for (size_t i=0; i<m_sommets.size(); ++i)
     {
         ci1N=0;
-
         ci1N=m_sommets[i]->getci1();
-
-
         m_sommets[i]->setci1n((2*ci1N)/(pow((double)m_sommets.size(),2)-3*(double)m_sommets.size()+2));
-        std::cout<<" affichage ci1N :"<<m_sommets[i]->getci1n();
-
     }
-
 }
 
 int Graphe::isNotVisited(int x, std::vector<int>& path)
@@ -714,7 +484,6 @@ int Graphe::isNotVisited(int x, std::vector<int>& path)
 double Graphe::presencesparcouru(int depart, int arrivee, int sparcouru,double distance)
 {
     std::queue<std::vector<int>>touschemins;
-
     Sommet*S;
     Sommet*S1;
     double poidschemin=0;
@@ -724,74 +493,45 @@ double Graphe::presencesparcouru(int depart, int arrivee, int sparcouru,double d
     chemin.push_back(depart);
     double compteurpcc=0;
     int id; //chaque chemin devra aller du depart donc on le push_back
-
     touschemins.push(chemin);
     while (!touschemins.empty())
-        {
-
+    {
         chemin = touschemins.front();
         touschemins.pop();
         int last = chemin[chemin.size() - 1];
-
-        // if last vertex is the desired destination
-        // then print the path
         if (last == arrivee)
         {
             poidschemin=0;
-
-            for (size_t i=0;i<chemin.size()-1;++i)
+            for (size_t i=0; i<chemin.size()-1; ++i)
             {
-
                 poidschemin+=trouverpoids(chemin[i],chemin[i+1]);
-
             }
-
-
             if (poidschemin==distance)
             {
                 compteurpcc++;
-                for (size_t i=0;i<chemin.size();++i)
+                for (size_t i=0; i<chemin.size(); ++i)
                 {
                     if (chemin[i]==sparcouru)
                         presence++;
                 }
-
             }
-
-
-
-
-
         }
         S=trouversommetindice(last);
-
-        // traverse to all the nodes connected to
-        // current vertex and push new path to queue
         for (double i = 0; i < S->get_nb_adj(); ++i)
-            {
-
-                S1=S->get_adj(i);
-                id=S1->getId();
+        {
+            S1=S->get_adj(i);
+            id=S1->getId();
             if (isNotVisited(id, chemin))
-
-             {
+            {
                 std::vector<int> newpath(chemin);
-
                 id=S1->getId();
-
                 newpath.push_back(id);
                 touschemins.push(newpath);
-
-
-
-             }
             }
+        }
     }
-
     ci=presence/compteurpcc;
-
     return ci;
-    //return cheminsdepartarrivee;
 }
 
 
@@ -804,7 +544,6 @@ void Graphe::centraliteinter()
     double distance;
     std::vector<std::vector<int>> chemins;
     std::vector<std::vector<int>>pluscourtschemins;
-
 
     p=this->nb_comp_connexe(1);
 
@@ -821,29 +560,13 @@ void Graphe::centraliteinter()
                 {
                     if ((m_sommets[j]->getId())<(m_sommets[k]->getId()) &&(m_sommets[i]->getId()!=m_sommets[j]->getId())&&(m_sommets[i]->getId()!=m_sommets[k]->getId()))
                     {
-
-
-
-
-
                         distance=dijkstraproxi(m_sommets[j]->getId(),m_sommets[k]->getId());
                         ci+=presencesparcouru(m_sommets[j]->getId(),m_sommets[k]->getId(),m_sommets[i]->getId(),distance);
-
-                        //chemins=trouvertouschemins(m_sommets[j]->getId(),m_sommets[k]->getId());
-                        //pluscourtschemins=pcc(chemins,distance);
-                        // programme permettant de
-
                     }
-
-
                 }
             }
             m_sommets[i]->setci(ci);
-            std::cout<< "sommet "<<m_sommets[i]->getId()<<" ci ="<< m_sommets[i]->getci()<<std::endl;
-
-
         }
-
     }
     else
         for(size_t i=0; i<m_sommets.size(); i++)
@@ -860,43 +583,21 @@ void Graphe::centraliteinterN()
     for (size_t i=0; i<m_sommets.size(); ++i)
     {
         ciN=0;
-
         ciN=m_sommets[i]->getci();
-
-
         m_sommets[i]->setciN((2*ciN)/(pow((double)m_sommets.size(),2)-3*(double)m_sommets.size()+2));
-        std::cout<<" affichage ci1N :"<<m_sommets[i]->getciN();
-
     }
 
 }
-
-/*void Graphe::rempliradj()
-{
-    for (size_t i=0; i<m_sommets.size(); ++i)
-    {
-        for(size_t j=0; j<m_aretes.size(); ++j)
-        {
-            if((m_aretes[j]->getindiceS1())==m_sommets[i]->getId())
-            {
-                m_sommets[i]->setadj(m_aretes[j]->getSommet2());
-            }
-            if ((m_aretes[j]->getindiceS2()==m_sommets[i]->getId()))
-            {
-                m_sommets[i]->setadj(m_aretes[j]->getSommet1());
-            }
-        }
-    }
-}*/
 
 void Graphe::affichercentralite()
 {
     for (size_t i=0; i<m_sommets.size(); ++i)
     {
         SetConsoleTextAttribute(hConsole, 15);
-        std::cout<<std::endl<<"indice : "<<m_sommets[i]->getId()<<std::endl;
+        std::cout<<std::endl<<"nom : "<<m_sommets[i]->getNom()<<std::endl;
         std::cout<<"centralite degre non normalisee : "<<m_sommets[i]->getcd()<<std::endl;
         std::cout<<"centralite degre normalisee : "<<m_sommets[i]->getcdn()<<std::endl;
+        std::cout<<"centralitte vecteur propre : "<<m_sommets[i]->getcvp()<<std::endl;
         if(m_sommets[i]->getcp()==0)
         {
             SetConsoleTextAttribute(hConsole, 12);
@@ -908,19 +609,20 @@ void Graphe::affichercentralite()
             std::cout<<"centralite proxi : "<<m_sommets[i]->getcp()<<std::endl;
             std::cout<<"centralite proxi normalisee : "<<m_sommets[i]->getcpn()<<std::endl;
         }
+        if(m_sommets[i]->getci()==-1)
+        {
+            SetConsoleTextAttribute(hConsole, 12);
+            std::cout<<"impossible de calculer centralite intermediarite et centralite intermediarite normalisee car graphe non connexe "<<std::endl;
+            SetConsoleTextAttribute(hConsole, 15);
+        }
+        else
+        {
+            std::cout<<"centralite intermediarite : "<<m_sommets[i]->getci()<<std::endl;
+            std::cout<<"centralite intermediarite normalisee : "<<m_sommets[i]->getciN()<<std::endl;
+        }
     }
 }
 
-
-/*if(m_orient==1)
-    std::cout<<"Le graphe est orienté"<<std::endl;
-else
-    std::cout<<"Le graphe n'est pas orienté"<<std::endl;
-std::cout<<"Ordre du graphe :"<<m_sommets.size()<<std::endl;
-for (size_t i=0; i<m_sommets.size();++i)
-{
-
-}*/
 void Graphe::deleteArete( std::vector<int> id)
 {
     int s1,s2;
@@ -984,14 +686,18 @@ void Graphe::deleteAreteIndice(std::vector<int> id)
     std::vector<double> vect_cdn;
     std::vector<double> vect_cp;
     std::vector<double> vect_cpn;
-    std::vector<int> vect_id;
+    std::vector<double> vect_cvp;
+    std::vector<double> vect_ci;
+    std::vector<double> vect_cin;
+    std::vector<std::string> vect_nom;
 
-    //this->poidsarete(nomFichier);
     this->centralitedegre();
     this->centralitedegreN();
     this->centraliteproxi();
     this->centraliteproxiN();
-    //this->centralitevp();
+    this->centralitevp();
+    this->centraliteinter();
+    this->centraliteinterN();
 
     for(size_t i=0; i<m_sommets.size(); i++)
     {
@@ -999,7 +705,10 @@ void Graphe::deleteAreteIndice(std::vector<int> id)
         vect_cdn.push_back(m_sommets[i]->getcdn());
         vect_cp.push_back(m_sommets[i]->getcp());
         vect_cpn.push_back(m_sommets[i]->getcpn());
-        vect_id.push_back(m_sommets[i]->getId());
+        vect_cvp.push_back(m_sommets[i]->getcvp());
+        vect_ci.push_back(m_sommets[i]->getci());
+        vect_cin.push_back(m_sommets[i]->getciN());
+        vect_nom.push_back(m_sommets[i]->getNom());
     }
 
     int s1,s2;
@@ -1042,21 +751,22 @@ void Graphe::deleteAreteIndice(std::vector<int> id)
             }
         }
     }
-
-    //this->poidsarete(nomFichier);
     this->centralitedegre();
     this->centralitedegreN();
     this->centraliteproxi();
     this->centraliteproxiN();
-    //this->centralitevp();
+    this->centralitevp();
+    this->centraliteinter();
+    this->centraliteinterN();
 
     for(size_t i=0; i<m_sommets.size(); i++)
     {
         SetConsoleTextAttribute(hConsole, 15);
         std::cout<<std::endl<<"indices de depart : "<<std::endl;
-        std::cout<<"indice du sommet : "<<vect_id[i]<<std::endl;
+        std::cout<<"nom du sommet : "<<vect_nom[i]<<std::endl;
         std::cout<<"indice centralite degre non normalise : "<<vect_cd[i]<<std::endl;
         std::cout<<"indice centralite degre nomalise : "<<vect_cdn[i]<<std::endl;
+        std::cout<<"indice centralite vecteur propre : "<<vect_cvp[i]<<std::endl;
         if(vect_cp[i]==0)
         {
             SetConsoleTextAttribute(hConsole, 12);
@@ -1068,10 +778,23 @@ void Graphe::deleteAreteIndice(std::vector<int> id)
             std::cout<<"indice centralite proxi non normalise : "<<vect_cp[i]<<std::endl;
             std::cout<<"indice centralise proxi normalise : "<<vect_cpn[i]<<std::endl;
         }
+        if(vect_ci[i]==-1)
+        {
+            SetConsoleTextAttribute(hConsole, 12);
+            std::cout<<"impossible de calculer centralite intermideriarite et centralite intermediarite normalise car graphe non connexe "<<std::endl;
+            SetConsoleTextAttribute(hConsole, 15);
+        }
+        else
+        {
+            std::cout<<"indice centralite intermediarite non normalise : "<<vect_ci[i]<<std::endl;
+            std::cout<<"indice centralise intermediarite normalise : "<<vect_cin[i]<<std::endl;
+        }
         std::cout<<std::endl<<"indices apres suppression : "<<std::endl;
-        std::cout<<"indice du sommet : "<<m_sommets[i]->getId()<<std::endl;
+        std::cout<<"nom du sommet : "<<m_sommets[i]->getNom()<<std::endl;
         std::cout<<"indice centralite degre non normalise : "<<m_sommets[i]->getcd()<<std::endl;
         std::cout<<"indice centralite degre nomalise : "<<m_sommets[i]->getcdn()<<std::endl;
+        std::cout<<"indice centralite vecteur propre : "<<m_sommets[i]->getcvp()<<std::endl;
+
         if(m_sommets[i]->getcp()==0)
         {
             SetConsoleTextAttribute(hConsole, 12);
@@ -1083,15 +806,27 @@ void Graphe::deleteAreteIndice(std::vector<int> id)
             std::cout<<"indice centralite proxi non normalise : "<<m_sommets[i]->getcp()<<std::endl;
             std::cout<<"indice centralise proxi normalise : "<<m_sommets[i]->getcpn()<<std::endl;
         }
+        if(m_sommets[i]->getci()==-1)
+        {
+            SetConsoleTextAttribute(hConsole, 12);
+            std::cout<<"impossible de calculer centralite intermideriarite et centralite intermediarite normalise car graphe non connexe "<<std::endl;
+            SetConsoleTextAttribute(hConsole, 15);
+        }
+        else
+        {
+            std::cout<<"indice centralite intermediarite non normalise : "<<m_sommets[i]->getci()<<std::endl;
+            std::cout<<"indice centralise intermediarite normalise : "<<m_sommets[i]->getciN()<<std::endl;
+        }
         std::cout<<std::endl<<"Comparaisons apres suppression : "<<std::endl;
-        std::cout<<"indice du sommet : "<<m_sommets[i]->getId()<<std::endl;
+        std::cout<<"nom du sommet : "<<m_sommets[i]->getNom()<<std::endl;
         std::cout<<"difference centralite degre non normalise : "<<vect_cd[i]-m_sommets[i]->getcd()<<std::endl;
         std::cout<<"difference centralite degre normalise : "<<vect_cdn[i]-m_sommets[i]->getcdn()<<std::endl;
+        std::cout<<"difference centralite vecteur propre : "<<vect_cvp[i]-m_sommets[i]->getcvp()<<std::endl;
         if(m_sommets[i]->getcp()==0 && vect_cp[i]!=0)
         {
             SetConsoleTextAttribute(hConsole, 12);
             std::cout<<std::endl<<"La suppression de l'arete a rendu le graphe non connexe"<<std::endl;
-            std::cout<<"l'indice de centralite proxi du sommet "<<m_sommets[i]->getId()<<" n'est donc plus calculable alors qu'il avait pour valeur "<<vect_cp[i]<<std::endl;
+            std::cout<<"l'indice de centralite proxi du sommet "<<m_sommets[i]->getNom()<<" n'est donc plus calculable alors qu'il avait pour valeur "<<vect_cp[i]<<std::endl;
             std::cout<<"de meme pour l'indice de centralite proxi normalise"<<std::endl<<std::endl;
             SetConsoleTextAttribute(hConsole, 15);
         }
@@ -1106,6 +841,26 @@ void Graphe::deleteAreteIndice(std::vector<int> id)
         {
             std::cout<<"difference centralite degre proxi non normalise : "<<vect_cp[i]-m_sommets[i]->getcp()<<std::endl;
             std::cout<<"difference centralite degre proxi normalise : "<<vect_cpn[i]-m_sommets[i]->getcpn()<<std::endl;
+        }
+        if(m_sommets[i]->getci()==-1 && vect_ci[i]!=-1)
+        {
+            SetConsoleTextAttribute(hConsole, 12);
+            std::cout<<std::endl<<"La suppression de l'arete a rendu le graphe non connexe"<<std::endl;
+            std::cout<<"l'indice de centralite intermediarite du sommet "<<m_sommets[i]->getNom()<<" n'est donc plus calculable alors qu'il avait pour valeur "<<vect_ci[i]<<std::endl;
+            std::cout<<"de meme pour l'indice de centralite intermediarite normalise"<<std::endl<<std::endl;
+            SetConsoleTextAttribute(hConsole, 15);
+        }
+        else if(vect_ci[i]==-1)
+        {
+            SetConsoleTextAttribute(hConsole, 12);
+            std::cout<<std::endl<<"Les differences des 2 indices de centralite intermediarite ne sont pas calculables car le graphe"<<std::endl;
+            std::cout<<" n'etait pas connexe de base"<<std::endl<<std::endl;
+            SetConsoleTextAttribute(hConsole, 15);
+        }
+        else
+        {
+            std::cout<<"difference centralite intermediarite non normalise : "<<vect_ci[i]-m_sommets[i]->getci()<<std::endl;
+            std::cout<<"difference centralite intermediarite normalise : "<<vect_cin[i]-m_sommets[i]->getciN()<<std::endl;
         }
     }
 }
@@ -1209,21 +964,27 @@ int Graphe::nb_comp_connexe(int idSommet)
     return j-1;
 }
 
-void Graphe::dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cpn, int& cp)
+void Graphe::dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cvp, int& cpn, int& cp, int& ci, int&ciN, int& cia, int& cian)
 {
     Svgfile svgout;
     std::vector<double> vect_cd;
     std::vector<double> vect_cdn;
     std::vector<double> vect_cp;
     std::vector<double> vect_cpn;
+    std::vector<double> vect_vp;
+    std::vector<double> vect_ci;
+    std::vector<double> vect_cin;
+    std::vector<double> vect_cia;
+    std::vector<double> vect_cian;
     std::string nomFichier;
 
-//    this->rempliradj();
-    // this->poidsarete(nomFichier);
     this->centralitedegre();
     this->centralitedegreN();
     this->centraliteproxi();
     this->centraliteproxiN();
+    this->centralitevp();
+    this->centraliteinter();
+    this->centraliteinterN();
 
     for(size_t i=0; i<m_sommets.size(); i++)
     {
@@ -1231,6 +992,9 @@ void Graphe::dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cpn, int
         vect_cdn.push_back(m_sommets[i]->getcdn());
         vect_cp.push_back(m_sommets[i]->getcp());
         vect_cpn.push_back(m_sommets[i]->getcpn());
+        vect_vp.push_back(m_sommets[i]->getcvp());
+        vect_ci.push_back(m_sommets[i]->getci());
+        vect_cin.push_back(m_sommets[i]->getciN());
     }
     for(size_t i=0; i<m_sommets.size(); i++)
     {
@@ -1274,6 +1038,15 @@ void Graphe::dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cpn, int
         }
     }
 
+    if(cvp==1)
+    {
+        for (size_t i=0; i<m_sommets.size(); ++i)
+        {
+            if(m_sommets[i]->getcvp()==*std::max_element(vect_vp.begin(), vect_vp.end()))
+                m_sommets[i]->dessinerMarque(svgout);
+            m_sommets[i]->ecrireCentraliteVP(svgout);
+        }
+    }
     if (cpn==1)
     {
         for (size_t i=0; i<m_sommets.size(); ++i)
@@ -1293,4 +1066,20 @@ void Graphe::dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cpn, int
             m_sommets[i]->ecrireCentraliteP(svgout);
         }
     }
+    if(ci==1)
+    {
+        for (size_t i=0; i<m_sommets.size(); ++i)
+        {
+            if(m_sommets[i]->getci()==*std::max_element(vect_ci.begin(), vect_ci.end()))
+                m_sommets[i]->dessinerMarque(svgout);
+            m_sommets[i]->ecrireCentraliteCI(svgout);
+        }
+    }
+    if(ciN==1)
+        for (size_t i=0; i<m_sommets.size(); ++i)
+        {
+            if(m_sommets[i]->getciN()==*std::max_element(vect_cin.begin(), vect_cin.end()))
+                m_sommets[i]->dessinerMarque(svgout);
+            m_sommets[i]->ecrireCentraliteCIN(svgout);
+        }
 }

@@ -225,6 +225,21 @@ void Sommet::ecrireCentralitePN(Svgfile& svgout)
     svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cpn),"black");
 }
 
+void Sommet::ecrireCentraliteVP(Svgfile& svgout)
+{
+    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cvp),"black");
+}
+
+void Sommet::ecrireCentraliteCI(Svgfile& svgout)
+{
+    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_ci),"black");
+}
+
+void Sommet::ecrireCentraliteCIN(Svgfile& svgout)
+{
+    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_ciN),"black");
+}
+
 std::string Sommet::nbToStrg(double nombre)const
 {
     std::ostringstream a;
