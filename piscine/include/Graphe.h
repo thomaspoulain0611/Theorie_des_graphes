@@ -13,7 +13,7 @@
 class Graphe
 {
 public:
-    Graphe(std::string nomFichier);
+    Graphe(std::string nomFichier, std::string nomFichierPoids);
 
     virtual ~Graphe();
 
@@ -24,8 +24,10 @@ public:
     //void setOrdre(int ordre);
     //void setTaille(int taille);
     void setOrient(int orient);
-    void poidsarete();
+    void poidsarete(std::string nomFichier);
     double trouverpoids(int s1,int s2);
+    void interunpcc();
+
 
     void enregistrer();
 
@@ -40,6 +42,20 @@ public:
     void centraliteproxiN();
 
     void centralitevp();
+    void centraliteinter1pcc();
+    void centraliteinter1Npcc();
+int  dijkstrainter1pcc( int depart, int arrivee, int sparcouru);
+
+void dijkstrainter(int depart, int arrivee, int sparcouru);
+double presencesparcouru(int depart, int arrivee, int sparcouru, double distance);
+int isNotVisited(int x, std::vector<int>& chemin);
+
+
+void centraliteinter();
+void centraliteinterN();
+
+
+
     void affichercentralite();
 
     void dessinerTous(int& nom, int& poids,int&cdn,int&cd,int&cpn,int&cp);

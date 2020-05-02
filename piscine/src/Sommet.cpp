@@ -64,42 +64,42 @@ void Sommet::setVectAdj(std::vector<Sommet*> thomaslpb)
     m_adj=thomaslpb;
 }
 
-    double Sommet::getcdn()const
-    {
-        return m_cdn;
-    }
+double Sommet::getcdn()const
+{
+    return m_cdn;
+}
 
-    void Sommet::setcdn(double cdn)
-    {
-        m_cdn=cdn;
-    }
+void Sommet::setcdn(double cdn)
+{
+    m_cdn=cdn;
+}
 
-    double Sommet::getcp()const
-    {
-        return m_cp;
-    }
-    void Sommet::setcp(double cp)
-    {
-        m_cp=cp;
-    }
-    double Sommet::getcpn()const
-    {
-        return m_cpn;
-    }
-    void Sommet::setcpn(double cpn)
-    {
-        m_cpn=cpn;
-    }
+double Sommet::getcp()const
+{
+    return m_cp;
+}
+void Sommet::setcp(double cp)
+{
+    m_cp=cp;
+}
+double Sommet::getcpn()const
+{
+    return m_cpn;
+}
+void Sommet::setcpn(double cpn)
+{
+    m_cpn=cpn;
+}
 
-    double Sommet::getcvp()const
-    {
-        return m_cvp;
-    }
+double Sommet::getcvp()const
+{
+    return m_cvp;
+}
 
-    void Sommet::setcvp(double cvp)
-    {
-     m_cvp=cvp;
-    }
+void Sommet::setcvp(double cvp)
+{
+    m_cvp=cvp;
+}
 
 
 void Sommet::setcd( double cd)
@@ -116,8 +116,46 @@ double Sommet::getcsi()const
 void Sommet::setcsi(double csi)
 {
     m_csi=csi;
+
 }
 
+double Sommet::getci1()const
+{
+    return m_ci1;
+}
+
+double Sommet::getci1n()const
+{
+    return m_ci1n;
+}
+void Sommet::setci1(double ci1)
+{
+    m_ci1=ci1;
+}
+void Sommet::setci1n (double ci1n)
+{
+    m_ci1n=ci1n;
+}
+
+double Sommet::getci()const
+{
+    return m_ci;
+}
+
+void Sommet::setci(double ci)
+{
+    m_ci=ci;
+}
+
+double Sommet::getciN()const
+{
+    return m_ciN;
+}
+
+void Sommet::setciN(double ciN)
+{
+    m_ciN=ciN;
+}
 char Sommet::get_color() const
 
 {

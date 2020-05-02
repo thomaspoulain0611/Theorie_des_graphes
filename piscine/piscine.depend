@@ -42,22 +42,22 @@
 	"Graphe.h"
 	"Svgfile.h"
 
-1588191279 source:c:\users\thoma\piscine\piscine\main.cpp
+1588377466 source:c:\users\thoma\piscine\piscine\main.cpp
 	<iostream>
 	"Graphe.h"
 	"Svgfile.h"
 
-1588181786 source:c:\users\thoma\piscine\piscine\src\arete.cpp
+1588253019 source:c:\users\thoma\piscine\piscine\src\arete.cpp
 	"Arete.h"
 	<Sommet.h>
 	<sstream>
 
-1588063720 c:\users\thoma\piscine\piscine\include\arete.h
+1588245282 c:\users\thoma\piscine\piscine\include\arete.h
 	<iostream>
 	<math.h>
 	<Sommet.h>
 
-1588181736 c:\users\thoma\piscine\piscine\include\sommet.h
+1588356906 c:\users\thoma\piscine\piscine\include\sommet.h
 	<iostream>
 	<vector>
 	<fstream>
@@ -66,15 +66,15 @@
 	<Svgfile.h>
 	<queue>
 
-1588184483 source:c:\users\thoma\piscine\piscine\src\sommet.cpp
+1588328745 source:c:\users\thoma\piscine\piscine\src\sommet.cpp
 	"Sommet.h"
 	<sstream>
 
-1588086062 source:c:\users\thoma\piscine\piscine\src\svgfile.cpp
+1588245282 source:c:\users\thoma\piscine\piscine\src\svgfile.cpp
 	"Svgfile.h"
 	<iostream>
 
-1588086062 c:\users\thoma\piscine\piscine\include\svgfile.h
+1588245282 c:\users\thoma\piscine\piscine\include\svgfile.h
 	<set>
 	<iostream>
 	<fstream>
@@ -111,7 +111,7 @@
 
 1587986447 c:\users\apoll\essai\piscine\piscine\include\svgfile.h
 
-1588185551 source:c:\users\thoma\piscine\piscine\src\graphe.cpp
+1588377414 source:c:\users\thoma\piscine\piscine\src\graphe.cpp
 	"Graphe.h"
 	<queue>
 	<stack>
@@ -121,12 +121,15 @@
 	<queue>
 	<stack>
 
-1588185012 c:\users\thoma\piscine\piscine\include\graphe.h
+1588368791 c:\users\thoma\piscine\piscine\include\graphe.h
 	<Arete.h>
 	<iostream>
 	<vector>
 	<fstream>
 	<Svgfile.h>
+	<iterator>
+	<numeric>
+	<algorithm>
 
 1587994940 
 

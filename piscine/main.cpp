@@ -4,14 +4,16 @@
 
 HANDLE hConsole=GetStdHandle(STD_OUTPUT_HANDLE);
 
-void menu( std::string& commande, std::string& fichier, int& nom, int& poids, int& cdn, int& cd, int& cpn, int& cp, std::vector<int>& id, std::vector<int>& id2, int& taille, int& taille2, int& idArete, int& idArete2)
+void menu( std::string& commande, std::string& fichier, std::string& fichierpoids, int& nom, int& poids, int& cdn, int& cd, int& cpn, int& cp, std::vector<int>& id, std::vector<int>& id2, int& taille, int& taille2, int& idArete, int& idArete2)
 {
-    Graphe a(fichier);
+    Graphe a(fichier, fichierpoids);
+
+    //a.poidsarete(fichierpoids);
 
     SetConsoleTextAttribute(hConsole, 13);
     std::cout<<std::endl<<"Options :"<<std::endl;
     SetConsoleTextAttribute(hConsole, 15);
-    std::cout<<std::endl<<"exit"<<std::endl<<"dessiner"<<std::endl<<"afficher (graphe console)"<<std::endl<<"afficher centralite (console)"<<std::endl<<"afficher/enlever poids"<<std::endl<<"afficher/enlever noms"<<std::endl<<"indice centralite degre normalise"<<std::endl<<"indice centralite degre"<<std::endl<<"incide centralite proxi normalise"<<std::endl<<"indice centralite proxi"<<std::endl<<"enlever centralite"<<std::endl<<"vulnerabilite connexe"<<std::endl<<"vulnerabilite indice"<<std::endl<<"save (dans un fichier)"<<std::endl<<std::endl<<std::endl<<">";
+    std::cout<<std::endl<<"exit"<<std::endl<<"dessiner"<<std::endl<<"changer fichier poids"<<std::endl<<"afficher (graphe console)"<<std::endl<<"afficher centralite (console)"<<std::endl<<"afficher/enlever poids"<<std::endl<<"afficher/enlever noms"<<std::endl<<"indice centralite degre normalise"<<std::endl<<"indice centralite degre"<<std::endl<<"incide centralite proxi normalise"<<std::endl<<"indice centralite proxi"<<std::endl<<"enlever centralite"<<std::endl<<"vulnerabilite connexe"<<std::endl<<"vulnerabilite indice"<<std::endl<<"save (dans un fichier)"<<std::endl<<std::endl<<std::endl<<">";
     SetConsoleTextAttribute(hConsole, 10);
     std::getline(std::cin, commande);
     SetConsoleTextAttribute(hConsole, 15);
@@ -22,7 +24,7 @@ void menu( std::string& commande, std::string& fichier, int& nom, int& poids, in
     }
     else if(commande=="afficher")
     {
-        a.poidsarete();
+
         std::cout<<std::endl<<a<<std::endl;
         SetConsoleTextAttribute(hConsole, 14);
         std::cout<<std::endl<<"Votre graphe a ete affiche avec succes"<<std::endl;
@@ -30,6 +32,16 @@ void menu( std::string& commande, std::string& fichier, int& nom, int& poids, in
     else if(commande=="save")
     {
         a.enregistrer();
+    }
+    else if (commande=="changer fichier poids")
+    {
+        std::cout<< "nouveau fichier poids : ";
+         SetConsoleTextAttribute(hConsole, 10);
+        std::cin>>fichierpoids;
+
+        fflush(stdin);
+
+
     }
     else if(commande=="dessiner")
     {
@@ -128,8 +140,8 @@ void menu( std::string& commande, std::string& fichier, int& nom, int& poids, in
             id.push_back(idArete);
         }
         fflush(stdin);
-        a.poidsarete();
-        a.rempliradj();
+
+        //a.rempliradj();
         a.deleteArete(id);
 
     }
@@ -148,19 +160,21 @@ void menu( std::string& commande, std::string& fichier, int& nom, int& poids, in
             id2.push_back(idArete2);
         }
         fflush(stdin);
-        a.poidsarete();
-        a.rempliradj();
+
+//        a.rempliradj();
         a.deleteAreteIndice(id2);
     }
     else if(commande=="afficher centralite")
     {
-        //a.centralitevp();
-        a.rempliradj();
+
+//        a.rempliradj();
+        a.centralitevp();
         a.centralitedegre();
         a.centralitedegreN();
-        a.poidsarete();
+
         a.centraliteproxi();
         a.centraliteproxiN();
+
         a.affichercentralite();
 
     }
@@ -174,23 +188,33 @@ void menu( std::string& commande, std::string& fichier, int& nom, int& poids, in
 
 int main()
 {
-    //Graphe a("test.txt");
+    //Graphe a("graphe.txt","poids.txt");
+
+
+
+   // a.centralitevp();
+
+
+
+
     std::string commande;
     std::string fichier;
+    std::string fichierpoids;
 
-    /*a.rempliradj();
+
+   /* a.rempliradj();
     a.centralitevp();
     a.centralitedegre();
     a.centralitedegreN();
     a.poidsarete();
     a.centraliteproxi();
     a.centraliteproxiN();
-    a.affichercentralite();*/
+    a.affichercentralite();
 
     //a.comp_connexe(1);
     //std::cout<<std::endl;
-   // std::cout<<"nb compo connexes "<<a.nb_comp_connexe(1, idArete);
-    //a.deleteArete(0);
+    std::cout<<"nb compo connexes "<<a.nb_comp_connexe(1, idArete);
+    a.deleteArete(0);*/
 
     int taille;
     int taille2;
@@ -210,10 +234,18 @@ int main()
     std::cout<<"Nom du fichier : ";
     SetConsoleTextAttribute(hConsole, 10);
     std::cin>>fichier;
+      SetConsoleTextAttribute(hConsole, 15);
+    std::cout<<"Nom fichier poids : ";
+    SetConsoleTextAttribute(hConsole, 10);
+    std::cin>>fichierpoids;
+
+
     fflush(stdin);
+
     do
     {
-        menu(commande, fichier, nom, poids,cdn, cd, cpn, cp, id, id2, taille, taille2, idArete, idArete2);
+        menu(commande, fichier,fichierpoids,nom, poids,cdn, cd, cpn, cp, id, id2, taille, taille2, idArete, idArete2);
+
     }
     while(commande!="exit");
 

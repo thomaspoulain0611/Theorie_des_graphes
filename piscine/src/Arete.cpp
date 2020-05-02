@@ -53,7 +53,7 @@ Sommet* Arete::getSommet2()const
     return m_vect.second;
 }
 
-void Arete::assimpoids(std::string nomFichier)
+/*void Arete::assimpoids(std::string nomFichier)
 {
     std::ifstream ifs{nomFichier};
     if(!ifs)// on verifie que le fichier existe
@@ -67,7 +67,7 @@ void Arete::assimpoids(std::string nomFichier)
         if(indice==m_indice)
             this->setPoids(poids);
     }
-}
+}*/
 
 std::string Arete::nbToStrg(double nombre)const
 {

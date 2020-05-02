@@ -1,5 +1,5 @@
-id: 0| cd: 1| cdn: 0.25| cp: incalculable | cpn: incalculable
-id: 1| cd: 1| cdn: 0.25| cp: incalculable | cpn: incalculable
-id: 2| cd: 3| cdn: 0.75| cp: incalculable | cpn: incalculable
-id: 3| cd: 1| cdn: 0.25| cp: incalculable | cpn: incalculable
-id: 4| cd: 0| cdn: 0| cp: incalculable | cpn: incalculable
+id: 0| cd: 2| cdn: 0.5| cp: 0.00833333| cpn: 0.0333333
+id: 1| cd: 2| cdn: 0.5| cp: 0.00952381| cpn: 0.0380952
+id: 2| cd: 4| cdn: 1| cp: 0.0117647| cpn: 0.0470588
+id: 3| cd: 1| cdn: 0.25| cp: 0.00571429| cpn: 0.0228571
+id: 4| cd: 1| cdn: 0.25| cp: 0.00869565| cpn: 0.0347826

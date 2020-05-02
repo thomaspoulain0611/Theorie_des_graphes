@@ -31,6 +31,11 @@ public:
     double getcpn()const;
     double getcvp()const;
     double getcsi()const;
+    double getci1()const;
+    double getci1n()const;
+    double getci()const;
+    double getciN()const;
+
 
     char get_color() const;
     double get_distance()const;
@@ -49,6 +54,11 @@ public:
     void setcpn(double cpn);
     void setcvp(double cvp);
     void setcsi(double csi);
+    void setci1(double ci1);
+    void setci1n (double ci1n);
+    void setci (double ci);
+    void setciN(double ciN);
+
 
     void setadj(Sommet* s1);
     void set_color(char color);
@@ -80,6 +90,11 @@ private:
     double m_cpn;
     double m_cvp;
     double m_csi;
+    double m_ci1;
+    double m_ci1n;
+    double m_ci;
+    double m_ciN;
+
 
     std::pair<double,double>m_coords;
     std::string m_nom;
