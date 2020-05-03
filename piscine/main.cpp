@@ -43,6 +43,7 @@ void menu( std::string& commande, std::string& fichier, std::string& fichierpoid
     }
     else if(commande=="dessiner")
     {
+        std::cout<<"cc apo"<<std::endl;
         cdn=0;
         cd=0;
         cp=0;
@@ -240,43 +241,23 @@ void menu( std::string& commande, std::string& fichier, std::string& fichierpoid
 
 int main()
 {
-<<<<<<< HEAD
-    //Graphe a("graphe.txt","poids.txt");
 
 
 
 
-    //a.recupcpg();
+
+
+
 
 
 
 
     std::string commande;
-    std::string fichier;
-    std::string fichierpoids;
-
-
-  /* a.rempliradj();
-    a.centralitevp();
-    a.centralitedegre();
-    a.centralitedegreN();
-    a.poidsarete();
-    a.centraliteproxi();
-    a.centraliteproxiN();
-    a.affichercentralite();
-
-    //a.comp_connexe(1);
-    //std::cout<<std::endl;
-    std::cout<<"nb compo connexes "<<a.nb_comp_connexe(1, idArete);
-    a.deleteArete(0);*/
-
-=======
-    std::string commande;
 
     std::string fichier;
     std::string fichierpoids;
 
->>>>>>> 561d6e839b64f60fef06ef5ba74d5831e121f5bd
+
     int taille;
     int taille2;
     int poids;
@@ -312,11 +293,7 @@ int main()
         menu( commande, fichier,fichierpoids,nom, poids,cdn, cd,cvp, cpn, cp,ci,ciN,cia,id, id2, taille, taille2, idArete, idArete2);
     }
     while(commande!="exit");
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 561d6e839b64f60fef06ef5ba74d5831e121f5bd
 
     return 0;
 }

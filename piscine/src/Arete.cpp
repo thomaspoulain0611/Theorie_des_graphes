@@ -7,7 +7,7 @@ Arete::Arete(int indice, Sommet*s1, Sommet*s2)
     m_indice=indice;
     m_vect.first=s1;
     m_vect.second=s2;
-    m_poids=0;
+
 }
 
 Arete::~Arete()
@@ -15,7 +15,7 @@ Arete::~Arete()
     //dtor
 }
 
-int Arete::getPoids()const
+double Arete::getPoids()const
 {
     return m_poids;
 }
@@ -25,7 +25,7 @@ int Arete::getPoids()const
     return m_vect;
 }*/
 
-void Arete::setPoids(int poids)
+void Arete::setPoids(double poids)
 {
     m_poids=poids;
 }

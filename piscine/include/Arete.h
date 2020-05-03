@@ -13,7 +13,7 @@ class Arete
         //Arete(std::istream& is);
         ~Arete();
 
-        int getPoids()const;
+        double getPoids()const;
         int getindice()const;
         int getindiceS1()const;
         int getindiceS2()const;
@@ -22,7 +22,7 @@ class Arete
         double getciA()const;
         void assimpoids(std::string nomFichier);
 
-        void setPoids(int poids);
+        void setPoids(double poids);
 
         void setciA(double ciA);
 
@@ -45,7 +45,7 @@ class Arete
 
 
     private:
-        int m_poids;
+        double m_poids;
         std::pair<Sommet*, Sommet*> m_vect;
         double m_ciA;
         int m_indice;

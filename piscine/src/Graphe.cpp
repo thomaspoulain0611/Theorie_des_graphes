@@ -77,7 +77,7 @@ Graphe::Graphe( std::string fichier, std::string fichierPoids)
     {
         is>>taille2;
         int indice2;
-        int poids;
+        double poids;
         for(int i=0; i<taille2; ++i)
         {
             is>>indice2>>poids;
@@ -95,14 +95,9 @@ Graphe::~Graphe()
         delete s;
 }
 
-<<<<<<< HEAD
 
-=======
-int Graphe::getOrdre()const
-{
-    return (int) m_sommets.size();
-}
->>>>>>> 561d6e839b64f60fef06ef5ba74d5831e121f5bd
+
+
 
 int Graphe::getOrient()const
 {
@@ -114,11 +109,11 @@ int Graphe::getOrdre()const
     return (int)m_sommets.size();
 }
 
-<<<<<<< HEAD
+
 int Graphe::getTaille()const
-=======
-void Graphe::setOrient(int orient)
->>>>>>> 561d6e839b64f60fef06ef5ba74d5831e121f5bd
+
+
+
 {
     return (int)m_aretes.size();
 }
@@ -438,14 +433,12 @@ void Graphe::centraliteinter1pcc()
 {
     int p;
     double ci1;
-<<<<<<< HEAD
+
 
     p=this->nb_comp_connexe(m_sommets[0]->getId());
 
 
-=======
-    p=this->nb_comp_connexe(1);
->>>>>>> 561d6e839b64f60fef06ef5ba74d5831e121f5bd
+
     if ((p==1) && (m_sommets.size()>2))// on verifie qye la composante est connexe et que le graphe comporte au moins trois sommets
     {
         for (size_t i=0; i<m_sommets.size(); ++i) // on parcourt tous les sommets et c'est la valeur de ci1 de m_sommets[i]que l'on va determiner
@@ -499,7 +492,7 @@ double Graphe::presencesparcouru(int depart, int arrivee, int sparcouru,double d
     Sommet*S1;
     double poidschemin=0;
     double presence=0;
-    double ci;
+double ci;
     std::vector<int>chemin;
     chemin.push_back(depart);
     double compteurpcc=0;
@@ -509,16 +502,13 @@ double Graphe::presencesparcouru(int depart, int arrivee, int sparcouru,double d
     {
         chemin = touschemins.front();
         touschemins.pop();
-<<<<<<< HEAD
+
         int dernier = chemin[chemin.size() - 1];
 
         // if last vertex is the desired destination
         // then print the path
         if (dernier == arrivee)
-=======
-        int last = chemin[chemin.size() - 1];
-        if (last == arrivee)
->>>>>>> 561d6e839b64f60fef06ef5ba74d5831e121f5bd
+
         {
             poidschemin=0;
             for (size_t i=0; i<chemin.size()-1; ++i)
@@ -535,7 +525,7 @@ double Graphe::presencesparcouru(int depart, int arrivee, int sparcouru,double d
                 }
             }
         }
-<<<<<<< HEAD
+
         S=trouversommetindice(dernier);
 
         // traverse to all the nodes connected to
@@ -558,22 +548,10 @@ double Graphe::presencesparcouru(int depart, int arrivee, int sparcouru,double d
 
 
              }
-=======
-        S=trouversommetindice(last);
-        for (double i = 0; i < S->get_nb_adj(); ++i)
-        {
-            S1=S->get_adj(i);
-            id=S1->getId();
-            if (isNotVisited(id, chemin))
-            {
-                std::vector<int> newpath(chemin);
-                id=S1->getId();
-                newpath.push_back(id);
-                touschemins.push(newpath);
->>>>>>> 561d6e839b64f60fef06ef5ba74d5831e121f5bd
+
             }
         }
-    }
+
     ci=presence/compteurpcc;
     return ci;
 }
@@ -693,15 +671,11 @@ double Graphe::areteparcourue(int depart, int arrivee, int ex1, int ex2,double d
         for (double i = 0; i < S->get_nb_adj(); ++i)
         {
 
-<<<<<<< HEAD
+
                 S1=S->get_adj(i);
                 id=S1->getId();
             if (pasParcouru(id, chemin))
-=======
-            S1=S->get_adj(i);
-            id=S1->getId();
-            if (isNotVisited(id, chemin))
->>>>>>> 561d6e839b64f60fef06ef5ba74d5831e121f5bd
+
 
             {
                 std::vector<int> newpath(chemin);
@@ -902,9 +876,7 @@ void Graphe::deleteArete( std::vector<int> id)
             }
         }
     }
-<<<<<<< HEAD
-    nbConnex=this->nb_comp_connexe(m_sommets[0]->getId());
-=======
+
     int compteur=0;
     for(size_t i=0; i<m_sommets.size(); i++)
     {
@@ -925,8 +897,8 @@ void Graphe::deleteArete( std::vector<int> id)
         if(compteur==0)
             m_aretes[p]->dessiner(svgout);
     }
-    nbConnex=this->nb_comp_connexe(1);
->>>>>>> 561d6e839b64f60fef06ef5ba74d5831e121f5bd
+    nbConnex=this->nb_comp_connexe(m_sommets[0]->getId());
+
     if(nbConnex==1)
     {
         SetConsoleTextAttribute(hConsole, 14);
@@ -1263,14 +1235,17 @@ void Graphe::dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cvp, int
     std::vector<double> vect_cin;
     std::vector<double> vect_cia;
 
+
     this->centralitedegre();
     this->centralitedegreN();
     this->centraliteproxi();
     this->centraliteproxiN();
+    std::cout<<"cc lili"<<std::endl;
     this->centralitevp();
     this->centraliteinter();
     this->centraliteinterN();
     this->centraliteinterarete();
+
 
     for(size_t i=0; i<m_sommets.size(); i++)
     {
@@ -1282,6 +1257,8 @@ void Graphe::dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cvp, int
         vect_ci.push_back(m_sommets[i]->getci());
         vect_cin.push_back(m_sommets[i]->getciN());
     }
+
+
     for(size_t j=0; j<m_aretes.size(); j++)
     {
         vect_cia.push_back(m_aretes[j]->getciA());
