@@ -15,15 +15,12 @@ class Sommet
 public:
 
     Sommet(std::istream& is);
-
-
     ~Sommet();
 
     int getId()const;
     std::string getNom()const;
     double getx()const;
     double gety()const;
-
 
     double getcd()const;
     double getcdn()const;
@@ -35,7 +32,6 @@ public:
     double getci1n()const;
     double getci()const;
     double getciN()const;
-
 
     char get_color() const;
     double get_distance()const;
@@ -59,7 +55,6 @@ public:
     void setci (double ci);
     void setciN(double ciN);
 
-
     void setadj(Sommet* s1);
     void set_color(char color);
     void set_distance(double distance);
@@ -76,12 +71,14 @@ public:
     void ecrireCentraliteCIN(Svgfile& svgout);
     std::string nbToStrg(double nombre) const;
 
+    // mode d'affichage vu avec Mme Dridi
     friend std::ostream& operator<<(std::ostream&out, const Sommet&a)
     {
         std::cout<<"("<<a.getId()<<","<<a.getNom()<<","<<a.getx()<<","<<a.gety()<<")"<<std::endl;
         return out;
     }
 private:
+    // attributs
     int m_id;
     std::vector<Sommet*>m_adj;
 
@@ -98,10 +95,8 @@ private:
     double m_ci;
     double m_ciN;
 
-
     std::pair<double,double>m_coords;
     std::string m_nom;
-
 
 };
 

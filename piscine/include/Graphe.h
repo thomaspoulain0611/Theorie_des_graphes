@@ -14,59 +14,49 @@ class Graphe
 {
 public:
     Graphe(std::string fichier, std::string fichierPoids);
-
     virtual ~Graphe();
-
 
     int getOrient()const;
     int getOrdre()const;
     int getTaille()const;
 
-
-    void setOrient(int orient);
-    void poidsarete(std::string nomFichier);
     double trouverpoids(int s1,int s2);
-    void interunpcc();
-
 
     void enregistrer();
 
     void centralitedegre();
-    void rempliradj();
     Sommet*trouversommetindice(int indice);
 
     void centralitedegreN();
     void centraliteproxi();
     double dijkstraproxi(int depart,int arrivee);
-    // double distanceproxi(std::vector<int>preds, int depart, int arrivee);
     void centraliteproxiN();
 
     void centralitevp();
     void centraliteinter1pcc();
-    void centraliteinter1Npcc();
+    void centraliteinter1Npcc();//on normalise ensuite ces valeurs
     int  dijkstrainter1pcc( int depart, int arrivee, int sparcouru);
 
+    void dijkstrainter(int depart, int arrivee, int sparcouru);
+    void centraliteinter();
+    void centraliteinterN();
 
-void dijkstrainter(int depart, int arrivee, int sparcouru);
-double presencesparcouru(int depart, int arrivee, int sparcouru, double distance);
-int pasParcouru(int x, std::vector<int>& chemin);
-void centraliteinterarete();
+    double presencesparcouru(int depart, int arrivee, int sparcouru, double distance);
+    int pasParcouru(int x, std::vector<int>& chemin);
+    void centraliteinterarete();
+    double areteparcourue(int depart, int arrivee, int ex1, int ex2,double distance);
 
-double areteparcourue(int depart, int arrivee, int ex1, int ex2,double distance);
+    void recupcpg();
+    double getcpg()const;
+    void setcpg(double cpg);
 
+    void recupcdg();
+    double getcdg()const;
+    void setcdg (double cdg);
 
-void centraliteinter();
-void centraliteinterN();
-void recupcpg();
-double getcpg()const;
-void setcpg(double cpg);
-
-
-
-
-
-
-
+    void recupcig();
+    double getcig()const;
+    void setcig(double cig);
 
     void affichercentralite();
 
@@ -79,12 +69,14 @@ void setcpg(double cpg);
     void dessinerCDN(Svgfile& svgout);
     void dessinerCP(Svgfile& svgout);
     void dessinerCPN(Svgfile& svgout);
+    std::string nbToStrg(double nombre)const;
 
     std::vector<int> bfs (int id);
     int nb_comp_connexe(int idSommet);
     void deleteArete(std::vector<int> id);
     void deleteAreteIndice(std::vector<int> id);
 
+    // mode d'affichage vu avec Mme Dridi
     friend std::ostream& operator<<(std::ostream& out, const Graphe& r)
     {
         out<<"Graphe d'orientation :"<<r.getOrient()<<std::endl;
@@ -100,12 +92,13 @@ void setcpg(double cpg);
 
 private:
 
-
+// attributs
     int m_orient;
     double m_cpg;
     std::vector<Sommet*> m_sommets;
     std::vector<Arete*> m_aretes;
-
+    double m_cdg;
+    double m_cig;
 
 };
 

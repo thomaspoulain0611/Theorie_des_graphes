@@ -7,6 +7,8 @@
 #include <sstream>
 #include <windows.h>
 
+///Inspiration TP/TD Semestre 1
+
 extern HANDLE hConsole;
 constexpr char defcol[] = "black";
 class Svgfile

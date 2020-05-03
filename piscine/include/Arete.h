@@ -10,7 +10,6 @@ class Arete
 {
     public:
         Arete(int indice, Sommet*s1,Sommet*s2);
-        //Arete(std::istream& is);
         ~Arete();
 
         double getPoids()const;
@@ -34,7 +33,7 @@ class Arete
         void ecrirePoids(Svgfile& svgout);
         void ecrireCIA(Svgfile& svgout);
         std::string nbToStrg(double nombre)const;
-
+        // mode d'affichage vu avec Mme Dridi
          friend std::ostream& operator<<(std::ostream&out, const Arete&a)
     {
 
@@ -44,6 +43,7 @@ class Arete
 
 
     private:
+        //attributs
         double m_poids;
         std::pair<Sommet*, Sommet*> m_vect;
         double m_ciA;

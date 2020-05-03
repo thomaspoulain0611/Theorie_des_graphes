@@ -1,42 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1000" height="800">
 
-<circle cx="200" cy="100" r="6" fill="blue" />
-<line x1="200" y1="100" x2="200" y2="200" stroke="grey" />
-<line x1="100" y1="200" x2="200" y2="200" stroke="grey" />
-<line x1="200" y1="200" x2="300" y2="200" stroke="grey" />
-<line x1="200" y1="200" x2="200" y2="300" stroke="grey" />
-<line x1="200" y1="100" x2="100" y2="200" stroke="grey" />
-<circle cx="100" cy="200" r="6" fill="blue" />
-<line x1="200" y1="100" x2="200" y2="200" stroke="grey" />
-<line x1="100" y1="200" x2="200" y2="200" stroke="grey" />
-<line x1="200" y1="200" x2="300" y2="200" stroke="grey" />
-<line x1="200" y1="200" x2="200" y2="300" stroke="grey" />
-<line x1="200" y1="100" x2="100" y2="200" stroke="grey" />
-<circle cx="200" cy="200" r="6" fill="blue" />
-<line x1="200" y1="100" x2="200" y2="200" stroke="grey" />
-<line x1="100" y1="200" x2="200" y2="200" stroke="grey" />
-<line x1="200" y1="200" x2="300" y2="200" stroke="grey" />
-<line x1="200" y1="200" x2="200" y2="300" stroke="grey" />
-<line x1="200" y1="100" x2="100" y2="200" stroke="grey" />
-<circle cx="300" cy="200" r="6" fill="blue" />
-<line x1="200" y1="100" x2="200" y2="200" stroke="grey" />
-<line x1="100" y1="200" x2="200" y2="200" stroke="grey" />
-<line x1="200" y1="200" x2="300" y2="200" stroke="grey" />
-<line x1="200" y1="200" x2="200" y2="300" stroke="grey" />
-<line x1="200" y1="100" x2="100" y2="200" stroke="grey" />
-<circle cx="200" cy="300" r="6" fill="blue" />
-<line x1="200" y1="100" x2="200" y2="200" stroke="grey" />
-<line x1="100" y1="200" x2="200" y2="200" stroke="grey" />
-<line x1="200" y1="200" x2="300" y2="200" stroke="grey" />
-<line x1="200" y1="200" x2="200" y2="300" stroke="grey" />
-<line x1="200" y1="100" x2="100" y2="200" stroke="grey" />
-<text x="200" y="100" fill="black" >0.392157</text>
-<text x="100" y="200" fill="black" >0.392157</text>
-<circle cx="200" cy="200" r="8" fill="red" />
-<text x="200" y="200" fill="black" >0.555556</text>
-<text x="300" y="200" fill="black" >0.392157</text>
-<text x="200" y="300" fill="black" >0.20202</text>
+<circle cx="227" cy="715" r="3" fill="blue" />
+<text x="227" y="715" fill="black" >MLBR</text>
+<circle cx="238" cy="675" r="3" fill="blue" />
+<text x="238" y="675" fill="black" >SFIA</text>
+<circle cx="178" cy="670" r="3" fill="blue" />
+<text x="178" y="670" fill="black" >SBRN</text>
+<circle cx="148" cy="616" r="3" fill="blue" />
+<text x="148" y="616" fill="black" >SSF</text>
+<circle cx="129" cy="576" r="3" fill="blue" />
+<text x="129" y="576" fill="black" >COLM</text>
+<circle cx="132" cy="536" r="3" fill="blue" />
+<text x="132" y="536" fill="black" >DALY</text>
+<circle cx="138" cy="513" r="3" fill="blue" />
+<text x="138" y="513" fill="black" >BALB</text>
+<circle cx="145" cy="494" r="3" fill="blue" />
+<text x="145" y="494" fill="black" >GLEN</text>
+<circle cx="169" cy="475" r="3" fill="blue" />
+<text x="169" y="475" fill="black" >24th</text>
+<circle cx="174" cy="456" r="3" fill="blue" />
+<text x="174" y="456" fill="black" >16th</text>
+<circle cx="178" cy="438" r="3" fill="blue" />
+<text x="178" y="438" fill="black" >CIVC</text>
+<circle cx="196" cy="414" r="3" fill="blue" />
+<text x="196" y="414" fill="black" >POWL</text>
+<circle cx="219" cy="400" r="3" fill="blue" />
+<text x="219" y="400" fill="black" >MONT</text>
+<circle cx="227" cy="381" r="3" fill="blue" />
+<text x="227" y="381" fill="black" >EMBR</text>
+<circle cx="381" cy="344" r="3" fill="blue" />
+<text x="381" y="344" fill="black" >WOAK</text>
+<circle cx="439" cy="325" r="3" fill="blue" />
+<text x="439" y="325" fill="black" >12th</text>
+<circle cx="444" cy="287" r="3" fill="blue" />
+<text x="444" y="287" fill="black" >19th</text>
+<circle cx="450" cy="268" r="3" fill="blue" />
+<text x="450" y="268" fill="black" >McAR</text>
+<circle cx="431" cy="211" r="3" fill="blue" />
+<text x="431" y="211" fill="black" >ASHB</text>
+<circle cx="418" cy="198" r="3" fill="blue" />
+<text x="418" y="198" fill="black" >DBRK</text>
+<circle cx="400" cy="172" r="3" fill="blue" />
+<text x="400" y="172" fill="black" >NBRK</text>
+<circle cx="386" cy="150" r="3" fill="blue" />
+<text x="386" y="150" fill="black" >PLZA</text>
+<circle cx="371" cy="115" r="3" fill="blue" />
+<text x="371" y="115" fill="black" >DELN</text>
+<circle cx="363" cy="94" r="3" fill="blue" />
+<text x="363" y="94" fill="black" >RICH</text>
+<circle cx="500" cy="238" r="3" fill="blue" />
+<text x="500" y="238" fill="black" >ROCK</text>
+<circle cx="551" cy="226" r="3" fill="blue" />
+<text x="551" y="226" fill="black" >ORIN</text>
+<circle cx="614" cy="216" r="3" fill="blue" />
+<text x="614" y="216" fill="black" >LAFY</text>
+<circle cx="678" cy="198" r="3" fill="blue" />
+<text x="678" y="198" fill="black" >WCRK</text>
+<circle cx="699" cy="172" r="3" fill="blue" />
+<text x="699" y="172" fill="black" >PHIL</text>
+<circle cx="717" cy="146" r="3" fill="blue" />
+<text x="717" y="146" fill="black" >CONC</text>
+<circle cx="731" cy="122" r="3" fill="blue" />
+<text x="731" y="122" fill="black" >NCON</text>
+<circle cx="746" cy="94" r="3" fill="blue" />
+<text x="746" y="94" fill="black" >PITT</text>
+<circle cx="455" cy="376" r="3" fill="blue" />
+<text x="455" y="376" fill="black" >LAKE</text>
+<circle cx="473" cy="400" r="3" fill="blue" />
+<text x="473" y="400" fill="black" >FTVL</text>
+<circle cx="492" cy="414" r="3" fill="blue" />
+<text x="492" y="414" fill="black" >COLS</text>
+<circle cx="516" cy="438" r="3" fill="blue" />
+<text x="516" y="438" fill="black" >SANL</text>
+<circle cx="532" cy="468" r="3" fill="blue" />
+<text x="532" y="468" fill="black" >BAYF</text>
+<circle cx="635" cy="499" r="3" fill="blue" />
+<text x="635" y="499" fill="black" >CAST</text>
+<circle cx="752" cy="499" r="3" fill="blue" />
+<text x="752" y="499" fill="black" >WDUB</text>
+<circle cx="794" cy="499" r="3" fill="blue" />
+<text x="794" y="499" fill="black" >DUBL</text>
+<circle cx="572" cy="536" r="3" fill="blue" />
+<text x="572" y="536" fill="black" >HAYW</text>
+<circle cx="614" cy="598" r="3" fill="blue" />
+<text x="614" y="598" fill="black" >SHAY</text>
+<circle cx="660" cy="670" r="3" fill="blue" />
+<text x="660" y="670" fill="black" >UCTY</text>
+<circle cx="709" cy="715" r="3" fill="blue" />
+<text x="709" y="715" fill="black" >FRMT</text>
+<circle cx="444" cy="499" r="3" fill="blue" />
+<text x="444" y="499" fill="black" >OAKL</text>
+<line x1="227" y1="715" x2="178" y2="670" stroke="grey" />
+<line x1="238" y1="675" x2="178" y2="670" stroke="grey" />
+<line x1="178" y1="670" x2="148" y2="616" stroke="grey" />
+<line x1="148" y1="616" x2="129" y2="576" stroke="grey" />
+<line x1="129" y1="576" x2="132" y2="536" stroke="grey" />
+<line x1="132" y1="536" x2="138" y2="513" stroke="grey" />
+<line x1="138" y1="513" x2="145" y2="494" stroke="grey" />
+<line x1="145" y1="494" x2="169" y2="475" stroke="grey" />
+<line x1="169" y1="475" x2="174" y2="456" stroke="grey" />
+<line x1="174" y1="456" x2="178" y2="438" stroke="grey" />
+<line x1="178" y1="438" x2="196" y2="414" stroke="grey" />
+<line x1="196" y1="414" x2="219" y2="400" stroke="grey" />
+<line x1="219" y1="400" x2="227" y2="381" stroke="grey" />
+<line x1="227" y1="381" x2="381" y2="344" stroke="grey" />
+<line x1="381" y1="344" x2="439" y2="325" stroke="grey" />
+<line x1="381" y1="344" x2="444" y2="287" stroke="grey" />
+<line x1="439" y1="325" x2="444" y2="287" stroke="grey" />
+<line x1="444" y1="287" x2="450" y2="268" stroke="grey" />
+<line x1="450" y1="268" x2="431" y2="211" stroke="grey" />
+<line x1="431" y1="211" x2="418" y2="198" stroke="grey" />
+<line x1="418" y1="198" x2="400" y2="172" stroke="grey" />
+<line x1="400" y1="172" x2="386" y2="150" stroke="grey" />
+<line x1="386" y1="150" x2="371" y2="115" stroke="grey" />
+<line x1="371" y1="115" x2="363" y2="94" stroke="grey" />
+<line x1="450" y1="268" x2="500" y2="238" stroke="grey" />
+<line x1="500" y1="238" x2="551" y2="226" stroke="grey" />
+<line x1="551" y1="226" x2="614" y2="216" stroke="grey" />
+<line x1="614" y1="216" x2="678" y2="198" stroke="grey" />
+<line x1="678" y1="198" x2="699" y2="172" stroke="grey" />
+<line x1="699" y1="172" x2="717" y2="146" stroke="grey" />
+<line x1="717" y1="146" x2="731" y2="122" stroke="grey" />
+<line x1="731" y1="122" x2="746" y2="94" stroke="grey" />
+<line x1="381" y1="344" x2="455" y2="376" stroke="grey" />
+<line x1="439" y1="325" x2="455" y2="376" stroke="grey" />
+<line x1="455" y1="376" x2="473" y2="400" stroke="grey" />
+<line x1="473" y1="400" x2="492" y2="414" stroke="grey" />
+<line x1="492" y1="414" x2="516" y2="438" stroke="grey" />
+<line x1="516" y1="438" x2="532" y2="468" stroke="grey" />
+<line x1="532" y1="468" x2="635" y2="499" stroke="grey" />
+<line x1="635" y1="499" x2="752" y2="499" stroke="grey" />
+<line x1="752" y1="499" x2="794" y2="499" stroke="grey" />
+<line x1="532" y1="468" x2="572" y2="536" stroke="grey" />
+<line x1="572" y1="536" x2="614" y2="598" stroke="grey" />
+<line x1="614" y1="598" x2="660" y2="670" stroke="grey" />
+<line x1="660" y1="670" x2="709" y2="715" stroke="grey" />
+<line x1="492" y1="414" x2="444" y2="499" stroke="grey" />
 
 
 </svg>
