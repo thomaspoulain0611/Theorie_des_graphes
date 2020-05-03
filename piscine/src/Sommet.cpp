@@ -190,55 +190,59 @@ void Sommet::setadj(Sommet* s1)
     m_adj.push_back(s1);
 }
 
+///Fonction dessin
+
 void Sommet::dessiner(Svgfile& svgout)
 {
-    svgout.addDisk(this->m_coords.first, this->m_coords.second, 3, "blue");
+    svgout.addDisk(this->m_coords.first, this->m_coords.second, 3, "blue");//Dessin d'un cercle de rayon 3 et de couleur blue pour un sommet
 }
 
 void Sommet::dessinerMarque(Svgfile& svgout)
 {
-    svgout.addDisk(this->m_coords.first, this->m_coords.second, 8, "red");
+    svgout.addDisk(this->m_coords.first, this->m_coords.second, 8, "red");//Dessin d'un cercle de rayon 8 et de couleur rouge pour un sommet
 }
 
 void Sommet::ecrireNom(Svgfile& svgout)
 {
-    svgout.addText(this->m_coords.first, this->m_coords.second, this->m_nom, "black");
+    svgout.addText(this->m_coords.first, this->m_coords.second, this->m_nom, "black");//Ecriture nom d'un sommet
 }
 
 void Sommet::ecrireCentraliteDegreN(Svgfile& svgout)
 {
-    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cdn),"black");
+    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cdn),"black");//Ecriture centralite d'un sommet
 }
 
 void Sommet::ecrireCentraliteDegre(Svgfile& svgout)
 {
-    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cd),"black");
+    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cd),"black");//Ecriture centralite d'un sommet
 }
 
 void Sommet::ecrireCentraliteP(Svgfile& svgout)
 {
-    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cp),"black");
+    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cp),"black");//Ecriture centralite d'un sommet
 }
 
 void Sommet::ecrireCentralitePN(Svgfile& svgout)
 {
-    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cpn),"black");
+    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cpn),"black");//Ecriture centralite d'un sommet
 }
 
 void Sommet::ecrireCentraliteVP(Svgfile& svgout)
 {
-    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cvp),"black");
+    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_cvp),"black");//Ecriture centralite d'un sommet
 }
 
 void Sommet::ecrireCentraliteCI(Svgfile& svgout)
 {
-    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_ci),"black");
+    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_ci),"black");//Ecriture centralite d'un sommet
 }
 
 void Sommet::ecrireCentraliteCIN(Svgfile& svgout)
 {
-    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_ciN),"black");
+    svgout.addText(this->m_coords.first, this->m_coords.second, this->nbToStrg(m_ciN),"black");//Ecriture centralite d'un sommet
 }
+
+///Transformation d'un nombre en string
 
 std::string Sommet::nbToStrg(double nombre)const
 {

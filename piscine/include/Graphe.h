@@ -17,9 +17,10 @@ public:
 
     virtual ~Graphe();
 
+
+    int getOrient()const;
     int getOrdre()const;
     int getTaille()const;
-    int getOrient()const;
 
     void setOrient(int orient);
     void poidsarete(std::string nomFichier);
@@ -43,13 +44,17 @@ public:
     int  dijkstrainter1pcc( int depart, int arrivee, int sparcouru);
 
     void dijkstrainter(int depart, int arrivee, int sparcouru);
+    void centraliteinter();
+    void centraliteinterN();
+
     double presencesparcouru(int depart, int arrivee, int sparcouru, double distance);
-    int isNotVisited(int x, std::vector<int>& chemin);
+    int pasParcouru(int x, std::vector<int>& chemin);
     void centraliteinterarete();
     double areteparcourue(int depart, int arrivee, int ex1, int ex2,double distance);
 
-    void centraliteinter();
-    void centraliteinterN();
+    void recupcpg();
+    double getcpg()const;
+    void setcpg(double cpg);
 
     void affichercentralite();
 
@@ -84,6 +89,7 @@ public:
 private:
 
     int m_orient;
+    double m_cpg;
     std::vector<Sommet*> m_sommets;
     std::vector<Arete*> m_aretes;
 

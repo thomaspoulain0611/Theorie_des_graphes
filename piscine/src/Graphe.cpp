@@ -77,7 +77,7 @@ Graphe::Graphe( std::string fichier, std::string fichierPoids)
     {
         is>>taille2;
         int indice2;
-        int poids;
+        double poids;
         for(int i=0; i<taille2; ++i)
         {
             is>>indice2>>poids;
@@ -95,24 +95,19 @@ Graphe::~Graphe()
         delete s;
 }
 
-int Graphe::getOrdre()const
-{
-    return (int) m_sommets.size();
-}
-
 int Graphe::getOrient()const
 {
     return m_orient;
 }
 
-int Graphe::getTaille()const
+int Graphe::getOrdre()const
 {
-    return (int) m_aretes.size();
+    return (int)m_sommets.size();
 }
 
-void Graphe::setOrient(int orient)
+int Graphe::getTaille()const
 {
-    m_orient=orient;
+    return (int)m_aretes.size();
 }
 
 void Graphe::enregistrer()
@@ -186,7 +181,6 @@ Sommet*Graphe::trouversommetindice(int indice)
     }
     return s1;
 }
-
 
 double Graphe::dijkstraproxi(int depart,int arrivee)
 {
@@ -262,7 +256,7 @@ void Graphe::centraliteproxi()
 {
     int i;
     double cp;
-    i=this->nb_comp_connexe(1);
+    i=this->nb_comp_connexe(m_sommets[0]->getId());
 
     if (i==1)
     {
@@ -285,7 +279,7 @@ void Graphe::centraliteproxi()
     else
         for(size_t i=0; i<m_sommets.size(); i++)
         {
-            m_sommets[i]->setcp(0);
+            m_sommets[i]->setcp(-1);
         }
 }
 
@@ -431,7 +425,9 @@ void Graphe::centraliteinter1pcc()
 {
     int p;
     double ci1;
-    p=this->nb_comp_connexe(1);
+
+    p=this->nb_comp_connexe(m_sommets[0]->getId());
+
     if ((p==1) && (m_sommets.size()>2))// on verifie qye la composante est connexe et que le graphe comporte au moins trois sommets
     {
         for (size_t i=0; i<m_sommets.size(); ++i) // on parcourt tous les sommets et c'est la valeur de ci1 de m_sommets[i]que l'on va determiner
@@ -468,11 +464,11 @@ void Graphe::centraliteinter1Npcc()
     }
 }
 
-int Graphe::isNotVisited(int x, std::vector<int>& path)
+int Graphe::pasParcouru(int x, std::vector<int>& chemin)
 {
 
-    for (size_t i = 0; i < path.size(); i++)
-        if (path[i] == x)
+    for (size_t i = 0; i < chemin.size(); ++i)
+        if (chemin[i] == x)
             return 0;
     return 1;
 }
@@ -485,7 +481,7 @@ double Graphe::presencesparcouru(int depart, int arrivee, int sparcouru,double d
     Sommet*S1;
     double poidschemin=0;
     double presence=0;
-    double ci;
+double ci;
     std::vector<int>chemin;
     chemin.push_back(depart);
     double compteurpcc=0;
@@ -495,8 +491,13 @@ double Graphe::presencesparcouru(int depart, int arrivee, int sparcouru,double d
     {
         chemin = touschemins.front();
         touschemins.pop();
-        int last = chemin[chemin.size() - 1];
-        if (last == arrivee)
+
+        int dernier = chemin[chemin.size() - 1];
+
+        // if last vertex is the desired destination
+        // then print the path
+        if (dernier == arrivee)
+
         {
             poidschemin=0;
             for (size_t i=0; i<chemin.size()-1; ++i)
@@ -513,20 +514,28 @@ double Graphe::presencesparcouru(int depart, int arrivee, int sparcouru,double d
                 }
             }
         }
-        S=trouversommetindice(last);
+
+        S=trouversommetindice(dernier);
+
+        // traverse to all the nodes connected to
+        // current vertex and push new path to queue
         for (double i = 0; i < S->get_nb_adj(); ++i)
-        {
-            S1=S->get_adj(i);
-            id=S1->getId();
-            if (isNotVisited(id, chemin))
             {
-                std::vector<int> newpath(chemin);
+
+                S1=S->get_adj(i);
                 id=S1->getId();
-                newpath.push_back(id);
-                touschemins.push(newpath);
+            if (pasParcouru(id, chemin))
+
+             {
+                std::vector<int> nvchemin(chemin);
+
+                id=S1->getId();
+
+                nvchemin.push_back(id);
+                touschemins.push(nvchemin);
+             }
             }
         }
-    }
     ci=presence/compteurpcc;
     return ci;
 }
@@ -620,8 +629,6 @@ double Graphe::areteparcourue(int depart, int arrivee, int ex1, int ex2,double d
                 poidschemin+=trouverpoids(chemin[i],chemin[i+1]);
 
             }
-
-
             if (poidschemin==distance)
             {
                 compteurpcc++;
@@ -631,13 +638,7 @@ double Graphe::areteparcourue(int depart, int arrivee, int ex1, int ex2,double d
                     if (((chemin[i]==ex1)&&(chemin[i+1]==ex2))||((chemin[i]==ex2)&&(chemin[i+1]==ex1)))
                         presence++;
                 }
-
             }
-
-
-
-
-
         }
         S=trouversommetindice(last);
 
@@ -646,9 +647,11 @@ double Graphe::areteparcourue(int depart, int arrivee, int ex1, int ex2,double d
         for (double i = 0; i < S->get_nb_adj(); ++i)
         {
 
-            S1=S->get_adj(i);
-            id=S1->getId();
-            if (isNotVisited(id, chemin))
+
+                S1=S->get_adj(i);
+                id=S1->getId();
+            if (pasParcouru(id, chemin))
+
 
             {
                 std::vector<int> newpath(chemin);
@@ -657,16 +660,10 @@ double Graphe::areteparcourue(int depart, int arrivee, int ex1, int ex2,double d
 
                 newpath.push_back(id);
                 touschemins.push(newpath);
-
-
-
             }
         }
     }
-
     ciA=presence/compteurpcc;
-
-
     return ciA;
     //return cheminsdepartarrivee;
 }
@@ -678,12 +675,7 @@ void Graphe::centraliteinterarete()
     double ciA;
     double distance;
     std::vector<std::vector<int>> chemins;
-
-
-
     p=this->nb_comp_connexe(m_sommets[0]->getId());
-
-
     if ((p==1) && (m_sommets.size()>1))// on verifie qye la composante est connexe et que le graphe comporte au moins une arete
     {
         for (size_t i=0; i<m_aretes.size(); ++i) // on parcourt tous les sommets et c'est la valeur de ci1 de m_sommets[i]que l'on va determiner
@@ -714,6 +706,36 @@ void Graphe::centraliteinterarete()
         }
 }
 
+double Graphe::getcpg()const
+{
+    return m_cpg;
+}
+
+void Graphe::setcpg(double cpg)
+{
+    m_cpg=cpg;
+}
+
+void Graphe::recupcpg()
+{
+    this->centraliteproxi();
+    double maximum=0;
+    double tampon=0;
+    double cpg=0;
+    double denominateur=0;
+    for(size_t i=0;i<m_sommets.size();++i)
+    {
+        if (m_sommets[i]->getcp()>maximum)
+            maximum=m_sommets[i]->getcp();
+    }
+    for(size_t i=0;i<m_sommets.size();++i)
+    {
+        tampon+=i*(maximum-m_sommets[i]->getcp());
+    }
+    denominateur=(pow((double)m_sommets.size(),2)-3*(double)m_sommets.size()+2)/(2*(double)m_sommets.size()-3);
+    cpg=tampon/denominateur;
+    this->setcpg(cpg);
+}
 
 void Graphe::affichercentralite()
 {
@@ -724,16 +746,18 @@ void Graphe::affichercentralite()
         std::cout<<"centralite degre non normalisee : "<<m_sommets[i]->getcd()<<std::endl;
         std::cout<<"centralite degre normalisee : "<<m_sommets[i]->getcdn()<<std::endl;
         std::cout<<"centralitte vecteur propre : "<<m_sommets[i]->getcvp()<<std::endl;
-        if(m_sommets[i]->getcp()==0)
+        if(m_sommets[i]->getcp()==-1)
         {
             SetConsoleTextAttribute(hConsole, 12);
             std::cout<<"impossible de calculer centralite proxi et centralite proxi normalisee car graphe non connexe "<<std::endl;
+            std::cout<<"impossible de calculer centralite global proxi car graphe non connexe "<<std::endl;
             SetConsoleTextAttribute(hConsole, 15);
         }
         else
         {
             std::cout<<"centralite proxi : "<<m_sommets[i]->getcp()<<std::endl;
             std::cout<<"centralite proxi normalisee : "<<m_sommets[i]->getcpn()<<std::endl;
+
         }
         if(m_sommets[i]->getci()==-1)
         {
@@ -746,6 +770,7 @@ void Graphe::affichercentralite()
             std::cout<<"centralite intermediarite : "<<m_sommets[i]->getci()<<std::endl;
             std::cout<<"centralite intermediarite normalisee : "<<m_sommets[i]->getciN()<<std::endl;
         }
+
     }
     std::cout<<std::endl;
     for(size_t j=0; j<m_aretes.size(); j++)
@@ -763,6 +788,7 @@ void Graphe::affichercentralite()
             std::cout<<"centralite intermediarite arete : "<<m_aretes[j]->getciA()<<std::endl;
         }
     }
+    std::cout<<std::endl<<"l'indice de centralite de proximite globale du graphe est : "<<this->getcpg()<<std::endl;
 }
 
 
@@ -810,6 +836,7 @@ void Graphe::deleteArete( std::vector<int> id)
             }
         }
     }
+
     int compteur=0;
     for(size_t i=0; i<m_sommets.size(); i++)
     {
@@ -829,7 +856,8 @@ void Graphe::deleteArete( std::vector<int> id)
         if(compteur==0)
             m_aretes[p]->dessiner(svgout);
     }
-    nbConnex=this->nb_comp_connexe(1);
+    nbConnex=this->nb_comp_connexe(m_sommets[0]->getId());
+
     if(nbConnex==1)
     {
         SetConsoleTextAttribute(hConsole, 14);
@@ -863,6 +891,9 @@ void Graphe::deleteAreteIndice(std::vector<int> id)
     this->centralitevp();
     this->centraliteinter();
     this->centraliteinterN();
+    this->recupcpg();
+    SetConsoleTextAttribute(hConsole, 15);
+    std::cout<<std::endl<<"l'indice de centralite de proximite globale du graphe avant suppression est : "<<this->getcpg()<<std::endl;
 
     for(size_t i=0; i<m_sommets.size(); i++)
     {
@@ -935,8 +966,6 @@ void Graphe::deleteAreteIndice(std::vector<int> id)
         if(compteur==0)
             m_aretes[p]->dessiner(svgout);
     }
-
-
     this->centralitedegre();
     this->centralitedegreN();
     this->centraliteproxi();
@@ -944,6 +973,7 @@ void Graphe::deleteAreteIndice(std::vector<int> id)
     this->centralitevp();
     this->centraliteinter();
     this->centraliteinterN();
+    this->recupcpg();
 
     for(size_t i=0; i<m_sommets.size(); i++)
     {
@@ -953,7 +983,7 @@ void Graphe::deleteAreteIndice(std::vector<int> id)
         std::cout<<"indice centralite degre non normalise : "<<vect_cd[i]<<std::endl;
         std::cout<<"indice centralite degre nomalise : "<<vect_cdn[i]<<std::endl;
         std::cout<<"indice centralite vecteur propre : "<<vect_cvp[i]<<std::endl;
-        if(vect_cp[i]==0)
+        if(vect_cp[i]==-1)
         {
             SetConsoleTextAttribute(hConsole, 12);
             std::cout<<"impossible de calculer centralite proxi et centralite proxi normalise car graphe non connexe "<<std::endl;
@@ -980,7 +1010,7 @@ void Graphe::deleteAreteIndice(std::vector<int> id)
         std::cout<<"indice centralite degre non normalise : "<<m_sommets[i]->getcd()<<std::endl;
         std::cout<<"indice centralite degre nomalise : "<<m_sommets[i]->getcdn()<<std::endl;
         std::cout<<"indice centralite vecteur propre : "<<m_sommets[i]->getcvp()<<std::endl;
-        if(m_sommets[i]->getcp()==0)
+        if(m_sommets[i]->getcp()==-1)
         {
             SetConsoleTextAttribute(hConsole, 12);
             std::cout<<"impossible de calculer centralite proxi et centralite proxi normalise car graphe non connexe "<<std::endl;
@@ -1007,7 +1037,7 @@ void Graphe::deleteAreteIndice(std::vector<int> id)
         std::cout<<"difference centralite degre non normalise : "<<(double)abs(vect_cd[i]-m_sommets[i]->getcd())<<std::endl;
         std::cout<<"difference centralite degre normalise : "<<(double)abs(vect_cdn[i]-m_sommets[i]->getcdn())<<std::endl;
         std::cout<<"difference centralite vecteur propre : "<<(double)abs(vect_cvp[i]-m_sommets[i]->getcvp())<<std::endl;
-        if(m_sommets[i]->getcp()==0 && vect_cp[i]!=0)
+        if(m_sommets[i]->getcp()==-1 && vect_cp[i]!=-1)
         {
             SetConsoleTextAttribute(hConsole, 12);
             std::cout<<std::endl<<"La suppression de l'arete a rendu le graphe non connexe"<<std::endl;
@@ -1015,7 +1045,7 @@ void Graphe::deleteAreteIndice(std::vector<int> id)
             std::cout<<"de meme pour l'indice de centralite proxi normalise"<<std::endl<<std::endl;
             SetConsoleTextAttribute(hConsole, 15);
         }
-        else if(vect_cp[i]==0)
+        else if(vect_cp[i]==-1)
         {
             SetConsoleTextAttribute(hConsole, 12);
             std::cout<<std::endl<<"Les differences des 2 indices de centralite proxi ne sont pas calculables car le graphe"<<std::endl;
@@ -1048,6 +1078,7 @@ void Graphe::deleteAreteIndice(std::vector<int> id)
             std::cout<<"difference centralite intermediarite normalise : "<<(double)abs(vect_cin[i]-m_sommets[i]->getciN())<<std::endl;
         }
     }
+    std::cout<<std::endl<<"l'indice de centralite de proximite globale du graphe apres suppression est : "<<this->getcpg()<<std::endl;
 }
 
 std::vector<int> Graphe::bfs (int id)//recupère sommet de départ et retourne vecteur de prédécesseurs
@@ -1149,174 +1180,176 @@ int Graphe::nb_comp_connexe(int idSommet)
     return j-1;
 }
 
+///Fonctions pour dessiner les différentes centralités
+
 void Graphe::dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cvp, int& cpn, int& cp, int& ci, int&ciN, int& cia)
 {
     Svgfile svgout;
-
     for(size_t i=0; i<m_sommets.size(); i++)
     {
-        m_sommets[i]->dessiner(svgout);
+        m_sommets[i]->dessiner(svgout);//dessin des sommets
         for(size_t j=0; j<m_aretes.size(); j++)
         {
-            m_aretes[j]->dessiner(svgout);
+            m_aretes[j]->dessiner(svgout);//dessin des aretes
         }
     }
-    if(nom==1)
+    if(nom==1)//condition pour dessiner les nom
     {
         for(size_t i=0; i<m_sommets.size(); i++)
         {
-            m_sommets[i]->ecrireNom(svgout);
+            m_sommets[i]->ecrireNom(svgout);//ecrit des prenoms
         }
     }
-    if(poids==1)
+    if(poids==1)//Condition pour dessiner les poids
     {
         for(size_t i=0; i<m_aretes.size(); i++)
         {
-            m_aretes[i]->ecrirePoids(svgout);
+            m_aretes[i]->ecrirePoids(svgout);//dessin des poids
         }
     }
-    if (cdn==1)
+    if (cdn==1)//Condition pour dessiner la centralite degre normalise
         this->dessinerCDN(svgout);
-    if (cd==1)
+    if (cd==1)//Condition pour dessiner la centralite degre
         this->dessinerCD(svgout);
-    if(cvp==1)
+    if(cvp==1)//Condition pour dessiner la centralite vecteur propre
         this->dessinerCVP(svgout);
-    if (cpn==1)
+    if (cpn==1)//Condition pour dessiner la centralite proxi normalise
         this->dessinerCPN(svgout);
-    if (cp==1)
+    if (cp==1)//Condition pour dessiner la centralite proxi
         this->dessinerCP(svgout);
-    if(ci==1)
+    if(ci==1)//Condition pour dessiner la centralite intermediarite
         this->dessinerCI(svgout);
-    if(ciN==1)
+    if(ciN==1)//Condition pour dessiner la centralite intermediarite normalise
         this->dessinerCIN(svgout);
-    if(cia==1)
+    if(cia==1)//Condition pour dessiner la centralite intermediarite arete
         this->dessinerCIA(svgout);
 }
 
+
 void Graphe::dessinerCDN(Svgfile& svgout)
 {
-    this->centralitedegreN();
+    this->centralitedegreN();//Calcul centralite degre normalise
 
-    std::vector<double> vect_cdn;
+    std::vector<double> vect_cdn;//Creation vecteur de centralite degre normalise
     for(size_t i=0; i<m_sommets.size(); i++)
     {
-        vect_cdn.push_back(m_sommets[i]->getcdn());
+        vect_cdn.push_back(m_sommets[i]->getcdn());//On remplit le vecteur des centralites degre normalise
     }
     for (size_t i=0; i<m_sommets.size(); ++i)
         {
-            if(m_sommets[i]->getcdn()==*std::max_element(vect_cdn.begin(), vect_cdn.end()))
-                m_sommets[i]->dessinerMarque(svgout);
-            m_sommets[i]->ecrireCentraliteDegreN(svgout);
+            if(m_sommets[i]->getcdn()==*std::max_element(vect_cdn.begin(), vect_cdn.end()))//Condition sur la valeur max des centralites degre normalise du graphe
+                m_sommets[i]->dessinerMarque(svgout);//Dessin marqué du sommet ayant la plus grande valeur
+            m_sommets[i]->ecrireCentraliteDegreN(svgout);//Dessin des autres sommets
         }
 }
 void Graphe::dessinerCD(Svgfile& svgout)
 {
-    this->centralitedegre();
-    std::vector<double> vect_cd;
+    this->centralitedegre();//Calcul centralite degre
+    std::vector<double> vect_cd;//Creation vecteur de centralite degre
     for(size_t i=0; i<m_sommets.size(); i++)
     {
-        vect_cd.push_back(m_sommets[i]->getcd());
+        vect_cd.push_back(m_sommets[i]->getcd());//On remplit le vecteur des centralites degre
     }
      for (size_t i=0; i<m_sommets.size(); ++i)
         {
-            if(m_sommets[i]->getcd()==*std::max_element(vect_cd.begin(), vect_cd.end()))
-                m_sommets[i]->dessinerMarque(svgout);
-            m_sommets[i]->ecrireCentraliteDegre(svgout);
+            if(m_sommets[i]->getcd()==*std::max_element(vect_cd.begin(), vect_cd.end()))//Condition sur la valeur max des centralites degre du graphe
+                m_sommets[i]->dessinerMarque(svgout);//Dessin marqué du sommet ayant la plus grande valeur
+            m_sommets[i]->ecrireCentraliteDegre(svgout);//Dessin des autres sommets
         }
 }
 void Graphe::dessinerCP(Svgfile& svgout)
 {
-    this->centraliteproxi();
-    std::vector<double> vect_cp;
+    this->centraliteproxi();//Calcul centralite proxi
+    std::vector<double> vect_cp;//Creation vecteur de centralite proxi
     for(size_t i=0; i<m_sommets.size(); i++)
     {
-        vect_cp.push_back(m_sommets[i]->getcp());
-
+        vect_cp.push_back(m_sommets[i]->getcp());//On remplit le vecteur des centralites proxi
     }
     for (size_t i=0; i<m_sommets.size(); ++i)
         {
-            if(m_sommets[i]->getcp()==*std::max_element(vect_cp.begin(), vect_cp.end()))
-                m_sommets[i]->dessinerMarque(svgout);
-            m_sommets[i]->ecrireCentraliteP(svgout);
+            if(m_sommets[i]->getcp()==*std::max_element(vect_cp.begin(), vect_cp.end()))//Condition sur la valeur max des centralites proxi du graphe
+                m_sommets[i]->dessinerMarque(svgout);//Dessin marqué du sommet ayant la plus grande valeur
+            m_sommets[i]->ecrireCentraliteP(svgout);//Dessin des autres sommets
         }
 }
 void Graphe::dessinerCPN(Svgfile& svgout)
 {
-    this->centraliteproxiN();
-    std::vector<double> vect_cpn;
+    this->centraliteproxiN();//Calcul centralite proxi normalise
+    std::vector<double> vect_cpn;//Creation vecteur de centralite proxi normalise
     for(size_t i=0; i<m_sommets.size(); i++)
     {
-        vect_cpn.push_back(m_sommets[i]->getcpn());
+        vect_cpn.push_back(m_sommets[i]->getcpn());//On remplit le vecteur des centralites proxi normalise
     }
     for (size_t i=0; i<m_sommets.size(); ++i)
         {
-            if(m_sommets[i]->getcpn()==*std::max_element(vect_cpn.begin(), vect_cpn.end()))
-                m_sommets[i]->dessinerMarque(svgout);
-            m_sommets[i]->ecrireCentralitePN(svgout);
+            if(m_sommets[i]->getcpn()==*std::max_element(vect_cpn.begin(), vect_cpn.end()))//Condition sur la valeur max des centralites proxi noramlise du graphe
+                m_sommets[i]->dessinerMarque(svgout);//Dessin marqué du sommet ayant la plus grande valeur
+            m_sommets[i]->ecrireCentralitePN(svgout);//Dessin des autres sommets
         }
 }
 void Graphe::dessinerCVP(Svgfile& svgout)
 {
-    this->centralitevp();
+    this->centralitevp();//Calcul centralite vecteur propre
 
-    std::vector<double> vect_vp;
+    std::vector<double> vect_vp;//Creation vecteur de centralite vecteur propre
     for(size_t i=0; i<m_sommets.size(); i++)
     {
-        vect_vp.push_back(m_sommets[i]->getcvp());
+        vect_vp.push_back(m_sommets[i]->getcvp());//On remplit le vecteur des centralites vecteur propre
     }
     for (size_t i=0; i<m_sommets.size(); ++i)
         {
-            if(m_sommets[i]->getcvp()==*std::max_element(vect_vp.begin(), vect_vp.end()))
-                m_sommets[i]->dessinerMarque(svgout);
-            m_sommets[i]->ecrireCentraliteVP(svgout);
+            if(m_sommets[i]->getcvp()==*std::max_element(vect_vp.begin(), vect_vp.end()))//Condition sur la valeur max des centralites vecteur propre du graphe
+                m_sommets[i]->dessinerMarque(svgout);//Dessin marqué du sommet ayant la plus grande valeur
+            m_sommets[i]->ecrireCentraliteVP(svgout);//Dessin des autres sommets
         }
 }
 void Graphe::dessinerCI(Svgfile& svgout)
 {
 
-    this->centraliteinter();
+    this->centraliteinter();//Calcul centralite intermediarite
 
-    std::vector<double> vect_ci;
+    std::vector<double> vect_ci;//Creation vecteur de centralite intermediarite
     for(size_t i=0; i<m_sommets.size(); i++)
     {
-        vect_ci.push_back(m_sommets[i]->getci());
+        vect_ci.push_back(m_sommets[i]->getci());//On remplit le vecteur des centralites d'intermediarite
     }
     for (size_t i=0; i<m_sommets.size(); ++i)
         {
-            if(m_sommets[i]->getci()==*std::max_element(vect_ci.begin(), vect_ci.end()))
-                m_sommets[i]->dessinerMarque(svgout);
-            m_sommets[i]->ecrireCentraliteCI(svgout);
+            if(m_sommets[i]->getci()==*std::max_element(vect_ci.begin(), vect_ci.end()))//Condition sur la valeur max des centralites d'intermediarite du graphe
+                m_sommets[i]->dessinerMarque(svgout);//Dessin marqué du sommet ayant la plus grande valeur
+            m_sommets[i]->ecrireCentraliteCI(svgout);//Dessin des autres sommets
         }
 }
 void Graphe::dessinerCIN(Svgfile& svgout)
 {
-    this->centraliteinterN();
+    this->centraliteinterN();//On calcul les centralites d'intermediarite normalise
 
-    std::vector<double> vect_cin;
+    std::vector<double> vect_cin;//Creation d'un vecteur de centralites d'intermediarite normalise
     for(size_t i=0; i<m_sommets.size(); i++)
     {
-        vect_cin.push_back(m_sommets[i]->getciN());
+        vect_cin.push_back(m_sommets[i]->getciN());//On remplit le vecteur des centralites d'intermediarite normalise du graphe
     }
     for (size_t i=0; i<m_sommets.size(); ++i)
         {
-            if(m_sommets[i]->getciN()==*std::max_element(vect_cin.begin(), vect_cin.end()))
-                m_sommets[i]->dessinerMarque(svgout);
-            m_sommets[i]->ecrireCentraliteCIN(svgout);
+            if(m_sommets[i]->getciN()==*std::max_element(vect_cin.begin(), vect_cin.end()))//Condition sur la valeur max des centralites d'intermediarite normalise du graphe
+                m_sommets[i]->dessinerMarque(svgout);//Dessin marqué du sommet ayant la plus grande valeur
+            m_sommets[i]->ecrireCentraliteCIN(svgout);//Dessin des autres sommets
         }
 }
+
 void Graphe::dessinerCIA(Svgfile& svgout)
 {
-    this->centraliteinterarete();
-    std::vector<double> vect_cia;
+    this->centraliteinterarete();//On calcul les centralites d'intermediarite arete
+    std::vector<double> vect_cia;//Creation d'un vecteur de centralites d'intermediarite arete
     for(size_t j=0; j<m_aretes.size(); j++)
     {
-        vect_cia.push_back(m_aretes[j]->getciA());
+        vect_cia.push_back(m_aretes[j]->getciA());//On remplit le vecteur des centralites d'intermediarite arete du graphe
     }
     for (size_t i=0; i<m_aretes.size(); ++i)
         {
-            if(m_aretes[i]->getciA()==*std::max_element(vect_cia.begin(), vect_cia.end()))
-                m_aretes[i]->marquerArete(svgout);
-            m_aretes[i]->ecrireCIA(svgout);
+            if(m_aretes[i]->getciA()==*std::max_element(vect_cia.begin(), vect_cia.end()))//Condition sur la valeur max des centralites d'intermediarite arete du graphe
+                m_aretes[i]->marquerArete(svgout);//Dessin marqué de l'arete ayant la plus grande valeur
+            m_aretes[i]->ecrireCIA(svgout);//Dessin des autres aretes
         }
 }
 

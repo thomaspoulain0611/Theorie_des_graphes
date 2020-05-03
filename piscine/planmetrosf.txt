@@ -1,0 +1,93 @@
+0
+44
+0 Millbrae 227 715
+1 San Francisco International Airport 238 675
+2 San Bruno 178 670
+3 South San Francisco 148 616
+4 Colma  129 576
+5 Daly City 132 536
+6 Balboa Park 138 513
+7 Glen Park 178 494
+8 24thSt Mission 169 475
+9 16thSt Mission 174 456 
+10 Civic Center 178 438
+11 Powell St 196 414
+12 Montgomery St 219 400
+13 Embarcadero 227 381
+14 West Oakland 381 344
+15 12thSt Oakland 439 325
+16 19thSt Oakland 444 287
+17 MacArthur 450 268
+18 Ashby 431 211
+19 Downtown Berkeley 418 198
+20 North Berkeley 400 172
+21 El Cerrito Plaza  386  150
+22 El Cerrito del Norte 371 115
+23 Richmond 363 94 
+24 Rockridge 500 238
+25 Orinda 551 226 
+26 Lafayette 614 216
+27 Walnut Creek 678 198
+28 Pleasant Hill 699 172
+29 Concord 717 146
+30 North Concord 731 122
+31 Pittsburg 746 94
+32 Lake Merritt 455 376 
+33 Fruitvale 473 400
+34 Coliseum 492 414
+35 San Leandro 516 438
+36 Bay Fair 532 468
+37 Castro Valley 635 499
+38 West Dublin 752 499
+39 Dublin 794 499
+40 Hayward 572 536
+41 South Hayward 614 598
+42 Union City 600 670
+43 Fremont 709 715
+46
+0 0 1
+1 0 2
+2 1 2 
+3 2 3
+4 3 4
+5 4 5
+6 5 6
+7 6 7 
+8 7 8 
+9 8 9 
+10 9 10
+11 10 11
+12 11 12
+13 12 13
+14 13 14
+15 14 15
+16 14 16
+17 15 16
+18 16 17
+19 17 18 
+20 18 19
+21 19 20
+22 20 21
+23 21 22
+24 22 23
+25 17 24
+26 24 25
+27 25 26
+28 26 27
+29 27 28
+30 28 29
+31 29 30
+32 30 31
+33 14 32 
+34 15 32
+35 32 33
+36 33 34
+37 34 35
+38 35 36
+39 36 37
+40 37 38
+41 38 39
+42 36 40
+43 40 41
+44 41 42
+45 42 43

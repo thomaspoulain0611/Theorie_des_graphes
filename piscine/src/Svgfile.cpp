@@ -1,6 +1,8 @@
 #include "Svgfile.h"
 #include <iostream>
 
+///Inspiration TP/TD Semestre 1
+
 const std::string svgHeader =
     "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
     "<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" ";
@@ -58,6 +60,7 @@ std::string attrib(std::string name, T val)
     return oss.str();
 }
 
+///Fonction pour ecrire sur le svg
 void Svgfile::addText(double x, double y, std::string text, std::string color)
 {
     /// <text x="180" y="60">Un texte</text>
@@ -67,12 +70,16 @@ void Svgfile::addText(double x, double y, std::string text, std::string color)
             << attrib("fill", color)
             << ">" << text << "</text>\n";
 }
+
+///Fonction pour dessiner un trait sur le svg
 std::string Svgfile::makeRGB(int r, int g, int b)
 {
     std::ostringstream oss;
     oss << "rgb(" << r << "," << g << "," << b << ")";
     return oss.str();
 }
+
+///Fonction pour dessiner un cercle sur le svg
 void Svgfile::addLine(double x1, double y1, double x2, double y2, std::string color)
 {
     m_ostrm << "<line "
@@ -83,6 +90,8 @@ void Svgfile::addLine(double x1, double y1, double x2, double y2, std::string co
             << attrib("stroke", color)
             << "/>\n";
 }
+
+///Fonction pour dessiner un cercle sur le svg
 void Svgfile::addDisk(double x, double y, double r, std::string color)
 {
     m_ostrm << "<circle "

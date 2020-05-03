@@ -7,7 +7,7 @@ Arete::Arete(int indice, Sommet*s1, Sommet*s2)
     m_indice=indice;
     m_vect.first=s1;
     m_vect.second=s2;
-    m_poids=0;
+
 }
 
 Arete::~Arete()
@@ -15,17 +15,12 @@ Arete::~Arete()
     //dtor
 }
 
-int Arete::getPoids()const
+double Arete::getPoids()const
 {
     return m_poids;
 }
 
-/*std::pair<Sommet*,Sommet*> Arete::getVect()
-{
-    return m_vect;
-}*/
-
-void Arete::setPoids(int poids)
+void Arete::setPoids(double poids)
 {
     m_poids=poids;
 }
@@ -72,6 +67,8 @@ std::string Arete::trouverNomS2()const
     return m_vect.second->getNom();
 }
 
+///Fonction qui transforme un double en string
+
 std::string Arete::nbToStrg(double nombre)const
 {
     std::ostringstream a;
@@ -79,24 +76,26 @@ std::string Arete::nbToStrg(double nombre)const
     return a.str();
 }
 
+///Fonction dessin des aretes
+
 void Arete::dessiner(Svgfile& svgout)
 {
-    svgout.addLine(this->m_vect.first->getx(), this->m_vect.first->gety(), this->m_vect.second->getx(), this->m_vect.second->gety(), "grey");
+    svgout.addLine(this->m_vect.first->getx(), this->m_vect.first->gety(), this->m_vect.second->getx(), this->m_vect.second->gety(), "grey");//Dessin d'un arete en gris
 }
 
 void Arete::ecrirePoids(Svgfile& svgout)
 {
-    svgout.addText((this->m_vect.first->getx()+this->m_vect.second->getx())/2, (this->m_vect.first->gety()+this->m_vect.second->gety())/2, nbToStrg(m_poids), "red");
+    svgout.addText((this->m_vect.first->getx()+this->m_vect.second->getx())/2, (this->m_vect.first->gety()+this->m_vect.second->gety())/2, nbToStrg(m_poids), "red");//Ecriture du poids d'une arete en rouge
 }
 
 void Arete::ecrireCIA(Svgfile& svgout)
 {
-    svgout.addText((this->m_vect.first->getx()+this->m_vect.second->getx())/2, (this->m_vect.first->gety()+this->m_vect.second->gety())/2, nbToStrg(m_ciA), "black");
+    svgout.addText((this->m_vect.first->getx()+this->m_vect.second->getx())/2, (this->m_vect.first->gety()+this->m_vect.second->gety())/2, nbToStrg(m_ciA), "black");//Ecriture de l'indice de centralite d'intermediarite d'une arete
 }
 
 void Arete::marquerArete(Svgfile& svgout)
 {
-    svgout.addLine(this->m_vect.first->getx(), this->m_vect.first->gety(), this->m_vect.second->getx(), this->m_vect.second->gety(), "red");
+    svgout.addLine(this->m_vect.first->getx(), this->m_vect.first->gety(), this->m_vect.second->getx(), this->m_vect.second->gety(), "red");//Dessin d'un arete en rouge
 }
 
 
