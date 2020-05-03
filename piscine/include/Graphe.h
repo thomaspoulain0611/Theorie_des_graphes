@@ -71,6 +71,14 @@ void setcpg(double cpg);
     void affichercentralite();
 
     void dessinerTous(int& nom, int& poids,int&cdn,int&cd,int&cvp,int&cpn,int&cp,int&ci,int&ciN,int& cia);
+    void dessinerCIN(Svgfile& svgout);
+    void dessinerCI(Svgfile& svgout);
+    void dessinerCIA(Svgfile& svgout);
+    void dessinerCVP(Svgfile& svgout);
+    void dessinerCD(Svgfile& svgout);
+    void dessinerCDN(Svgfile& svgout);
+    void dessinerCP(Svgfile& svgout);
+    void dessinerCPN(Svgfile& svgout);
 
     std::vector<int> bfs (int id);
     int nb_comp_connexe(int idSommet);

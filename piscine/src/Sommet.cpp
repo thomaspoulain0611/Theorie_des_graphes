@@ -192,9 +192,13 @@ void Sommet::setadj(Sommet* s1)
 
 void Sommet::dessiner(Svgfile& svgout)
 {
+<<<<<<< HEAD
 
     svgout.addDisk(this->m_coords.first, this->m_coords.second, 6, "blue");
 
+=======
+    svgout.addDisk(this->m_coords.first, this->m_coords.second, 3, "blue");
+>>>>>>> 97b5588a09013f479204f5e75819927f4e7397ca
 }
 
 void Sommet::dessinerMarque(Svgfile& svgout)

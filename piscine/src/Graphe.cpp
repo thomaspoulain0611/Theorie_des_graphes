@@ -723,7 +723,6 @@ void Graphe::centraliteinterarete()
                 {
                     if ((m_sommets[j]->getId())<(m_sommets[k]->getId()))
                     {
-
                         distance=dijkstraproxi(m_sommets[j]->getId(),m_sommets[k]->getId());
                         ciA+=areteparcourue(m_sommets[j]->getId(),m_sommets[k]->getId(),m_aretes[i]->getindiceS1(),m_aretes[i]->getindiceS2(),distance);
                     }
@@ -888,7 +887,6 @@ void Graphe::deleteArete( std::vector<int> id)
         compteur=0;
         for(size_t j=0; j<id.size(); j++)
         {
-            std::cout<<"id :"<<id[j]<<std::endl;
             if(m_aretes[p]->getindice()==id[j])
                 {
                     compteur++;
@@ -996,7 +994,6 @@ void Graphe::deleteAreteIndice(std::vector<int> id)
         compteur=0;
         for(size_t j=0; j<id.size(); j++)
         {
-            std::cout<<"id :"<<id[j]<<std::endl;
             if(m_aretes[p]->getindice()==id[j])
                 {
                     compteur++;
@@ -1075,9 +1072,9 @@ void Graphe::deleteAreteIndice(std::vector<int> id)
         }
         std::cout<<std::endl<<"Comparaisons apres suppression : "<<std::endl;
         std::cout<<"nom du sommet : "<<m_sommets[i]->getNom()<<std::endl;
-        std::cout<<"difference centralite degre non normalise : "<<vect_cd[i]-m_sommets[i]->getcd()<<std::endl;
-        std::cout<<"difference centralite degre normalise : "<<vect_cdn[i]-m_sommets[i]->getcdn()<<std::endl;
-        std::cout<<"difference centralite vecteur propre : "<<vect_cvp[i]-m_sommets[i]->getcvp()<<std::endl;
+        std::cout<<"difference centralite degre non normalise : "<<(double)abs(vect_cd[i]-m_sommets[i]->getcd())<<std::endl;
+        std::cout<<"difference centralite degre normalise : "<<(double)abs(vect_cdn[i]-m_sommets[i]->getcdn())<<std::endl;
+        std::cout<<"difference centralite vecteur propre : "<<(double)abs(vect_cvp[i]-m_sommets[i]->getcvp())<<std::endl;
         if(m_sommets[i]->getcp()==0 && vect_cp[i]!=0)
         {
             SetConsoleTextAttribute(hConsole, 12);
@@ -1095,8 +1092,8 @@ void Graphe::deleteAreteIndice(std::vector<int> id)
         }
         else
         {
-            std::cout<<"difference centralite degre proxi non normalise : "<<vect_cp[i]-m_sommets[i]->getcp()<<std::endl;
-            std::cout<<"difference centralite degre proxi normalise : "<<vect_cpn[i]-m_sommets[i]->getcpn()<<std::endl;
+            std::cout<<"difference centralite degre proxi non normalise : "<<(double)abs(vect_cp[i]-m_sommets[i]->getcp())<<std::endl;
+            std::cout<<"difference centralite degre proxi normalise : "<<(double)abs(vect_cpn[i]-m_sommets[i]->getcpn())<<std::endl;
         }
         if(m_sommets[i]->getci()==-1 && vect_ci[i]!=-1)
         {
@@ -1115,8 +1112,8 @@ void Graphe::deleteAreteIndice(std::vector<int> id)
         }
         else
         {
-            std::cout<<"difference centralite intermediarite non normalise : "<<vect_ci[i]-m_sommets[i]->getci()<<std::endl;
-            std::cout<<"difference centralite intermediarite normalise : "<<vect_cin[i]-m_sommets[i]->getciN()<<std::endl;
+            std::cout<<"difference centralite intermediarite non normalise : "<<(double)abs(vect_ci[i]-m_sommets[i]->getci())<<std::endl;
+            std::cout<<"difference centralite intermediarite normalise : "<<(double)abs(vect_cin[i]-m_sommets[i]->getciN())<<std::endl;
         }
 
     }
@@ -1226,45 +1223,12 @@ int Graphe::nb_comp_connexe(int idSommet)
 void Graphe::dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cvp, int& cpn, int& cp, int& ci, int&ciN, int& cia)
 {
     Svgfile svgout;
-    std::vector<double> vect_cd;
-    std::vector<double> vect_cdn;
-    std::vector<double> vect_cp;
-    std::vector<double> vect_cpn;
-    std::vector<double> vect_vp;
-    std::vector<double> vect_ci;
-    std::vector<double> vect_cin;
-    std::vector<double> vect_cia;
 
-
-    this->centralitedegre();
-    this->centralitedegreN();
-    this->centraliteproxi();
-    this->centraliteproxiN();
-    std::cout<<"cc lili"<<std::endl;
-    this->centralitevp();
-    this->centraliteinter();
-    this->centraliteinterN();
-    this->centraliteinterarete();
 
 
     for(size_t i=0; i<m_sommets.size(); i++)
     {
-        vect_cd.push_back(m_sommets[i]->getcd());
-        vect_cdn.push_back(m_sommets[i]->getcdn());
-        vect_cp.push_back(m_sommets[i]->getcp());
-        vect_cpn.push_back(m_sommets[i]->getcpn());
-        vect_vp.push_back(m_sommets[i]->getcvp());
-        vect_ci.push_back(m_sommets[i]->getci());
-        vect_cin.push_back(m_sommets[i]->getciN());
-    }
 
-
-    for(size_t j=0; j<m_aretes.size(); j++)
-    {
-        vect_cia.push_back(m_aretes[j]->getciA());
-    }
-    for(size_t i=0; i<m_sommets.size(); i++)
-    {
         m_sommets[i]->dessiner(svgout);
         for(size_t j=0; j<m_aretes.size(); j++)
         {
@@ -1286,74 +1250,147 @@ void Graphe::dessinerTous(int& nom, int& poids, int& cdn, int& cd, int& cvp, int
         }
     }
     if (cdn==1)
+        this->dessinerCDN(svgout);
+    if (cd==1)
+        this->dessinerCD(svgout);
+    if(cvp==1)
+        this->dessinerCVP(svgout);
+    if (cpn==1)
+        this->dessinerCPN(svgout);
+    if (cp==1)
+        this->dessinerCP(svgout);
+    if(ci==1)
+        this->dessinerCI(svgout);
+    if(ciN==1)
+        this->dessinerCIN(svgout);
+    if(cia==1)
+        this->dessinerCIA(svgout);
+}
+
+void Graphe::dessinerCDN(Svgfile& svgout)
+{
+    this->centralitedegreN();
+
+    std::vector<double> vect_cdn;
+    for(size_t i=0; i<m_sommets.size(); i++)
     {
-        for (size_t i=0; i<m_sommets.size(); ++i)
+        vect_cdn.push_back(m_sommets[i]->getcdn());
+    }
+    for (size_t i=0; i<m_sommets.size(); ++i)
         {
             if(m_sommets[i]->getcdn()==*std::max_element(vect_cdn.begin(), vect_cdn.end()))
                 m_sommets[i]->dessinerMarque(svgout);
             m_sommets[i]->ecrireCentraliteDegreN(svgout);
         }
-    }
-
-    if (cd==1)
+}
+void Graphe::dessinerCD(Svgfile& svgout)
+{
+    this->centralitedegre();
+    std::vector<double> vect_cd;
+    for(size_t i=0; i<m_sommets.size(); i++)
     {
-        for (size_t i=0; i<m_sommets.size(); ++i)
+        vect_cd.push_back(m_sommets[i]->getcd());
+    }
+     for (size_t i=0; i<m_sommets.size(); ++i)
         {
             if(m_sommets[i]->getcd()==*std::max_element(vect_cd.begin(), vect_cd.end()))
                 m_sommets[i]->dessinerMarque(svgout);
             m_sommets[i]->ecrireCentraliteDegre(svgout);
         }
-    }
+}
+void Graphe::dessinerCP(Svgfile& svgout)
+{
+    this->centraliteproxi();
+    std::vector<double> vect_cp;
+    for(size_t i=0; i<m_sommets.size(); i++)
+    {
+        vect_cp.push_back(m_sommets[i]->getcp());
 
-    if(cvp==1)
-    {
-        for (size_t i=0; i<m_sommets.size(); ++i)
-        {
-            if(m_sommets[i]->getcvp()==*std::max_element(vect_vp.begin(), vect_vp.end()))
-                m_sommets[i]->dessinerMarque(svgout);
-            m_sommets[i]->ecrireCentraliteVP(svgout);
-        }
     }
-    if (cpn==1)
-    {
-        for (size_t i=0; i<m_sommets.size(); ++i)
-        {
-            if(m_sommets[i]->getcpn()==*std::max_element(vect_cpn.begin(), vect_cpn.end()))
-                m_sommets[i]->dessinerMarque(svgout);
-            m_sommets[i]->ecrireCentralitePN(svgout);
-        }
-    }
-
-    if (cp==1)
-    {
-        for (size_t i=0; i<m_sommets.size(); ++i)
+    for (size_t i=0; i<m_sommets.size(); ++i)
         {
             if(m_sommets[i]->getcp()==*std::max_element(vect_cp.begin(), vect_cp.end()))
                 m_sommets[i]->dessinerMarque(svgout);
             m_sommets[i]->ecrireCentraliteP(svgout);
         }
-    }
-    if(ci==1)
+}
+void Graphe::dessinerCPN(Svgfile& svgout)
+{
+    this->centraliteproxiN();
+    std::vector<double> vect_cpn;
+    for(size_t i=0; i<m_sommets.size(); i++)
     {
-        for (size_t i=0; i<m_sommets.size(); ++i)
+        vect_cpn.push_back(m_sommets[i]->getcpn());
+    }
+    for (size_t i=0; i<m_sommets.size(); ++i)
+        {
+            if(m_sommets[i]->getcpn()==*std::max_element(vect_cpn.begin(), vect_cpn.end()))
+                m_sommets[i]->dessinerMarque(svgout);
+            m_sommets[i]->ecrireCentralitePN(svgout);
+        }
+}
+void Graphe::dessinerCVP(Svgfile& svgout)
+{
+    this->centralitevp();
+
+    std::vector<double> vect_vp;
+    for(size_t i=0; i<m_sommets.size(); i++)
+    {
+        vect_vp.push_back(m_sommets[i]->getcvp());
+    }
+    for (size_t i=0; i<m_sommets.size(); ++i)
+        {
+            if(m_sommets[i]->getcvp()==*std::max_element(vect_vp.begin(), vect_vp.end()))
+                m_sommets[i]->dessinerMarque(svgout);
+            m_sommets[i]->ecrireCentraliteVP(svgout);
+        }
+}
+void Graphe::dessinerCI(Svgfile& svgout)
+{
+
+    this->centraliteinter();
+
+    std::vector<double> vect_ci;
+    for(size_t i=0; i<m_sommets.size(); i++)
+    {
+        vect_ci.push_back(m_sommets[i]->getci());
+    }
+    for (size_t i=0; i<m_sommets.size(); ++i)
         {
             if(m_sommets[i]->getci()==*std::max_element(vect_ci.begin(), vect_ci.end()))
                 m_sommets[i]->dessinerMarque(svgout);
             m_sommets[i]->ecrireCentraliteCI(svgout);
         }
+}
+void Graphe::dessinerCIN(Svgfile& svgout)
+{
+    this->centraliteinterN();
+
+    std::vector<double> vect_cin;
+    for(size_t i=0; i<m_sommets.size(); i++)
+    {
+        vect_cin.push_back(m_sommets[i]->getciN());
     }
-    if(ciN==1)
-        for (size_t i=0; i<m_sommets.size(); ++i)
+    for (size_t i=0; i<m_sommets.size(); ++i)
         {
             if(m_sommets[i]->getciN()==*std::max_element(vect_cin.begin(), vect_cin.end()))
                 m_sommets[i]->dessinerMarque(svgout);
             m_sommets[i]->ecrireCentraliteCIN(svgout);
         }
-    if(cia==1)
-        for (size_t i=0; i<m_aretes.size(); ++i)
+}
+void Graphe::dessinerCIA(Svgfile& svgout)
+{
+    this->centraliteinterarete();
+    std::vector<double> vect_cia;
+    for(size_t j=0; j<m_aretes.size(); j++)
+    {
+        vect_cia.push_back(m_aretes[j]->getciA());
+    }
+    for (size_t i=0; i<m_aretes.size(); ++i)
         {
             if(m_aretes[i]->getciA()==*std::max_element(vect_cia.begin(), vect_cia.end()))
                 m_aretes[i]->marquerArete(svgout);
             m_aretes[i]->ecrireCIA(svgout);
         }
 }
+
