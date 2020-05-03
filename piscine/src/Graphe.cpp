@@ -980,7 +980,6 @@ void Graphe::deleteAreteIndice(std::vector<int> id)
         std::cout<<"indice centralite degre non normalise : "<<m_sommets[i]->getcd()<<std::endl;
         std::cout<<"indice centralite degre nomalise : "<<m_sommets[i]->getcdn()<<std::endl;
         std::cout<<"indice centralite vecteur propre : "<<m_sommets[i]->getcvp()<<std::endl;
-
         if(m_sommets[i]->getcp()==0)
         {
             SetConsoleTextAttribute(hConsole, 12);
@@ -1048,10 +1047,7 @@ void Graphe::deleteAreteIndice(std::vector<int> id)
             std::cout<<"difference centralite intermediarite non normalise : "<<(double)abs(vect_ci[i]-m_sommets[i]->getci())<<std::endl;
             std::cout<<"difference centralite intermediarite normalise : "<<(double)abs(vect_cin[i]-m_sommets[i]->getciN())<<std::endl;
         }
-
     }
-
-
 }
 
 std::vector<int> Graphe::bfs (int id)//recupère sommet de départ et retourne vecteur de prédécesseurs

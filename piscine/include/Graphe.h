@@ -21,13 +21,10 @@ public:
     int getTaille()const;
     int getOrient()const;
 
-    //void setOrdre(int ordre);
-    //void setTaille(int taille);
     void setOrient(int orient);
     void poidsarete(std::string nomFichier);
     double trouverpoids(int s1,int s2);
     void interunpcc();
-
 
     void enregistrer();
 
@@ -38,7 +35,6 @@ public:
     void centralitedegreN();
     void centraliteproxi();
     double dijkstraproxi(int depart,int arrivee);
-    // double distanceproxi(std::vector<int>preds, int depart, int arrivee);
     void centraliteproxiN();
 
     void centralitevp();
@@ -46,13 +42,11 @@ public:
     void centraliteinter1Npcc();
     int  dijkstrainter1pcc( int depart, int arrivee, int sparcouru);
 
-
     void dijkstrainter(int depart, int arrivee, int sparcouru);
     double presencesparcouru(int depart, int arrivee, int sparcouru, double distance);
     int isNotVisited(int x, std::vector<int>& chemin);
     void centraliteinterarete();
     double areteparcourue(int depart, int arrivee, int ex1, int ex2,double distance);
-
 
     void centraliteinter();
     void centraliteinterN();
@@ -89,11 +83,9 @@ public:
 
 private:
 
-
     int m_orient;
     std::vector<Sommet*> m_sommets;
     std::vector<Arete*> m_aretes;
-
 
 };
 

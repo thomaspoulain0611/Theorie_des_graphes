@@ -4,7 +4,7 @@
 	<Sommet.h>
 	<sstream>
 
-1588459724 c:\users\lilia\piscine\piscine\include\arete.h
+1588498706 c:\users\lilia\piscine\piscine\include\arete.h
 	<iostream>
 	<math.h>
 	<Sommet.h>
@@ -14,7 +14,7 @@
 	<queue>
 	<stack>
 
-1588463176 c:\users\lilia\piscine\piscine\include\graphe.h
+1588498706 c:\users\lilia\piscine\piscine\include\graphe.h
 	<Arete.h>
 	<iostream>
 	<vector>
@@ -28,7 +28,7 @@
 	"Sommet.h"
 	<sstream>
 
-1588417110 c:\users\lilia\piscine\piscine\include\sommet.h
+1588498706 c:\users\lilia\piscine\piscine\include\sommet.h
 	<iostream>
 	<vector>
 	<fstream>

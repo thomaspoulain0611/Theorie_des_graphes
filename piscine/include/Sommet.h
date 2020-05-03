@@ -15,15 +15,12 @@ class Sommet
 public:
 
     Sommet(std::istream& is);
-
-
     ~Sommet();
 
     int getId()const;
     std::string getNom()const;
     double getx()const;
     double gety()const;
-
 
     double getcd()const;
     double getcdn()const;
@@ -35,7 +32,6 @@ public:
     double getci1n()const;
     double getci()const;
     double getciN()const;
-
 
     char get_color() const;
     double get_distance()const;
@@ -58,7 +54,6 @@ public:
     void setci1n (double ci1n);
     void setci (double ci);
     void setciN(double ciN);
-
 
     void setadj(Sommet* s1);
     void set_color(char color);
@@ -98,10 +93,8 @@ private:
     double m_ci;
     double m_ciN;
 
-
     std::pair<double,double>m_coords;
     std::string m_nom;
-
 
 };
 
