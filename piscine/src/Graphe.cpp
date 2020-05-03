@@ -157,6 +157,7 @@ void Graphe::centralitedegre()
 
 void Graphe::centralitedegreN()
 {
+    this->centralitedegre();
     double cd;
     for (size_t i=0; i<m_sommets.size(); ++i)
     {
@@ -196,7 +197,7 @@ double Graphe::dijkstraproxi(int depart,int arrivee)
     std::priority_queue<double, std::vector<double>, std::greater<double> > distances; //file de priorite avec le plus petit element en top
 //initialisation variables temporaires
     int succ=0;
-    int dist=0;
+    double dist=0;
     int sommet=-6;
     size_t nb=0;
     double poids=0;
@@ -293,6 +294,7 @@ void Graphe::centraliteproxi()
 
 void Graphe::centraliteproxiN()
 {
+    this->centraliteproxi();
     double cp;
     for (size_t i=0; i<m_sommets.size(); ++i)
     {
@@ -601,6 +603,7 @@ void Graphe::centraliteinter()
 
 void Graphe::centraliteinterN()
 {
+    this->centraliteinter();
     double ciN=0;
     for (size_t i=0; i<m_sommets.size(); ++i)
     {
@@ -1316,6 +1319,7 @@ void Graphe::dessinerCP(Svgfile& svgout)
 }
 void Graphe::dessinerCPN(Svgfile& svgout)
 {
+
     this->centraliteproxiN();
     std::vector<double> vect_cpn;
     for(size_t i=0; i<m_sommets.size(); i++)
